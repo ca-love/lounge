@@ -5,15 +5,38 @@ import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
 
 fun LoungeBuildModelScope.listRow(
-  name: String? = null,
+  headerData: HeaderData? = null,
   key: Any? = null,
   controller: LoungeController,
   presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
 ) {
-  requireKeyOrNameNonNull(key, name)
-  val keyLong: Long = key?.toLoungeModelKey() ?: name.toLoungeModelKey()
-  +ListRowModel(keyLong, name, controller, presenter)
+  requireNotNull(key ?: headerData) {
+    "Require key or headerData to be non-null."
+  }
+  val keyLong: Long = key?.toLoungeModelKey() ?: headerData.toLoungeModelKey()
+  +ListRowModel(keyLong, headerData, controller, presenter)
   controller.requestModelBuild()
+}
+
+fun LoungeBuildModelScope.listRowOf(
+  headerData: HeaderData? = null,
+  key: Any? = null,
+  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
+  buildModels: LoungeBuildModelScope.() -> Unit,
+) {
+  val controllerKey = requireNotNull(key ?: headerData) {
+    "Require key or headerData to be non-null"
+  }
+  val controller = memorizedController(controllerKey) {
+    LambdaLoungeController(it)
+  }
+  controller.buildModels = buildModels
+  listRow(
+    headerData = headerData,
+    key = key,
+    presenter = presenter,
+    controller = controller
+  )
 }
 
 fun LoungeBuildModelScope.listRowOf(
@@ -22,17 +45,28 @@ fun LoungeBuildModelScope.listRowOf(
   presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
   buildModels: LoungeBuildModelScope.() -> Unit,
 ) {
-  val k = requireKeyOrNameNonNull(key, name)
-  val controller = memorizedController(k) {
-    LambdaLoungeController(it)
-  }
-  controller.buildModels = buildModels
-  listRow(
-    name = name,
+  listRowOf(
+    headerData = name?.let { HeaderData(it) },
     key = key,
     presenter = presenter,
-    controller = controller
+    buildModels = buildModels,
   )
+}
+
+fun <T : Any> LoungeBuildModelScope.listRowFor(
+  headerData: HeaderData? = null,
+  list: List<T>,
+  key: Any? = null,
+  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
+  buildItemModel: (T) -> LoungeModel,
+) {
+  listRowOf(
+    headerData = headerData,
+    key = key,
+    presenter = presenter
+  ) {
+    +list.map(buildItemModel)
+  }
 }
 
 fun <T : Any> LoungeBuildModelScope.listRowFor(
@@ -42,19 +76,18 @@ fun <T : Any> LoungeBuildModelScope.listRowFor(
   presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
   buildItemModel: (T) -> LoungeModel,
 ) {
-  requireKeyOrNameNonNull(key, name)
-  listRowOf(
-    name = name,
+  listRowFor(
+    headerData = name?.let { HeaderData(it) },
+    list = list,
     key = key,
-    presenter = presenter
-  ) {
-    +list.map(buildItemModel)
-  }
+    presenter = presenter,
+    buildItemModel = buildItemModel,
+  )
 }
 
 open class ListRowModel(
   final override val key: Long = InvalidKey,
-  val name: String? = null,
+  private val headerData: HeaderData? = null,
   controller: LoungeController,
   override val presenter: ListRowPresenter = defaultListRowPresenter,
 ) : ListRow(controller.adapter),
@@ -64,8 +97,11 @@ open class ListRowModel(
     if (key != InvalidKey) {
       id = key
     }
-    if (name != null) {
-      headerItem = HeaderItem(name)
+    if (headerData != null) {
+      headerItem = HeaderItem(headerData.name).apply {
+        description = headerData.description
+        contentDescription = headerData.contentDescription
+      }
     }
   }
 
@@ -76,7 +112,7 @@ open class ListRowModel(
     other as ListRowModel
 
     if (key != other.key) return false
-    if (name != other.name) return false
+    if (headerData != other.headerData) return false
     if (presenter != other.presenter) return false
 
     return true
@@ -84,7 +120,7 @@ open class ListRowModel(
 
   override fun hashCode(): Int {
     var result = key.hashCode()
-    result = 31 * result + (name?.hashCode() ?: 0)
+    result = 31 * result + (headerData?.hashCode() ?: 0)
     result = 31 * result + presenter.hashCode()
     return result
   }
@@ -92,8 +128,4 @@ open class ListRowModel(
   companion object {
     val defaultListRowPresenter = ListRowPresenter()
   }
-}
-
-private fun requireKeyOrNameNonNull(key: Any?, name: String?) = requireNotNull(key ?: name) {
-  "Require key or name non-null."
 }
