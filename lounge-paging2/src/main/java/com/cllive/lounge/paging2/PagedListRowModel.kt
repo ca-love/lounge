@@ -14,7 +14,7 @@ fun <T> LoungeBuildModelScope.pagedListRow(
   pagedList: PagedList<T>?,
   key: Any? = null,
   controller: PagedListLoungeController<T>,
-  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
 ) {
   requireNotNull(key ?: headerData) {
     "Require key or headerData to be non-null."
@@ -28,7 +28,7 @@ fun <T> LoungeBuildModelScope.pagedListRowOf(
   headerData: HeaderData? = null,
   pagedList: PagedList<T>?,
   key: Any? = null,
-  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
   buildItemModel: (T?) -> LoungeModel,
   buildModels: PagedListLoungeBuildModelScope.(List<LoungeModel>) -> Unit,
 ) {
@@ -55,7 +55,7 @@ fun <T> LoungeBuildModelScope.pagedListRowOf(
   name: String? = null,
   pagedList: PagedList<T>?,
   key: Any? = null,
-  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
   buildItemModel: (T?) -> LoungeModel,
   buildModels: PagedListLoungeBuildModelScope.(List<LoungeModel>) -> Unit,
 ) {
@@ -73,7 +73,7 @@ fun <T> LoungeBuildModelScope.pagedListRowFor(
   headerData: HeaderData? = null,
   pagedList: PagedList<T>?,
   key: Any? = null,
-  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
   buildItemModel: (T?) -> LoungeModel,
 ) {
   pagedListRowOf(
@@ -90,7 +90,7 @@ fun <T> LoungeBuildModelScope.pagedListRowFor(
   name: String? = null,
   pagedList: PagedList<T>?,
   key: Any? = null,
-  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
   buildItemModel: (T?) -> LoungeModel,
 ) {
   pagedListRowFor(

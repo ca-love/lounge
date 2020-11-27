@@ -8,7 +8,7 @@ fun LoungeBuildModelScope.listRow(
   headerData: HeaderData? = null,
   key: Any? = null,
   controller: LoungeController,
-  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
 ) {
   requireNotNull(key ?: headerData) {
     "Require key or headerData to be non-null."
@@ -21,7 +21,7 @@ fun LoungeBuildModelScope.listRow(
 fun LoungeBuildModelScope.listRowOf(
   headerData: HeaderData? = null,
   key: Any? = null,
-  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
   buildModels: LoungeBuildModelScope.() -> Unit,
 ) {
   val controllerKey = requireNotNull(key ?: headerData) {
@@ -42,7 +42,7 @@ fun LoungeBuildModelScope.listRowOf(
 fun LoungeBuildModelScope.listRowOf(
   name: String? = null,
   key: Any? = null,
-  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
   buildModels: LoungeBuildModelScope.() -> Unit,
 ) {
   listRowOf(
@@ -57,7 +57,7 @@ fun <T : Any> LoungeBuildModelScope.listRowFor(
   headerData: HeaderData? = null,
   list: List<T>,
   key: Any? = null,
-  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
   buildItemModel: (T) -> LoungeModel,
 ) {
   listRowOf(
@@ -73,7 +73,7 @@ fun <T : Any> LoungeBuildModelScope.listRowFor(
   name: String? = null,
   list: List<T>,
   key: Any? = null,
-  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
   buildItemModel: (T) -> LoungeModel,
 ) {
   listRowFor(
@@ -89,7 +89,7 @@ open class ListRowModel(
   final override val key: Long = InvalidKey,
   private val headerData: HeaderData? = null,
   controller: LoungeController,
-  override val presenter: ListRowPresenter = defaultListRowPresenter,
+  override val presenter: ListRowPresenter = DefaultListRowPresenter,
 ) : ListRow(controller.adapter),
   LoungeModel {
 
@@ -126,6 +126,6 @@ open class ListRowModel(
   }
 
   companion object {
-    val defaultListRowPresenter = ListRowPresenter()
+    val DefaultListRowPresenter = ListRowPresenter()
   }
 }
