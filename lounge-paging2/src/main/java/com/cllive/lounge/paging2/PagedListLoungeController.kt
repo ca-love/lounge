@@ -120,7 +120,7 @@ private class PagedListModelCache<T>(
   }
 
   fun getModels(): List<LoungeModel> {
-    val currentList = differ.currentList?.toList().orEmpty()
+    val currentList = differ.currentList.orEmpty()
     (0..currentList.lastIndex).forEach {
       if (modelCache[it] == null) {
         modelCache[it] = modelBuilder(it, currentList[it])
