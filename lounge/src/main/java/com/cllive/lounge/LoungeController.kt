@@ -18,13 +18,17 @@ import kotlin.reflect.cast
 
 interface LoungeBuildModelScope {
 
+  val lifecycle: Lifecycle
+
   operator fun LoungeModel.unaryPlus()
 
-  operator fun List<LoungeModel>.unaryPlus()
+  operator fun List<LoungeModel>.unaryPlus() {
+    forEach { +it }
+  }
 }
 
 abstract class LoungeController(
-  val lifecycle: Lifecycle,
+  final override val lifecycle: Lifecycle,
 ) : LoungeBuildModelScope,
   AutoCloseable {
 
@@ -45,7 +49,9 @@ abstract class LoungeController(
   }
 
   init {
-    lifecycle.addObserver(lifecycleObserver)
+    lifecycle.coroutineScope.launchWhenCreated {
+      lifecycle.addObserver(lifecycleObserver)
+    }
   }
 
   private val models = mutableListOf<LoungeModel>()
@@ -70,13 +76,9 @@ abstract class LoungeController(
   }
 
   override operator fun LoungeModel.unaryPlus() {
-    +listOf(this)
-  }
-
-  override operator fun List<LoungeModel>.unaryPlus() {
     checkIsBuilding("unaryPlus")
-    verifyModels(this)
-    models.addAll(this)
+    verifyModel(this)
+    models += this
   }
 
   /**
@@ -160,8 +162,8 @@ abstract class LoungeController(
     }
   }
 
-  private fun verifyModels(models: List<LoungeModel>) {
-    check(models.all { it.key != InvalidKey }) {
+  private fun verifyModel(model: LoungeModel) {
+    check(model.key != InvalidKey) {
       "LoungeModel must has a valid key."
     }
   }

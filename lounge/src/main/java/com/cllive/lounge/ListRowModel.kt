@@ -28,7 +28,7 @@ fun LoungeBuildModelScope.listRowOf(
     "Require key or headerData to be non-null"
   }
   val controller = memorizedController(controllerKey) {
-    LambdaLoungeController(it)
+    LambdaLoungeController(lifecycle)
   }
   controller.buildModels = buildModels
   listRow(

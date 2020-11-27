@@ -36,7 +36,7 @@ fun <T> LoungeBuildModelScope.pagedListRowOf(
     "Require key or headerData to be non-null."
   }
   val controller = memorizedController(controllerKey) {
-    LambdaPagedListLoungeController<T>(it)
+    LambdaPagedListLoungeController<T>(lifecycle)
   }
   controller.buildItemModel = { _, item ->
     buildItemModel(item)
