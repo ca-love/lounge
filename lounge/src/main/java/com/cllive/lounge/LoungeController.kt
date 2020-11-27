@@ -8,10 +8,14 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.coroutineScope
 import com.cllive.lounge.internal.Event
 import com.cllive.lounge.internal.LoungeAdapter
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNot
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlin.reflect.KClass
 import kotlin.reflect.cast
@@ -20,15 +24,16 @@ interface LoungeBuildModelScope {
 
   val lifecycle: Lifecycle
 
+  val modelBuildingDispatcher: CoroutineDispatcher
+
   operator fun LoungeModel.unaryPlus()
 
-  operator fun List<LoungeModel>.unaryPlus() {
-    forEach { +it }
-  }
+  operator fun List<LoungeModel>.unaryPlus()
 }
 
 abstract class LoungeController(
   final override val lifecycle: Lifecycle,
+  final override val modelBuildingDispatcher: CoroutineDispatcher = Dispatchers.Main,
 ) : LoungeBuildModelScope,
   AutoCloseable {
 
@@ -75,10 +80,14 @@ abstract class LoungeController(
     collectModelBuildRequest()
   }
 
-  override operator fun LoungeModel.unaryPlus() {
+  final override operator fun LoungeModel.unaryPlus() {
     checkIsBuilding("unaryPlus")
     verifyModel(this)
     models += this
+  }
+
+  final override operator fun List<LoungeModel>.unaryPlus() {
+    forEach { +it }
   }
 
   /**
@@ -132,14 +141,14 @@ abstract class LoungeController(
   private suspend fun collectModelBuildRequest() {
     modelBuildRequest
       .filterNot { event -> event.consumed }
-      .onEach { event ->
+      .map { event ->
         isBuildingModels = true
 
+        val models: List<LoungeModel>
         try {
           buildModels()
-          val buildModels = models.toList()
-          models.clear()
-          loungeAdapter.setItems(buildModels, LoungeModelDiffCallback)
+          models = this.models.toList()
+          this.models.clear()
         } finally {
           tags.entries.removeAll { (k, v) ->
             val remove = k !in possessedTagKeys
@@ -152,11 +161,17 @@ abstract class LoungeController(
           event.consume()
           isBuildingModels = false
         }
+        models
       }
+      .flowOn(modelBuildingDispatcher)
+      .onEach {
+        loungeAdapter.setItems(it, LoungeModelDiffCallback)
+      }
+      .flowOn(Dispatchers.Main)
       .collect()
   }
 
-  private fun checkIsBuilding(name: String) {
+  protected fun checkIsBuilding(name: String) {
     check(isBuildingModels) {
       "Can only invoke $name when building models."
     }

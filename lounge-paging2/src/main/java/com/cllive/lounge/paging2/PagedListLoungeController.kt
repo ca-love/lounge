@@ -21,8 +21,9 @@ interface PagedListLoungeBuildModelScope : LoungeBuildModelScope {
 
 abstract class PagedListLoungeController<T>(
   lifecycle: Lifecycle,
-  workerDispatcher: CoroutineDispatcher = Dispatchers.IO
-) : LoungeController(lifecycle),
+  modelBuildingDispatcher: CoroutineDispatcher = Dispatchers.Main,
+  workerDispatcher: CoroutineDispatcher = Dispatchers.IO,
+) : LoungeController(lifecycle, modelBuildingDispatcher),
   PagedListLoungeBuildModelScope {
 
   @Suppress("UNCHECKED_CAST")
@@ -42,7 +43,10 @@ abstract class PagedListLoungeController<T>(
 
   abstract fun buildItemModel(position: Int, item: T?): LoungeModel
 
-  override fun getPagedListModels(): List<LoungeModel> = modelCache.getModels()
+  override fun getPagedListModels(): List<LoungeModel> {
+    checkIsBuilding("getPagedListModels")
+    return modelCache.getModels()
+  }
 
   override fun buildModels() {
     +getPagedListModels()
