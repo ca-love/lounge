@@ -127,7 +127,7 @@ private class PagedListModelCache<T>(
       }
     }
     @Suppress("UNCHECKED_CAST")
-    return modelCache.toList() as List<LoungeModel>
+    return modelCache as List<LoungeModel>
   }
 
   fun clearModels() {
