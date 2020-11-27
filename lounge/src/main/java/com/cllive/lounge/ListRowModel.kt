@@ -3,15 +3,14 @@ package com.cllive.lounge
 import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
-import com.cllive.lounge.internal.checkNameAndKey
 
 fun LoungeBuildModelScope.listRow(
   name: String? = null,
   key: Any? = null,
   controller: LoungeController,
-  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter
+  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
 ) {
-  checkNameAndKey(name, key)
+  requireKeyOrNameNonNull(key, name)
   val keyLong: Long = key?.toLoungeModelKey() ?: name.toLoungeModelKey()
   +ListRowModel(keyLong, name, controller, presenter)
   controller.requestModelBuild()
@@ -21,9 +20,9 @@ fun LoungeBuildModelScope.listRowOf(
   name: String? = null,
   key: Any? = null,
   presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
-  buildModels: LoungeBuildModelScope.() -> Unit
+  buildModels: LoungeBuildModelScope.() -> Unit,
 ) {
-  val k = checkNameAndKey(name, key)
+  val k = requireKeyOrNameNonNull(key, name)
   val controller = memorizedController(k) {
     LambdaLoungeController(it)
   }
@@ -41,9 +40,9 @@ fun <T : Any> LoungeBuildModelScope.listRowFor(
   list: List<T>,
   key: Any? = null,
   presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
-  buildItemModel: (T) -> LoungeModel
+  buildItemModel: (T) -> LoungeModel,
 ) {
-  checkNameAndKey(name, key)
+  requireKeyOrNameNonNull(key, name)
   listRowOf(
     name = name,
     key = key,
@@ -57,7 +56,7 @@ open class ListRowModel(
   final override val key: Long = InvalidKey,
   val name: String? = null,
   controller: LoungeController,
-  override val presenter: ListRowPresenter = defaultListRowPresenter
+  override val presenter: ListRowPresenter = defaultListRowPresenter,
 ) : ListRow(controller.adapter),
   LoungeModel {
 
@@ -93,4 +92,8 @@ open class ListRowModel(
   companion object {
     val defaultListRowPresenter = ListRowPresenter()
   }
+}
+
+private fun requireKeyOrNameNonNull(key: Any?, name: String?) = requireNotNull(key ?: name) {
+  "Require key or name non-null."
 }

@@ -5,7 +5,6 @@ import androidx.paging.PagedList
 import com.cllive.lounge.ListRowModel
 import com.cllive.lounge.LoungeBuildModelScope
 import com.cllive.lounge.LoungeModel
-import com.cllive.lounge.internal.checkNameAndKey
 import com.cllive.lounge.memorizedController
 import com.cllive.lounge.toLoungeModelKey
 
@@ -16,7 +15,7 @@ fun <T> LoungeBuildModelScope.pagedListRow(
   controller: PagedListLoungeController<T>,
   presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
 ) {
-  checkNameAndKey(name, key)
+  requireKeyOrNameNonNull(key, name)
   val keyLong: Long = key?.toLoungeModelKey() ?: name.toLoungeModelKey()
   +ListRowModel(keyLong, name, controller, presenter)
   controller.pagedList = pagedList
@@ -29,7 +28,7 @@ fun <T> LoungeBuildModelScope.pagedListRowFor(
   presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
   buildItemModel: (T) -> LoungeModel,
 ) {
-  val k = checkNameAndKey(name, key)
+  val k = requireKeyOrNameNonNull(key, name)
   val controller = memorizedController(k) {
     LambdaPagedListLoungeController<T>(it)
   }
@@ -53,7 +52,7 @@ fun <T> LoungeBuildModelScope.pagedListRowOf(
   buildItemModel: (T) -> LoungeModel,
   buildModels: PagedListLoungeBuildModelScope.(List<LoungeModel>) -> Unit,
 ) {
-  val k = checkNameAndKey(name, key)
+  val k = requireKeyOrNameNonNull(key, name)
   val controller = memorizedController(k) {
     LambdaPagedListLoungeController<T>(it)
   }
@@ -68,4 +67,8 @@ fun <T> LoungeBuildModelScope.pagedListRowOf(
     controller = controller,
     presenter = presenter
   )
+}
+
+private fun requireKeyOrNameNonNull(key: Any?, name: String?) = requireNotNull(key ?: name) {
+  "Require key or name non-null."
 }
