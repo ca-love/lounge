@@ -9,8 +9,31 @@ import androidx.leanback.widget.Presenter
 import com.cllive.lounge.TypedPresenter
 
 abstract class DataBindingPresenter<T, DB : ViewDataBinding>(
-  @LayoutRes val layoutId: Int
+  @LayoutRes val layoutId: Int,
 ) : TypedPresenter<T, DataBindingPresenter.ViewHolder<DB>>() {
+
+  /**
+   * Binds a DataBinding to an item.
+   */
+  abstract fun onBind(binding: DB, item: T)
+
+  /**
+   * Binds a DataBinding to an item.
+   */
+  open fun onBind(binding: DB, item: T, payloads: List<Any>) {
+    onBind(binding, item)
+  }
+
+  /**
+   * Unbinds a DataBinding from an item. Any expensive references may be
+   * released here, and any fields that are not bound for every item should be
+   * cleared here.
+   */
+  open fun onUnbind(binding: DB) = Unit
+
+  class ViewHolder<DB : ViewDataBinding>(
+    val binding: DB,
+  ) : Presenter.ViewHolder(binding.root)
 
   // region ---- override parent presenter ----
 
@@ -35,27 +58,4 @@ abstract class DataBindingPresenter<T, DB : ViewDataBinding>(
   }
 
   // endregion
-
-  /**
-   * Binds a DataBinding to an item.
-   */
-  abstract fun onBind(binding: DB, item: T)
-
-  /**
-   * Binds a DataBinding to an item.
-   */
-  open fun onBind(binding: DB, item: T, payloads: List<Any>) {
-    onBind(binding, item)
-  }
-
-  /**
-   * Unbinds a DataBinding from an item. Any expensive references may be
-   * released here, and any fields that are not bound for every item should be
-   * cleared here.
-   */
-  open fun onUnbind(binding: DB) = Unit
-
-  class ViewHolder<DB : ViewDataBinding>(
-    val binding: DB
-  ) : Presenter.ViewHolder(binding.root)
 }

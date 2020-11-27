@@ -7,51 +7,6 @@ import androidx.leanback.widget.RowPresenter
 @Suppress("UNCHECKED_CAST", "TooManyFunctions")
 abstract class TypedRowPresenter<T, VH : RowPresenter.ViewHolder> : RowPresenter() {
 
-  // region ---- override parent presenter ----
-
-  final override fun createRowViewHolder(parent: ViewGroup): ViewHolder {
-    return onCreateRow(parent)
-  }
-
-  final override fun onBindRowViewHolder(vh: ViewHolder?, item: Any?) {
-    onBindRow(vh as VH, item as T)
-  }
-
-  final override fun onUnbindRowViewHolder(vh: ViewHolder?) {
-    super.onUnbindRowViewHolder(vh)
-    onUnbindRow(vh as VH)
-  }
-
-  final override fun initializeRowViewHolder(vh: ViewHolder?) {
-    initializeRow(vh as VH)
-  }
-
-  final override fun onRowViewExpanded(vh: ViewHolder?, expanded: Boolean) {
-    onRowExpanded(vh as VH, expanded)
-  }
-
-  final override fun dispatchItemSelectedListener(vh: ViewHolder?, selected: Boolean) {
-    dispatchItemSelected(vh as VH, selected)
-  }
-
-  final override fun onRowViewSelected(vh: ViewHolder?, selected: Boolean) {
-    onRowSelected(vh as VH, selected)
-  }
-
-  final override fun onSelectLevelChanged(vh: ViewHolder?) {
-    onRowSelectLevelChanged(vh as VH)
-  }
-
-  final override fun onRowViewAttachedToWindow(vh: ViewHolder?) {
-    onRowAttachedToWindow(vh as VH)
-  }
-
-  final override fun onRowViewDetachedFromWindow(vh: ViewHolder?) {
-    onRowDetachedFromWindow(vh as VH)
-  }
-
-  // endregion
-
   /**
    * Called to create a ViewHolder object for a Row. Subclasses will override
    * this method to return a different concrete ViewHolder object.
@@ -148,4 +103,49 @@ abstract class TypedRowPresenter<T, VH : RowPresenter.ViewHolder> : RowPresenter
   protected open fun onRowDetachedFromWindow(vh: VH) {
     super.onRowViewDetachedFromWindow(vh)
   }
+
+  // region ---- override parent presenter ----
+
+  final override fun createRowViewHolder(parent: ViewGroup): ViewHolder {
+    return onCreateRow(parent)
+  }
+
+  final override fun onBindRowViewHolder(vh: ViewHolder?, item: Any?) {
+    onBindRow(vh as VH, item as T)
+  }
+
+  final override fun onUnbindRowViewHolder(vh: ViewHolder?) {
+    super.onUnbindRowViewHolder(vh)
+    onUnbindRow(vh as VH)
+  }
+
+  final override fun initializeRowViewHolder(vh: ViewHolder?) {
+    initializeRow(vh as VH)
+  }
+
+  final override fun onRowViewExpanded(vh: ViewHolder?, expanded: Boolean) {
+    onRowExpanded(vh as VH, expanded)
+  }
+
+  final override fun dispatchItemSelectedListener(vh: ViewHolder?, selected: Boolean) {
+    dispatchItemSelected(vh as VH, selected)
+  }
+
+  final override fun onRowViewSelected(vh: ViewHolder?, selected: Boolean) {
+    onRowSelected(vh as VH, selected)
+  }
+
+  final override fun onSelectLevelChanged(vh: ViewHolder?) {
+    onRowSelectLevelChanged(vh as VH)
+  }
+
+  final override fun onRowViewAttachedToWindow(vh: ViewHolder?) {
+    onRowAttachedToWindow(vh as VH)
+  }
+
+  final override fun onRowViewDetachedFromWindow(vh: ViewHolder?) {
+    onRowDetachedFromWindow(vh as VH)
+  }
+
+  // endregion
 }

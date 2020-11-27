@@ -12,6 +12,20 @@ abstract class DataBindingRowPresenter<T, DB : ViewDataBinding>(
   @LayoutRes val layoutId: Int
 ) : TypedRowPresenter<T, DataBindingRowPresenter.ViewHolder<DB>>() {
 
+  /**
+   * Binds the given row object to the given DataBinding.
+   */
+  abstract fun onBindRow(binding: DB, item: T)
+
+  /**
+   * Unbinds the given DataBinding.
+   */
+  open fun onUnbindRow(binding: DB) = Unit
+
+  class ViewHolder<DB : ViewDataBinding>(
+    val binding: DB
+  ) : RowPresenter.ViewHolder(binding.root)
+
   // region ---- override parent presenter ----
 
   override fun onCreateRow(parent: ViewGroup): ViewHolder<DB> {
@@ -32,18 +46,4 @@ abstract class DataBindingRowPresenter<T, DB : ViewDataBinding>(
   }
 
   // endregion
-
-  /**
-   * Binds the given row object to the given DataBinding.
-   */
-  abstract fun onBindRow(binding: DB, item: T)
-
-  /**
-   * Unbinds the given DataBinding.
-   */
-  open fun onUnbindRow(binding: DB) = Unit
-
-  class ViewHolder<DB : ViewDataBinding>(
-    val binding: DB
-  ) : RowPresenter.ViewHolder(binding.root)
 }

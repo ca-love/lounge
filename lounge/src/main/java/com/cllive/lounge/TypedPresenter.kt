@@ -6,30 +6,6 @@ import androidx.leanback.widget.Presenter
 @Suppress("UNCHECKED_CAST")
 abstract class TypedPresenter<T, VH : Presenter.ViewHolder> : Presenter() {
 
-  // region ---- override parent presenter ----
-
-  final override fun onCreateViewHolder(parent: ViewGroup): VH {
-    return onCreate(parent)
-  }
-
-  final override fun onBindViewHolder(viewHolder: ViewHolder, item: Any?) {
-    onBind(viewHolder as VH, item as T)
-  }
-
-  final override fun onBindViewHolder(
-    viewHolder: ViewHolder,
-    item: Any?,
-    payloads: List<Any>
-  ) {
-    onBind(viewHolder as VH, item as T, payloads)
-  }
-
-  final override fun onUnbindViewHolder(viewHolder: ViewHolder) {
-    onUnbind(viewHolder as VH)
-  }
-
-  // endregion
-
   /**
    * Creates a new ViewHolder.
    */
@@ -57,4 +33,28 @@ abstract class TypedPresenter<T, VH : Presenter.ViewHolder> : Presenter() {
    * cleared here.
    */
   protected open fun onUnbind(vh: VH) = Unit
+
+  // region ---- override parent presenter ----
+
+  final override fun onCreateViewHolder(parent: ViewGroup): VH {
+    return onCreate(parent)
+  }
+
+  final override fun onBindViewHolder(viewHolder: ViewHolder, item: Any?) {
+    onBind(viewHolder as VH, item as T)
+  }
+
+  final override fun onBindViewHolder(
+    viewHolder: ViewHolder,
+    item: Any?,
+    payloads: List<Any>
+  ) {
+    onBind(viewHolder as VH, item as T, payloads)
+  }
+
+  final override fun onUnbindViewHolder(viewHolder: ViewHolder) {
+    onUnbind(viewHolder as VH)
+  }
+
+  // endregion
 }
