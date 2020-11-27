@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# TODO: Modify these
-REPOSITORY="lcdsmao/kotlin-anroid-template"
+REPOSITORY="ca-love/lounge"
 REF="refs/heads/master"
 
 set -e

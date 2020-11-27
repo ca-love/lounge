@@ -1,7 +1,6 @@
-# TODO: Modify these
-site_name: "kotlin-android-template"
-repo_name: lcdsmao/kotlin-android-template
-repo_url: https://github.com/lcdsmao/kotlin-android-template
+site_name: "Lounge"
+repo_name: ca-love/lounge
+repo_url: https://github.com/ca-love/lounge
 remote_branch: gh-pages
 
 theme:

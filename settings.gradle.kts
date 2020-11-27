@@ -16,10 +16,9 @@ buildscript {
 
 bootstrapRefreshVersions()
 
-rootProject.name = "kotlin-android-template"
+rootProject.name = "lounge"
 
 include(
   "sample",
-  "library-android",
-  "library-kotlin"
+  "lounge"
 )
