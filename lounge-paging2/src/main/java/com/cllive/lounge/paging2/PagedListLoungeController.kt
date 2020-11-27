@@ -131,7 +131,7 @@ private class PagedListModelCache<T>(
   }
 
   fun clearModels() {
-    modelCache.clear()
+    modelCache.fill(null)
   }
 }
 
