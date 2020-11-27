@@ -12,7 +12,7 @@ custom-checks:
 
 comments:
   CommentOverPrivateProperty:
-    active: true
+    active: false
   UndocumentedPublicClass:
     active: true
     excludes: [ '**/*.kt' ]
@@ -40,6 +40,8 @@ complexity:
     ignoreSingleWhenExpression: true
   MethodOverloading:
     active: true
+  LongParameterList:
+    active: false
 
 exceptions:
   NotImplementedDeclaration:
@@ -81,6 +83,8 @@ naming:
     variablePattern: '[a-z][A-Za-z0-9]*'
     privateVariablePattern: '(_)?[a-z][A-Za-z0-9]*'
     excludeClassPattern: '$^'
+  TopLevelPropertyNaming:
+    constantPattern: '[A-Z][_A-Za-z0-9]*'
 
 performance:
   ArrayPrimitive:
@@ -135,7 +139,7 @@ style:
     ignorePropertyDeclaration: true
     ignoreAnnotation: true
     ignoreEnums: true
-    ignoreNumbers: [ '-1', '0', '1', '2', '100', '1000' ]
+    ignoreNumbers: [ '-1', '0', '1', '2', '32', '100', '1000' ]
   MayBeConst:
     active: true
   NestedClassesVisibility:

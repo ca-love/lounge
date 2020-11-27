@@ -91,6 +91,6 @@ open class ListRowModel(
   }
 
   companion object {
-    internal val defaultListRowPresenter = ListRowPresenter()
+    val defaultListRowPresenter = ListRowPresenter()
   }
 }

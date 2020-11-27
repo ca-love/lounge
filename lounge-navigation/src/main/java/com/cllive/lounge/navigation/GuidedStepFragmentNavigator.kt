@@ -39,10 +39,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
 import androidx.navigation.NavigatorProvider
 import androidx.navigation.fragment.FragmentNavigator
-import com.cllive.lounge.R
 
 fun FragmentActivity.createGuidedStepFragmentNavigator(
-  @IdRes navHostId: Int
+  @IdRes navHostId: Int,
 ): GuidedStepFragmentNavigator {
   val navHost = requireNotNull(supportFragmentManager.findFragmentById(navHostId))
   return GuidedStepFragmentNavigator(
@@ -112,7 +111,7 @@ class GuidedStepFragmentNavigator(
     destination: Destination,
     args: Bundle?,
     navOptions: NavOptions?,
-    navigatorExtras: Extras?
+    navigatorExtras: Extras?,
   ): NavDestination? {
     if (fragmentManager.isStateSaved) {
       // Ignoring navigate() call: FragmentManager has already saved its state
@@ -129,17 +128,7 @@ class GuidedStepFragmentNavigator(
     destGuide.arguments = args
     val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
 
-    var enterAnim = navOptions?.enterAnim ?: -1
-    var exitAnim = navOptions?.exitAnim ?: -1
-    var popEnterAnim = navOptions?.popEnterAnim ?: -1
-    var popExitAnim = navOptions?.popExitAnim ?: -1
-    if (enterAnim != -1 || exitAnim != -1 || popEnterAnim != -1 || popExitAnim != -1) {
-      enterAnim = if (enterAnim != -1) enterAnim else 0
-      exitAnim = if (exitAnim != -1) exitAnim else 0
-      popEnterAnim = if (popEnterAnim != -1) popEnterAnim else 0
-      popExitAnim = if (popExitAnim != -1) popExitAnim else 0
-      fragmentTransaction.setCustomAnimations(enterAnim, exitAnim, popEnterAnim, popExitAnim)
-    }
+    fragmentTransaction.setCustomAnimations(navOptions)
 
     // Set GuidedStepSupportFragment UI style
     val currentGuide =
@@ -211,10 +200,18 @@ class GuidedStepFragmentNavigator(
    */
   @NavDestination.ClassType(GuidedStepSupportFragment::class)
   class Destination(
-    fragmentNavigator: Navigator<out Destination?>
+    fragmentNavigator: Navigator<out Destination?>,
   ) : NavDestination(fragmentNavigator) {
 
     private var _className: String? = null
+
+    /**
+     * Gets the [GuidedStepSupportFragment]'s class name associated with this destination.
+     *
+     * @throws IllegalStateException when no DialogFragment class was set.
+     */
+    val className: String
+      get() = checkNotNull(_className) { "GuidedStepSupportFragment class was not set" }
 
     /**
      * Construct a new fragment destination. This destination is not valid until you set the
@@ -249,14 +246,21 @@ class GuidedStepFragmentNavigator(
     fun setClassName(className: String): Destination = apply {
       _className = className
     }
+  }
+}
 
-    /**
-     * Gets the [GuidedStepSupportFragment]'s class name associated with this destination.
-     *
-     * @throws IllegalStateException when no DialogFragment class was set.
-     */
-    val className: String
-      get() = checkNotNull(_className) { "GuidedStepSupportFragment class was not set" }
+@Suppress("ComplexCondition")
+private fun FragmentTransaction.setCustomAnimations(navOptions: NavOptions?) {
+  var enterAnim = navOptions?.enterAnim ?: -1
+  var exitAnim = navOptions?.exitAnim ?: -1
+  var popEnterAnim = navOptions?.popEnterAnim ?: -1
+  var popExitAnim = navOptions?.popExitAnim ?: -1
+  if (enterAnim != -1 || exitAnim != -1 || popEnterAnim != -1 || popExitAnim != -1) {
+    enterAnim = if (enterAnim != -1) enterAnim else 0
+    exitAnim = if (exitAnim != -1) exitAnim else 0
+    popEnterAnim = if (popEnterAnim != -1) popEnterAnim else 0
+    popExitAnim = if (popExitAnim != -1) popExitAnim else 0
+    setCustomAnimations(enterAnim, exitAnim, popEnterAnim, popExitAnim)
   }
 }
 
@@ -266,7 +270,7 @@ class GuidedStepFragmentNavigator(
  * @see GuidedStepSupportFragment.onAddSharedElementTransition
  */
 private fun FragmentTransaction.addGuidedStepFragmentDefaultSharedElements(
-  disappearing: GuidedStepSupportFragment
+  disappearing: GuidedStepSupportFragment,
 ) = apply {
   val fragmentView = disappearing.view ?: return@apply
   maybeAddSharedElement(
@@ -309,7 +313,7 @@ private fun FragmentTransaction.addGuidedStepFragmentDefaultSharedElements(
 
 private fun FragmentTransaction.maybeAddSharedElement(
   view: View?,
-  name: String
+  name: String,
 ) {
   view ?: return
   addSharedElement(view, name)

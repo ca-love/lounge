@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.leanback.widget.RowPresenter
 
-@Suppress("UNCHECKED_CAST")
+@Suppress("UNCHECKED_CAST", "TooManyFunctions")
 abstract class TypedRowPresenter<T, VH : RowPresenter.ViewHolder> : RowPresenter() {
 
   // region ---- override parent presenter ----

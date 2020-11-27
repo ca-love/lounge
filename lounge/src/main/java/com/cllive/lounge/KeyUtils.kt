@@ -19,6 +19,7 @@ fun Any?.toLoungeModelKey(): Long {
  *
  * Forked from https://github.com/airbnb/epoxy/blob/3905f50321b98ad296b4d058b765ebf1fb5f4dea/epoxy-adapter/src/main/java/com/airbnb/epoxy/IdUtils.java#L36
  */
+@Suppress("MagicNumber")
 internal fun CharSequence?.hashString64Bit(): Long {
   if (this == null) {
     return InvalidKey
@@ -40,6 +41,7 @@ internal fun CharSequence?.hashString64Bit(): Long {
  *
  * Forked from https://github.com/airbnb/epoxy/blob/3905f50321b98ad296b4d058b765ebf1fb5f4dea/epoxy-adapter/src/main/java/com/airbnb/epoxy/IdUtils.java#L20
  */
+@Suppress("MagicNumber")
 private fun Long.hashLong64Bit(): Long {
   var value = this
   value = value xor (value shl 21)

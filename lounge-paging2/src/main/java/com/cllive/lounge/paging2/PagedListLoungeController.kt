@@ -1,4 +1,4 @@
-package com.cllive.lounge.paging
+package com.cllive.lounge.paging2
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.Lifecycle
@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.ListUpdateCallback
 import com.cllive.lounge.LoungeBuildModelScope
 import com.cllive.lounge.LoungeController
 import com.cllive.lounge.LoungeModel
-import kotlin.math.min
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
+import kotlin.math.min
 
 interface PagedListLoungeBuildModelScope : LoungeBuildModelScope {
   fun getPagedListModels(): List<LoungeModel>

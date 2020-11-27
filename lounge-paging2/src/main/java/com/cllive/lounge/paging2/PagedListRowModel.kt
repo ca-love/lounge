@@ -1,4 +1,4 @@
-package com.cllive.lounge.paging
+package com.cllive.lounge.paging2
 
 import androidx.leanback.widget.ListRowPresenter
 import androidx.paging.PagedList
@@ -27,7 +27,7 @@ fun <T> LoungeBuildModelScope.pagedListRowFor(
   pagedList: PagedList<T>?,
   key: Any? = null,
   presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
-  buildItemModel: (T) -> LoungeModel
+  buildItemModel: (T) -> LoungeModel,
 ) {
   val k = checkNameAndKey(name, key)
   val controller = memorizedController(k) {
@@ -51,7 +51,7 @@ fun <T> LoungeBuildModelScope.pagedListRowOf(
   key: Any? = null,
   presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
   buildItemModel: (T) -> LoungeModel,
-  buildModels: PagedListLoungeBuildModelScope.(List<LoungeModel>) -> Unit
+  buildModels: PagedListLoungeBuildModelScope.(List<LoungeModel>) -> Unit,
 ) {
   val k = checkNameAndKey(name, key)
   val controller = memorizedController(k) {

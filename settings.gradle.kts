@@ -20,5 +20,9 @@ rootProject.name = "lounge"
 
 include(
   "sample",
-  "lounge"
+  "lounge",
+  "lounge-databinding",
+  "lounge-material",
+  "lounge-navigation",
+  "lounge-paging2"
 )

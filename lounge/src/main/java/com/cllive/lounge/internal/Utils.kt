@@ -1,6 +1,6 @@
 package com.cllive.lounge.internal
 
-internal fun checkNameAndKey(
+fun checkNameAndKey(
   name: String?,
   key: Any?,
 ): Any {

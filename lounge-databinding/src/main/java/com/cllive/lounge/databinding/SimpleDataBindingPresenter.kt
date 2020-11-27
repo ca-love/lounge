@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap
 
 open class SimpleDataBindingPresenter<T : LoungeModel>(
   @LayoutRes layoutId: Int,
-  private val modelVariableId: Int
+  private val modelVariableId: Int,
 ) : DataBindingPresenter<T, ViewDataBinding>(layoutId) {
 
   override fun onBind(binding: ViewDataBinding, item: T) {
@@ -20,7 +20,7 @@ open class SimpleDataBindingPresenter<T : LoungeModel>(
 
     fun get(
       layoutId: Int,
-      modelVariableId: Int
+      modelVariableId: Int,
     ): SimpleDataBindingPresenter<LoungeModel> {
       val key = (layoutId.toLong() shl 32) or modelVariableId.toLong()
       return cache.getOrPut(key) {

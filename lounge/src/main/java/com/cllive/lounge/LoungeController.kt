@@ -8,13 +8,13 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.coroutineScope
 import com.cllive.lounge.internal.Event
 import com.cllive.lounge.internal.LoungeAdapter
-import kotlin.reflect.KClass
-import kotlin.reflect.cast
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.onEach
+import kotlin.reflect.KClass
+import kotlin.reflect.cast
 
 interface LoungeBuildModelScope {
 
@@ -24,7 +24,7 @@ interface LoungeBuildModelScope {
 }
 
 abstract class LoungeController(
-  val lifecycle: Lifecycle
+  val lifecycle: Lifecycle,
 ) : LoungeBuildModelScope,
   AutoCloseable {
 
@@ -120,7 +120,7 @@ abstract class LoungeController(
   ): T {
     checkIsBuilding("possessTagDuringBuilding")
     if (key in possessedTagKeys) {
-      throw IllegalStateException("Key $key has already been possessed.")
+      error("Key $key has already been possessed.")
     }
     possessedTagKeys += key
     val tag = tags.getOrPut(key, factory)
