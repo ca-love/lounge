@@ -1,16 +1,18 @@
-name: Publish docs via GitHub Pages
+name: CI
 
 on:
   push:
     branches:
       - master
-    paths:
+    paths-ignore:
       - "**.md"
-      - "mkdocs.yml"
+  pull_request:
+    paths-ignore:
+      - "**.md"
 
 jobs:
-  deploy:
-    name: Generate API docs and deploy docs
+  check:
+    name: Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -23,10 +25,5 @@ jobs:
           path: ~/.gradle/caches
           key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle.kts') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/versions.properties') }}
 
-      - name: Prepare Docs
-        run: ./tools/prepare_docs.sh
-
-      - name: Deploy docs
-        uses: mhausenblas/mkdocs-deploy-gh-pages@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run Gradle Tasks
+        run: ./gradlew build check installArchives --continue
