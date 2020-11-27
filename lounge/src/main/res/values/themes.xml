@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!-- See Material Components Guide: https://material.io/develop/android/docs/getting-started -->
+  <style name="Theme.MaterialComponents.Leanback.Bridge" parent="Theme.AppCompat.Leanback">
+    <item name="viewInflaterClass">
+      com.google.android.material.theme.MaterialComponentsViewInflater
+    </item>
+
+    <!-- Colors -->
+    <item name="colorPrimaryVariant">@color/design_dark_default_color_primary_variant</item>
+    <item name="colorSecondary">@color/design_dark_default_color_secondary</item>
+    <item name="colorSecondaryVariant">@color/design_dark_default_color_secondary_variant</item>
+    <item name="colorSurface">@color/design_dark_default_color_surface</item>
+    <item name="colorPrimarySurface">?attr/colorSurface</item>
+    <item name="colorOnPrimary">@color/design_dark_default_color_on_primary</item>
+    <item name="colorOnSecondary">@color/design_dark_default_color_on_secondary</item>
+    <item name="colorOnBackground">@color/design_dark_default_color_on_background</item>
+    <item name="colorOnError">@color/design_dark_default_color_on_error</item>
+    <item name="colorOnSurface">@color/design_dark_default_color_on_surface</item>
+    <item name="colorOnPrimarySurface">?attr/colorOnSurface</item>
+    <item name="scrimBackground">@color/mtrl_scrim_color</item>
+    <item name="popupMenuBackground">@drawable/mtrl_popupmenu_background_dark</item>
+
+    <!-- Type styles -->
+    <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialComponents.Headline1</item>
+    <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialComponents.Headline2</item>
+    <item name="textAppearanceHeadline3">@style/TextAppearance.MaterialComponents.Headline3</item>
+    <item name="textAppearanceHeadline4">@style/TextAppearance.MaterialComponents.Headline4</item>
+    <item name="textAppearanceHeadline5">@style/TextAppearance.MaterialComponents.Headline5</item>
+    <item name="textAppearanceHeadline6">@style/TextAppearance.MaterialComponents.Headline6</item>
+    <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialComponents.Subtitle1</item>
+    <item name="textAppearanceSubtitle2">@style/TextAppearance.MaterialComponents.Subtitle2</item>
+    <item name="textAppearanceBody1">@style/TextAppearance.MaterialComponents.Body1</item>
+    <item name="textAppearanceBody2">@style/TextAppearance.MaterialComponents.Body2</item>
+    <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
+    <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
+    <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
+
+    <!-- Maybe we need to add other attrs: https://github.com/material-components/material-components-android/blob/master/lib/java/com/google/android/material/theme/res/values/themes_base_bridge.xml -->
+  </style>
+</resources>
