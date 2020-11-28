@@ -142,9 +142,9 @@ private class PagedListModelCache<T>(
     modelCache.fill(null)
   }
 
-  private inline fun withModelCacheModification(crossinline block: () -> Unit) {
+  private inline fun withModelCacheModification(crossinline action: () -> Unit) {
     modelBuildingCoroutineScope.launch(modelBuildingDispatcher) {
-      modelCacheMutex.withLock(modelCache, block)
+      modelCacheMutex.withLock(action = action)
     }
   }
 }
