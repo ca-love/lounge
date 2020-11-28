@@ -4,7 +4,7 @@ import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
 
-fun LoungeBuildModelScope.listRow(
+suspend fun LoungeBuildModelScope.listRow(
   headerData: HeaderData? = null,
   key: Any? = null,
   controller: LoungeController,
@@ -18,7 +18,7 @@ fun LoungeBuildModelScope.listRow(
   +ListRowModel(keyLong, headerData, controller, presenter)
 }
 
-fun LoungeBuildModelScope.listRowOf(
+suspend fun LoungeBuildModelScope.listRowOf(
   headerData: HeaderData? = null,
   key: Any? = null,
   presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
@@ -39,7 +39,7 @@ fun LoungeBuildModelScope.listRowOf(
   )
 }
 
-fun LoungeBuildModelScope.listRowOf(
+suspend fun LoungeBuildModelScope.listRowOf(
   name: String? = null,
   key: Any? = null,
   presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
@@ -53,7 +53,7 @@ fun LoungeBuildModelScope.listRowOf(
   )
 }
 
-fun <T : Any> LoungeBuildModelScope.listRowFor(
+suspend fun <T : Any> LoungeBuildModelScope.listRowFor(
   headerData: HeaderData? = null,
   list: List<T>,
   key: Any? = null,
@@ -69,7 +69,7 @@ fun <T : Any> LoungeBuildModelScope.listRowFor(
   }
 }
 
-fun <T : Any> LoungeBuildModelScope.listRowFor(
+suspend fun <T : Any> LoungeBuildModelScope.listRowFor(
   name: String? = null,
   list: List<T>,
   key: Any? = null,
@@ -88,10 +88,10 @@ fun <T : Any> LoungeBuildModelScope.listRowFor(
 open class ListRowModel(
   final override val key: Long = InvalidKey,
   private val headerData: HeaderData? = null,
-  controller: LoungeController,
+  private val controller: LoungeController,
   override val presenter: ListRowPresenter = DefaultListRowPresenter,
 ) : ListRow(controller.adapter),
-  LoungeModel {
+  DeferredLoungeModel {
 
   init {
     if (key != InvalidKey) {
@@ -104,6 +104,8 @@ open class ListRowModel(
       }
     }
   }
+
+  override suspend fun await() = controller.initialBuildJob.join()
 
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
@@ -126,6 +128,6 @@ open class ListRowModel(
   }
 
   companion object {
-    val DefaultListRowPresenter = ListRowPresenter()
+    var DefaultListRowPresenter = ListRowPresenter()
   }
 }

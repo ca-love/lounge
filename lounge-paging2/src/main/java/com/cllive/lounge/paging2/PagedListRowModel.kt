@@ -9,7 +9,7 @@ import com.cllive.lounge.LoungeModel
 import com.cllive.lounge.memorizedController
 import com.cllive.lounge.toLoungeModelKey
 
-fun <T> LoungeBuildModelScope.pagedListRow(
+suspend fun <T> LoungeBuildModelScope.pagedListRow(
   headerData: HeaderData? = null,
   pagedList: PagedList<T>?,
   key: Any? = null,
@@ -24,7 +24,7 @@ fun <T> LoungeBuildModelScope.pagedListRow(
   +ListRowModel(keyLong, headerData, controller, presenter)
 }
 
-fun <T> LoungeBuildModelScope.pagedListRowOf(
+suspend fun <T> LoungeBuildModelScope.pagedListRowOf(
   headerData: HeaderData? = null,
   pagedList: PagedList<T>?,
   key: Any? = null,
@@ -51,7 +51,7 @@ fun <T> LoungeBuildModelScope.pagedListRowOf(
   )
 }
 
-fun <T> LoungeBuildModelScope.pagedListRowOf(
+suspend fun <T> LoungeBuildModelScope.pagedListRowOf(
   name: String? = null,
   pagedList: PagedList<T>?,
   key: Any? = null,
@@ -69,7 +69,7 @@ fun <T> LoungeBuildModelScope.pagedListRowOf(
   )
 }
 
-fun <T> LoungeBuildModelScope.pagedListRowFor(
+suspend fun <T> LoungeBuildModelScope.pagedListRowFor(
   headerData: HeaderData? = null,
   pagedList: PagedList<T>?,
   key: Any? = null,
@@ -86,7 +86,7 @@ fun <T> LoungeBuildModelScope.pagedListRowFor(
   )
 }
 
-fun <T> LoungeBuildModelScope.pagedListRowFor(
+suspend fun <T> LoungeBuildModelScope.pagedListRowFor(
   name: String? = null,
   pagedList: PagedList<T>?,
   key: Any? = null,

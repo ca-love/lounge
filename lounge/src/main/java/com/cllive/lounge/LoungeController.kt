@@ -9,6 +9,7 @@ import androidx.lifecycle.coroutineScope
 import com.cllive.lounge.internal.LoungeAdapter
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collect
@@ -44,6 +45,10 @@ abstract class LoungeController(
     }
   }
 
+  private val _initialBuildJob = Job(lifecycle.coroutineScope.coroutineContext[Job])
+  val initialBuildJob: Job
+    get() = _initialBuildJob
+
   private val models = mutableListOf<LoungeModel>()
 
   /**
@@ -65,13 +70,14 @@ abstract class LoungeController(
     collectModelBuildRequest()
   }
 
-  final override operator fun LoungeModel.unaryPlus() {
+  final override suspend operator fun LoungeModel.unaryPlus() {
     checkIsBuilding("unaryPlus")
     verifyModel(this)
+    if (this is DeferredLoungeModel) await()
     models += this
   }
 
-  final override operator fun List<LoungeModel>.unaryPlus() {
+  final override suspend operator fun List<LoungeModel>.unaryPlus() {
     forEach { +it }
   }
 
@@ -129,11 +135,10 @@ abstract class LoungeController(
       .mapLatest {
         isBuildingModels = true
 
-        val models: List<LoungeModel>
+        val builtModels: List<LoungeModel>
         try {
           buildModels()
-          models = this.models.toList()
-          this.models.clear()
+          builtModels = models.toList()
           tags.entries.removeAll { (k, v) ->
             val remove = k !in possessedTagKeys
             if (remove && v is AutoCloseable) {
@@ -141,14 +146,19 @@ abstract class LoungeController(
             }
             remove
           }
-          possessedTagKeys.clear()
         } finally {
+          // Clean resources in case of cancel
+          models.clear()
+          possessedTagKeys.clear()
           isBuildingModels = false
         }
-        models
+        builtModels
       }
       .flowOn(modelBuildingDispatcher)
-      .collect { loungeAdapter.setItems(it, LoungeModelDiffCallback) }
+      .collect {
+        loungeAdapter.setItems(it, LoungeModelDiffCallback)
+        _initialBuildJob.complete()
+      }
   }
 
   protected fun checkIsBuilding(name: String) {

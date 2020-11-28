@@ -9,7 +9,9 @@ interface LoungeBuildModelScope {
 
   val modelBuildingDispatcher: CoroutineDispatcher
 
-  operator fun LoungeModel.unaryPlus()
+  suspend operator fun LoungeModel.unaryPlus()
 
-  operator fun List<LoungeModel>.unaryPlus()
+  suspend operator fun List<LoungeModel>.unaryPlus()
 }
+
+suspend fun LoungeModel.addTo(scope: LoungeBuildModelScope) = with(scope) { +this@addTo }
