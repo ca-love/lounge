@@ -14,8 +14,8 @@ fun LoungeBuildModelScope.listRow(
     "Require key or headerData to be non-null."
   }
   val keyLong: Long = key?.toLoungeModelKey() ?: headerData.toLoungeModelKey()
-  +ListRowModel(keyLong, headerData, controller, presenter)
   controller.requestModelBuild()
+  +ListRowModel(keyLong, headerData, controller, presenter)
 }
 
 fun LoungeBuildModelScope.listRowOf(

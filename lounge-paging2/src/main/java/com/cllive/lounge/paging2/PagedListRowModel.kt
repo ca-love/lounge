@@ -20,8 +20,8 @@ fun <T> LoungeBuildModelScope.pagedListRow(
     "Require key or headerData to be non-null."
   }
   val keyLong: Long = key?.toLoungeModelKey() ?: headerData.toLoungeModelKey()
-  +ListRowModel(keyLong, headerData, controller, presenter)
   controller.pagedList = pagedList
+  +ListRowModel(keyLong, headerData, controller, presenter)
 }
 
 fun <T> LoungeBuildModelScope.pagedListRowOf(
