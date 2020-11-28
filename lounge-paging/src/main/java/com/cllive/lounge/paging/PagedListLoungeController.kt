@@ -129,13 +129,17 @@ private class PagedListModelCache<T>(
 
   suspend fun getModels(): List<LoungeModel> = modelCacheMutex.withLock {
     val currentList = differ.currentList.orEmpty()
-    (0..currentList.lastIndex).forEach {
-      if (modelCache[it] == null) {
-        modelCache[it] = modelBuilder(it, currentList[it])
+
+    if (currentList.size == modelCache.size) {
+      currentList.forEachIndexed { index, item ->
+        if (modelCache[index] == null) {
+          modelCache[index] = modelBuilder(index, item)
+        }
       }
     }
+
     @Suppress("UNCHECKED_CAST")
-    return modelCache as List<LoungeModel>
+    return modelCache.toList() as List<LoungeModel>
   }
 
   fun clearModels() = withModelCacheModification {
