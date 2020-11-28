@@ -6,17 +6,14 @@ import androidx.leanback.widget.ObjectAdapter
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.coroutineScope
-import com.cllive.lounge.internal.Event
 import com.cllive.lounge.internal.LoungeAdapter
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.filterNot
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.yield
+import kotlinx.coroutines.flow.mapLatest
 import kotlin.reflect.KClass
 import kotlin.reflect.cast
 
@@ -53,8 +50,7 @@ abstract class LoungeController(
   /**
    * Conflate model build requests.
    */
-  private val modelBuildRequest = MutableSharedFlow<Event>(
-    replay = 1,
+  private val modelBuildRequest = MutableSharedFlow<Unit>(
     onBufferOverflow = BufferOverflow.DROP_OLDEST,
   )
   private var isBuildingModels = false
@@ -90,7 +86,7 @@ abstract class LoungeController(
    * All calls of this methods during model building will be conflated.
    */
   fun requestModelBuild() {
-    modelBuildRequest.tryEmit(Event())
+    modelBuildRequest.tryEmit(Unit)
   }
 
   /**
@@ -127,36 +123,28 @@ abstract class LoungeController(
     return type.cast(tag)
   }
 
+  @Suppress("EXPERIMENTAL_API_USAGE")
   private suspend fun collectModelBuildRequest() {
     modelBuildRequest
-      .filterNot { event -> event.consumed }
-      .map { event ->
+      .mapLatest {
         isBuildingModels = true
 
-        val models: List<LoungeModel>
-        try {
-          buildModels()
-          models = this.models.toList()
-          this.models.clear()
-        } finally {
-          tags.entries.removeAll { (k, v) ->
-            val remove = k !in possessedTagKeys
-            if (remove && v is AutoCloseable) {
-              v.close()
-            }
-            remove
+        buildModels()
+        val models = this.models.toList()
+        this.models.clear()
+        tags.entries.removeAll { (k, v) ->
+          val remove = k !in possessedTagKeys
+          if (remove && v is AutoCloseable) {
+            v.close()
           }
-          possessedTagKeys.clear()
-          event.consume()
-          isBuildingModels = false
+          remove
         }
+        possessedTagKeys.clear()
+        isBuildingModels = false
         models
       }
       .flowOn(modelBuildingDispatcher)
-      .collectLatest {
-        yield()
-        loungeAdapter.setItems(it, LoungeModelDiffCallback)
-      }
+      .collect { loungeAdapter.setItems(it, LoungeModelDiffCallback) }
   }
 
   protected fun checkIsBuilding(name: String) {
