@@ -127,7 +127,7 @@ private class PagedListModelCache<T>(
     differ.submitList(pagedList)
   }
 
-  suspend fun getModels(): List<LoungeModel> = modelCacheMutex.withLock(modelCache) {
+  suspend fun getModels(): List<LoungeModel> = modelCacheMutex.withLock {
     val currentList = differ.currentList.orEmpty()
     (0..currentList.lastIndex).forEach {
       if (modelCache[it] == null) {
