@@ -1,4 +1,4 @@
-package com.cllive.lounge.paging2
+package com.cllive.lounge.paging
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.Lifecycle

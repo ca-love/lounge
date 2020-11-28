@@ -1,4 +1,4 @@
-package com.cllive.lounge.paging2
+package com.cllive.lounge.paging
 
 import androidx.lifecycle.Lifecycle
 import com.cllive.lounge.LoungeModel

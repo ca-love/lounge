@@ -1,4 +1,4 @@
-package com.cllive.lounge.paging2
+package com.cllive.lounge.paging
 
 import com.cllive.lounge.LoungeBuildModelScope
 import com.cllive.lounge.LoungeModel

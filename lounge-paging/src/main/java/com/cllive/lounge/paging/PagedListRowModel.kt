@@ -1,4 +1,4 @@
-package com.cllive.lounge.paging2
+package com.cllive.lounge.paging
 
 import androidx.leanback.widget.ListRowPresenter
 import androidx.paging.PagedList
