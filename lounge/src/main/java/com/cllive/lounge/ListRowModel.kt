@@ -109,12 +109,11 @@ open class ListRowModel(
 
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
-    if (javaClass != other?.javaClass) return false
-
-    other as ListRowModel
+    if (other !is ListRowModel) return false
 
     if (key != other.key) return false
     if (headerData != other.headerData) return false
+    if (controller != other.controller) return false
     if (presenter != other.presenter) return false
 
     return true
@@ -123,6 +122,7 @@ open class ListRowModel(
   override fun hashCode(): Int {
     var result = key.hashCode()
     result = 31 * result + (headerData?.hashCode() ?: 0)
+    result = 31 * result + controller.hashCode()
     result = 31 * result + presenter.hashCode()
     return result
   }
