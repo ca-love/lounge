@@ -9,7 +9,7 @@ class LambdaLoungeController(
   modelBuildingDispatcher: CoroutineDispatcher = Dispatchers.Main,
 ) : LoungeController(lifecycle, modelBuildingDispatcher) {
 
-  var buildModels: LoungeBuildModelScope.() -> Unit = {}
+  var buildModels: suspend LoungeBuildModelScope.() -> Unit = {}
 
-  override fun buildModels() = buildModels(this)
+  override suspend fun buildModels() = buildModels(this)
 }

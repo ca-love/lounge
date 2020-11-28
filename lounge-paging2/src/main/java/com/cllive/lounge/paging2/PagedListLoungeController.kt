@@ -7,17 +7,12 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListUpdateCallback
-import com.cllive.lounge.LoungeBuildModelScope
 import com.cllive.lounge.LoungeController
 import com.cllive.lounge.LoungeModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
 import kotlin.math.min
-
-interface PagedListLoungeBuildModelScope : LoungeBuildModelScope {
-  fun getPagedListModels(): List<LoungeModel>
-}
 
 abstract class PagedListLoungeController<T>(
   lifecycle: Lifecycle,
@@ -43,12 +38,12 @@ abstract class PagedListLoungeController<T>(
 
   abstract fun buildItemModel(position: Int, item: T?): LoungeModel
 
-  override fun getPagedListModels(): List<LoungeModel> {
+  override suspend fun getPagedListModels(): List<LoungeModel> {
     checkIsBuilding("getPagedListModels")
     return modelCache.getModels()
   }
 
-  override fun buildModels() {
+  override suspend fun buildModels() {
     +getPagedListModels()
   }
 

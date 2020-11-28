@@ -5,7 +5,7 @@ import androidx.lifecycle.Lifecycle
 
 fun objectAdapterWithLoungeModels(
   lifecycle: Lifecycle,
-  buildModels: LoungeBuildModelScope.() -> Unit
+  buildModels: suspend LoungeBuildModelScope.() -> Unit
 ): ObjectAdapter {
   val controller = LambdaLoungeController(lifecycle)
   controller.buildModels = buildModels

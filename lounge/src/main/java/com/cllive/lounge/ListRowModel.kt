@@ -22,7 +22,7 @@ fun LoungeBuildModelScope.listRowOf(
   headerData: HeaderData? = null,
   key: Any? = null,
   presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
-  buildModels: LoungeBuildModelScope.() -> Unit,
+  buildModels: suspend LoungeBuildModelScope.() -> Unit,
 ) {
   val controllerKey = requireNotNull(key ?: headerData) {
     "Require key or headerData to be non-null"
@@ -43,7 +43,7 @@ fun LoungeBuildModelScope.listRowOf(
   name: String? = null,
   key: Any? = null,
   presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
-  buildModels: LoungeBuildModelScope.() -> Unit,
+  buildModels: suspend LoungeBuildModelScope.() -> Unit,
 ) {
   listRowOf(
     headerData = name?.let { HeaderData(it) },

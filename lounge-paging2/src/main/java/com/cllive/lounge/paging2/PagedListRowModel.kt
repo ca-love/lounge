@@ -30,7 +30,7 @@ fun <T> LoungeBuildModelScope.pagedListRowOf(
   key: Any? = null,
   presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
   buildItemModel: (T?) -> LoungeModel,
-  buildModels: PagedListLoungeBuildModelScope.(List<LoungeModel>) -> Unit,
+  buildModels: suspend PagedListLoungeBuildModelScope.(List<LoungeModel>) -> Unit,
 ) {
   val controllerKey = requireNotNull(key ?: headerData) {
     "Require key or headerData to be non-null."
@@ -57,7 +57,7 @@ fun <T> LoungeBuildModelScope.pagedListRowOf(
   key: Any? = null,
   presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
   buildItemModel: (T?) -> LoungeModel,
-  buildModels: PagedListLoungeBuildModelScope.(List<LoungeModel>) -> Unit,
+  buildModels: suspend PagedListLoungeBuildModelScope.(List<LoungeModel>) -> Unit,
 ) {
   pagedListRowOf(
     headerData = name?.let { HeaderData(it) },

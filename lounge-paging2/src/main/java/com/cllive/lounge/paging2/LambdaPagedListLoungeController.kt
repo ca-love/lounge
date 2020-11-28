@@ -15,10 +15,10 @@ class LambdaPagedListLoungeController<T>(
 
   lateinit var buildItemModel: (Int, T?) -> LoungeModel
 
-  var buildModels: PagedListLoungeBuildModelScope.(List<LoungeModel>) -> Unit = { +it }
+  var buildModels: suspend PagedListLoungeBuildModelScope.(List<LoungeModel>) -> Unit = { +it }
 
   override fun buildItemModel(position: Int, item: T?): LoungeModel =
     buildItemModel.invoke(position, item)
 
-  override fun buildModels() = buildModels(getPagedListModels())
+  override suspend fun buildModels() = buildModels(getPagedListModels())
 }

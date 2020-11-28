@@ -12,24 +12,13 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.yield
 import kotlin.reflect.KClass
 import kotlin.reflect.cast
-
-interface LoungeBuildModelScope {
-
-  val lifecycle: Lifecycle
-
-  val modelBuildingDispatcher: CoroutineDispatcher
-
-  operator fun LoungeModel.unaryPlus()
-
-  operator fun List<LoungeModel>.unaryPlus()
-}
 
 abstract class LoungeController(
   final override val lifecycle: Lifecycle,
@@ -93,7 +82,7 @@ abstract class LoungeController(
   /**
    * Implementation should call [LoungeModel.unaryPlus] with the models that should be shown.
    */
-  protected abstract fun buildModels()
+  protected abstract suspend fun buildModels()
 
   /**
    * Call this to request a model update. The controller will schedule a call to [buildModels]
@@ -164,11 +153,10 @@ abstract class LoungeController(
         models
       }
       .flowOn(modelBuildingDispatcher)
-      .onEach {
+      .collectLatest {
+        yield()
         loungeAdapter.setItems(it, LoungeModelDiffCallback)
       }
-      .flowOn(Dispatchers.Main)
-      .collect()
   }
 
   protected fun checkIsBuilding(name: String) {
