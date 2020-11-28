@@ -21,6 +21,7 @@ suspend fun <T> LoungeBuildModelScope.pagedListRow(
   }
   val keyLong: Long = key?.toLoungeModelKey() ?: headerData.toLoungeModelKey()
   controller.pagedList = pagedList
+  controller.requestForceModelBuild()
   +ListRowModel(keyLong, headerData, controller, presenter)
 }
 
