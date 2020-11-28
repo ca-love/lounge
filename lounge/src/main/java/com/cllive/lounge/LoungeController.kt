@@ -51,6 +51,7 @@ abstract class LoungeController(
    * Conflate model build requests.
    */
   private val modelBuildRequest = MutableSharedFlow<Unit>(
+    replay = 1,
     onBufferOverflow = BufferOverflow.DROP_OLDEST,
   )
   private var isBuildingModels = false
