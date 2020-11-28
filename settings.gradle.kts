@@ -24,5 +24,5 @@ include(
   "lounge-databinding",
   "lounge-material",
   "lounge-navigation",
-  "lounge-paging2"
+  "lounge-paging"
 )

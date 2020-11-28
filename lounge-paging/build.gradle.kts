@@ -14,6 +14,7 @@ dependencies {
   implementation(AndroidX.appCompat)
   implementation(AndroidX.core.ktx)
   implementation(AndroidX.paging.runtimeKtx)
+  implementation(AndroidX.lifecycle.runtimeKtx)
 
   api(AndroidX.leanback)
 }

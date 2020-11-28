@@ -4,31 +4,31 @@ import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
 
-fun LoungeBuildModelScope.listRow(
+suspend fun LoungeBuildModelScope.listRow(
   headerData: HeaderData? = null,
   key: Any? = null,
   controller: LoungeController,
-  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
 ) {
   requireNotNull(key ?: headerData) {
     "Require key or headerData to be non-null."
   }
   val keyLong: Long = key?.toLoungeModelKey() ?: headerData.toLoungeModelKey()
-  +ListRowModel(keyLong, headerData, controller, presenter)
   controller.requestModelBuild()
+  +ListRowModel(keyLong, headerData, controller, presenter)
 }
 
-fun LoungeBuildModelScope.listRowOf(
+suspend fun LoungeBuildModelScope.listRowOf(
   headerData: HeaderData? = null,
   key: Any? = null,
-  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
-  buildModels: LoungeBuildModelScope.() -> Unit,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
+  buildModels: suspend LoungeBuildModelScope.() -> Unit,
 ) {
   val controllerKey = requireNotNull(key ?: headerData) {
     "Require key or headerData to be non-null"
   }
   val controller = memorizedController(controllerKey) {
-    LambdaLoungeController(it)
+    LambdaLoungeController(lifecycle, modelBuildingDispatcher)
   }
   controller.buildModels = buildModels
   listRow(
@@ -39,11 +39,11 @@ fun LoungeBuildModelScope.listRowOf(
   )
 }
 
-fun LoungeBuildModelScope.listRowOf(
+suspend fun LoungeBuildModelScope.listRowOf(
   name: String? = null,
   key: Any? = null,
-  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
-  buildModels: LoungeBuildModelScope.() -> Unit,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
+  buildModels: suspend LoungeBuildModelScope.() -> Unit,
 ) {
   listRowOf(
     headerData = name?.let { HeaderData(it) },
@@ -53,11 +53,11 @@ fun LoungeBuildModelScope.listRowOf(
   )
 }
 
-fun <T : Any> LoungeBuildModelScope.listRowFor(
+suspend fun <T : Any> LoungeBuildModelScope.listRowFor(
   headerData: HeaderData? = null,
   list: List<T>,
   key: Any? = null,
-  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
   buildItemModel: (T) -> LoungeModel,
 ) {
   listRowOf(
@@ -69,11 +69,11 @@ fun <T : Any> LoungeBuildModelScope.listRowFor(
   }
 }
 
-fun <T : Any> LoungeBuildModelScope.listRowFor(
+suspend fun <T : Any> LoungeBuildModelScope.listRowFor(
   name: String? = null,
   list: List<T>,
   key: Any? = null,
-  presenter: ListRowPresenter = ListRowModel.defaultListRowPresenter,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
   buildItemModel: (T) -> LoungeModel,
 ) {
   listRowFor(
@@ -88,10 +88,10 @@ fun <T : Any> LoungeBuildModelScope.listRowFor(
 open class ListRowModel(
   final override val key: Long = InvalidKey,
   private val headerData: HeaderData? = null,
-  controller: LoungeController,
-  override val presenter: ListRowPresenter = defaultListRowPresenter,
+  private val controller: LoungeController,
+  override val presenter: ListRowPresenter = DefaultListRowPresenter,
 ) : ListRow(controller.adapter),
-  LoungeModel {
+  DeferredLoungeModel {
 
   init {
     if (key != InvalidKey) {
@@ -105,14 +105,15 @@ open class ListRowModel(
     }
   }
 
+  override suspend fun await() = controller.initialBuildJob.join()
+
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
-    if (javaClass != other?.javaClass) return false
-
-    other as ListRowModel
+    if (other !is ListRowModel) return false
 
     if (key != other.key) return false
     if (headerData != other.headerData) return false
+    if (controller != other.controller) return false
     if (presenter != other.presenter) return false
 
     return true
@@ -121,11 +122,12 @@ open class ListRowModel(
   override fun hashCode(): Int {
     var result = key.hashCode()
     result = 31 * result + (headerData?.hashCode() ?: 0)
+    result = 31 * result + controller.hashCode()
     result = 31 * result + presenter.hashCode()
     return result
   }
 
   companion object {
-    val defaultListRowPresenter = ListRowPresenter()
+    var DefaultListRowPresenter = ListRowPresenter()
   }
 }
