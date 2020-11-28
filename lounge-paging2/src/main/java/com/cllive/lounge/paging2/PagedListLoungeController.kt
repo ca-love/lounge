@@ -2,6 +2,7 @@ package com.cllive.lounge.paging2
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.coroutineScope
 import androidx.paging.AsyncPagedListDiffer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.AsyncDifferConfig
@@ -10,8 +11,12 @@ import androidx.recyclerview.widget.ListUpdateCallback
 import com.cllive.lounge.LoungeController
 import com.cllive.lounge.LoungeModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlin.math.min
 
 abstract class PagedListLoungeController<T>(
@@ -25,6 +30,8 @@ abstract class PagedListLoungeController<T>(
   private val modelCache = PagedListModelCache(
     modelBuilder = { position, item -> buildItemModel(position, item) },
     rebuildCallback = { requestModelBuild() },
+    modelBuildingCoroutineScope = lifecycle.coroutineScope,
+    modelBuildingDispatcher = modelBuildingDispatcher,
     diffCallback = DefaultPagedListItemDiffCallback as DiffUtil.ItemCallback<T>,
     workerDispatcher = workerDispatcher
   )
@@ -61,40 +68,46 @@ private class PagedListModelCache<T>(
   private val modelBuilder: (Int, T?) -> LoungeModel,
   rebuildCallback: () -> Unit,
   diffCallback: DiffUtil.ItemCallback<T>,
-  workerDispatcher: CoroutineDispatcher = Dispatchers.IO,
+  private val modelBuildingCoroutineScope: CoroutineScope,
+  private val modelBuildingDispatcher: CoroutineDispatcher,
+  workerDispatcher: CoroutineDispatcher,
 ) {
 
   private val modelCache = mutableListOf<LoungeModel?>()
+  private val modelCacheMutex = Mutex()
 
-  private val listUpdateCallback: ListUpdateCallback =
-    object : ListUpdateCallback {
-      override fun onInserted(position: Int, count: Int) {
+  private val listUpdateCallback: ListUpdateCallback = object : ListUpdateCallback {
+    override fun onInserted(position: Int, count: Int) =
+      withModelCacheModification {
         (0 until count).forEach { _ ->
           modelCache.add(position, null)
         }
         rebuildCallback()
       }
 
-      override fun onRemoved(position: Int, count: Int) {
+    override fun onRemoved(position: Int, count: Int) =
+      withModelCacheModification {
         (0 until count).forEach { _ ->
           modelCache.removeAt(position)
         }
         rebuildCallback()
       }
 
-      override fun onMoved(fromPosition: Int, toPosition: Int) {
+    override fun onMoved(fromPosition: Int, toPosition: Int) =
+      withModelCacheModification {
         val model = modelCache.removeAt(fromPosition)
         modelCache.add(toPosition, model)
         rebuildCallback()
       }
 
-      override fun onChanged(position: Int, count: Int, payload: Any?) {
+    override fun onChanged(position: Int, count: Int, payload: Any?) =
+      withModelCacheModification {
         (position until (position + count)).forEach {
           modelCache[it] = null
         }
         rebuildCallback()
       }
-    }
+  }
 
   private val diffConfig = AsyncDifferConfig.Builder(diffCallback)
     .setBackgroundThreadExecutor(workerDispatcher.asExecutor())
@@ -114,7 +127,7 @@ private class PagedListModelCache<T>(
     differ.submitList(pagedList)
   }
 
-  fun getModels(): List<LoungeModel> {
+  suspend fun getModels(): List<LoungeModel> = modelCacheMutex.withLock(modelCache) {
     val currentList = differ.currentList.orEmpty()
     (0..currentList.lastIndex).forEach {
       if (modelCache[it] == null) {
@@ -125,8 +138,14 @@ private class PagedListModelCache<T>(
     return modelCache as List<LoungeModel>
   }
 
-  fun clearModels() {
+  fun clearModels() = withModelCacheModification {
     modelCache.fill(null)
+  }
+
+  private inline fun withModelCacheModification(crossinline block: () -> Unit) {
+    modelBuildingCoroutineScope.launch(modelBuildingDispatcher) {
+      modelCacheMutex.withLock(modelCache, block)
+    }
   }
 }
 
