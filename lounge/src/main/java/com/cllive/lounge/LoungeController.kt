@@ -27,19 +27,18 @@ abstract class LoungeController(
   val adapter: ObjectAdapter
     get() = loungeAdapter
 
-  private val loungeAdapterListener = LoungeAdapter.Listener { position ->
-    notifyGetItemAt(position)
-  }
-
-  private val lifecycleObserver = LifecycleEventObserver { _, event ->
-    when (event) {
-      Lifecycle.Event.ON_START -> loungeAdapter.listener = loungeAdapterListener
-      Lifecycle.Event.ON_STOP -> loungeAdapter.listener = null
-      else -> Unit
-    }
-  }
-
   init {
+    val loungeAdapterListener = LoungeAdapter.Listener { position ->
+      notifyGetItemAt(position)
+    }
+
+    val lifecycleObserver = LifecycleEventObserver { _, event ->
+      when (event) {
+        Lifecycle.Event.ON_START -> loungeAdapter.listener = loungeAdapterListener
+        Lifecycle.Event.ON_STOP -> loungeAdapter.listener = null
+        else -> Unit
+      }
+    }
     lifecycle.coroutineScope.launchWhenCreated {
       lifecycle.addObserver(lifecycleObserver)
     }
@@ -62,7 +61,7 @@ abstract class LoungeController(
   /**
    * Only build models when lifecycle state is at least STARTED
    */
-  private val modelBuildJob = lifecycle.coroutineScope.launchWhenStarted {
+  private val modelBuildingJob = lifecycle.coroutineScope.launchWhenStarted {
     collectModelBuildRequest()
   }
 
@@ -98,7 +97,7 @@ abstract class LoungeController(
   }
 
   override fun close() {
-    modelBuildJob.cancel()
+    modelBuildingJob.cancel()
   }
 
   /**
@@ -130,18 +129,22 @@ abstract class LoungeController(
       .mapLatest {
         isBuildingModels = true
 
-        buildModels()
-        val models = this.models.toList()
-        this.models.clear()
-        tags.entries.removeAll { (k, v) ->
-          val remove = k !in possessedTagKeys
-          if (remove && v is AutoCloseable) {
-            v.close()
+        val models: List<LoungeModel>
+        try {
+          buildModels()
+          models = this.models.toList()
+          this.models.clear()
+          tags.entries.removeAll { (k, v) ->
+            val remove = k !in possessedTagKeys
+            if (remove && v is AutoCloseable) {
+              v.close()
+            }
+            remove
           }
-          remove
+          possessedTagKeys.clear()
+        } finally {
+          isBuildingModels = false
         }
-        possessedTagKeys.clear()
-        isBuildingModels = false
         models
       }
       .flowOn(modelBuildingDispatcher)
