@@ -7,6 +7,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.coroutineScope
 import com.cllive.lounge.internal.LoungeAdapter
+import com.cllive.lounge.internal.logMeasureTimeMillis
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlin.reflect.KClass
 import kotlin.reflect.cast
 
+@Suppress("TooManyFunctions")
 abstract class LoungeController(
   final override val lifecycle: Lifecycle,
   final override val modelBuildingDispatcher: CoroutineDispatcher = Dispatchers.Main,
@@ -44,6 +46,10 @@ abstract class LoungeController(
       lifecycle.addObserver(lifecycleObserver)
     }
   }
+
+  var debugLogEnabled: Boolean = GlobalDebugLogEnabled
+
+  var debugName: String? = null
 
   private val _initialBuildJob = Job(lifecycle.coroutineScope.coroutineContext[Job])
   val initialBuildJob: Job
@@ -135,16 +141,18 @@ abstract class LoungeController(
       .mapLatest {
         isBuildingModels = true
 
-        val builtModels: List<LoungeModel>
+        val builtModels = mutableListOf<LoungeModel>()
         try {
-          buildModels()
-          builtModels = models.toList()
-          tags.entries.removeAll { (k, v) ->
-            val remove = k !in possessedTagKeys
-            if (remove && v is AutoCloseable) {
-              v.close()
+          logMeasureTime("build models") {
+            buildModels()
+            models.toCollection(builtModels)
+            tags.entries.removeAll { (k, v) ->
+              val remove = k !in possessedTagKeys
+              if (remove && v is AutoCloseable) {
+                v.close()
+              }
+              remove
             }
-            remove
           }
         } finally {
           // Clean resources in case of cancel
@@ -156,7 +164,9 @@ abstract class LoungeController(
       }
       .flowOn(modelBuildingDispatcher)
       .collect {
-        loungeAdapter.setItems(it, LoungeModelDiffCallback)
+        logMeasureTime("compute diff and dispatch changes") {
+          loungeAdapter.setItems(it, LoungeModelDiffCallback)
+        }
         _initialBuildJob.complete()
       }
   }
@@ -171,6 +181,24 @@ abstract class LoungeController(
     check(model.key != InvalidKey) {
       "LoungeModel must has a valid key."
     }
+  }
+
+  private fun validDebugName(): String = debugName ?: this.toString()
+
+  private inline fun logMeasureTime(
+    name: String,
+    block: () -> Unit,
+  ) = logMeasureTimeMillis(
+    enabled = debugLogEnabled,
+    tag = LogTag,
+    blockName = { "${validDebugName()} $name" },
+    block = block,
+  )
+
+  companion object {
+    private const val LogTag = "LoungeController"
+
+    var GlobalDebugLogEnabled: Boolean = false
   }
 }
 
