@@ -198,8 +198,7 @@ abstract class LoungeController(
   companion object {
     private const val LogTag = "LoungeController"
 
-    // TODO: Change to false
-    var GlobalDebugLogEnabled: Boolean = true
+    var GlobalDebugLogEnabled: Boolean = false
   }
 }
 
