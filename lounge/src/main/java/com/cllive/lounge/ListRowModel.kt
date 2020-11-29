@@ -91,7 +91,7 @@ suspend fun <T : Any> LoungeBuildModelScope.listRowFor(
 open class ListRowModel(
   final override val key: Long = InvalidKey,
   val headerData: HeaderData? = null,
-  private val controller: LoungeController,
+  val controller: LoungeController,
   override val presenter: ListRowPresenter = DefaultListRowPresenter,
 ) : ListRow(controller.adapter),
   DeferredLoungeModel {
