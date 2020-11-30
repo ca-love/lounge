@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
   `detekt-config`
   id("org.jetbrains.dokka")
@@ -9,6 +11,23 @@ allprojects {
     google()
     mavenCentral()
     jcenter()
+  }
+}
+
+subprojects {
+  val signingPropsFile = file("$rootDir/release/signing.properties")
+  if (signingPropsFile.exists()) {
+    Properties().apply {
+      load(signingPropsFile.inputStream())
+    }.forEach { (key, value) ->
+      key as String
+      if (key == "signing.secretKeyRingFile") {
+        // If this is the key ring, treat it as a relative path
+        project.ext.set(key, rootProject.file(value).absolutePath)
+      } else {
+        project.ext.set(key, value)
+      }
+    }
   }
 }
 
