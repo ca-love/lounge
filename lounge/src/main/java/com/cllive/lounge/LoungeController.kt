@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.mapLatest
+import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.reflect.KClass
 import kotlin.reflect.cast
 
@@ -55,6 +56,8 @@ abstract class LoungeController(
   val initialBuildJob: Job
     get() = _initialBuildJob
 
+  private val interceptors = CopyOnWriteArrayList<LoungeControllerInterceptor>()
+
   private val models = mutableListOf<LoungeModel>()
 
   /**
@@ -79,7 +82,10 @@ abstract class LoungeController(
   final override suspend operator fun LoungeModel.unaryPlus() {
     checkIsBuilding("unaryPlus")
     verifyModel(this)
-    if (this is DeferredLoungeModel) await()
+    val addPosition = models.size
+    interceptors.forEach {
+      it.beforeAddModel(this@LoungeController, addPosition, this)
+    }
     models += this
   }
 
@@ -93,6 +99,13 @@ abstract class LoungeController(
   protected abstract suspend fun buildModels()
 
   /**
+   * Calling this method when [ObjectAdapter.get] was called.
+   */
+  protected open fun notifyGetItemAt(position: Int) {
+    /* Default no op. */
+  }
+
+  /**
    * Call this to request a model update. The controller will schedule a call to [buildModels]
    * so that models can be rebuilt for the current data.
    * All calls of this methods during model building will be conflated.
@@ -101,11 +114,12 @@ abstract class LoungeController(
     modelBuildRequest.tryEmit(Unit)
   }
 
-  /**
-   * Calling this method when [ObjectAdapter.get] was called.
-   */
-  protected open fun notifyGetItemAt(position: Int) {
-    /* Default no op. */
+  fun addInterceptor(interceptor: LoungeControllerInterceptor) {
+    interceptors += interceptor
+  }
+
+  fun removeInterceptor(interceptor: LoungeControllerInterceptor) {
+    interceptors -= interceptor
   }
 
   override fun close() {
@@ -144,7 +158,9 @@ abstract class LoungeController(
         val builtModels = mutableListOf<LoungeModel>()
         try {
           logMeasureTime("build models") {
+            interceptors.forEach { it.beforeBuildModels(this) }
             buildModels()
+            interceptors.forEach { it.afterBuildModels(this, models) }
             models.toCollection(builtModels)
             tags.entries.removeAll { (k, v) ->
               val remove = k !in possessedTagKeys
