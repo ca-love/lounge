@@ -3,9 +3,7 @@
 
   <!-- See Material Components Guide: https://material.io/develop/android/docs/getting-started -->
   <style name="Theme.MaterialComponents.Leanback.Bridge" parent="Theme.AppCompat.Leanback">
-    <item name="viewInflaterClass">
-      com.google.android.material.theme.MaterialComponentsViewInflater
-    </item>
+    <item name="viewInflaterClass">com.google.android.material.theme.MaterialComponentsViewInflater</item>
 
     <!-- Colors -->
     <item name="colorPrimaryVariant">@color/design_dark_default_color_primary_variant</item>
@@ -22,6 +20,19 @@
     <item name="scrimBackground">@color/mtrl_scrim_color</item>
     <item name="popupMenuBackground">@drawable/mtrl_popupmenu_background_dark</item>
 
+    <!-- MaterialComponents Widget styles -->
+    <item name="badgeStyle">@style/Widget.MaterialComponents.Badge</item>
+    <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar</item>
+    <item name="chipStyle">@style/Widget.MaterialComponents.Chip.Action</item>
+    <item name="chipGroupStyle">@style/Widget.MaterialComponents.ChipGroup</item>
+    <item name="chipStandaloneStyle">@style/Widget.MaterialComponents.Chip.Entry</item>
+    <item name="extendedFloatingActionButtonStyle">@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon</item>
+    <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
+    <item name="materialButtonOutlinedStyle">@style/Widget.MaterialComponents.Button.OutlinedButton</item>
+    <item name="materialButtonToggleGroupStyle">@style/Widget.MaterialComponents.MaterialButtonToggleGroup</item>
+    <item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
+    <item name="sliderStyle">@style/Widget.MaterialComponents.Slider</item>
+
     <!-- Type styles -->
     <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialComponents.Headline1</item>
     <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialComponents.Headline2</item>
@@ -37,6 +48,20 @@
     <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
     <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
 
+    <!-- Shape styles -->
+    <item name="shapeAppearanceSmallComponent">
+      @style/ShapeAppearance.MaterialComponents.SmallComponent
+    </item>
+    <item name="shapeAppearanceMediumComponent">
+      @style/ShapeAppearance.MaterialComponents.MediumComponent
+    </item>
+    <item name="shapeAppearanceLargeComponent">
+      @style/ShapeAppearance.MaterialComponents.LargeComponent
+    </item>
+
+    <!-- Elevation Overlays -->
+    <item name="elevationOverlayEnabled">true</item>
+    <item name="elevationOverlayColor">?attr/colorOnSurface</item>
     <!-- Maybe we need to add other attrs: https://github.com/material-components/material-components-android/blob/master/lib/java/com/google/android/material/theme/res/values/themes_base_bridge.xml -->
   </style>
 </resources>
