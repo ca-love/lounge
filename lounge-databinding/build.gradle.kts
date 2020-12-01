@@ -13,12 +13,11 @@ android {
 }
 
 dependencies {
-  implementation(project(":lounge"))
+  api(project(":lounge"))
+  api(AndroidX.leanback)
 
   implementation(Kotlin.stdlib.jdk8)
 
   implementation(AndroidX.appCompat)
   implementation(AndroidX.core.ktx)
-
-  api(AndroidX.leanback)
 }

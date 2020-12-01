@@ -1,11 +1,14 @@
 <resources>
 
-  <!-- Base application theme. -->
-  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-    <!-- Customize your theme here. -->
+  <style name="AppTheme" parent="Theme.MaterialComponents.Leanback.Bridge">
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+    <item name="colorSurface">#272525</item>
+  </style>
+
+  <style name="AppTheme.Home">
+    <item name="browseRowsMarginTop">275dp</item>
   </style>
 
 </resources>

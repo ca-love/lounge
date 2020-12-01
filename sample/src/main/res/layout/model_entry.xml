@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  >
+  <data>
+    <variable
+      name="model"
+      type="com.cllive.lounge.sample.model.EntryModel"
+      />
+  </data>
+  <LinearLayout
+    android:layout_width="200dp"
+    android:layout_height="150dp"
+    android:background="?attr/colorSurface"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:onClick="@{() -> model.onClick.invoke()}"
+    android:orientation="vertical"
+    >
+
+    <androidx.appcompat.widget.AppCompatImageView
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_gravity="center_horizontal"
+      android:layout_weight="1"
+      android:layout_marginTop="24dp"
+      android:tint="?attr/colorOnSurface"
+      app:srcCompat="@drawable/ic_tv"
+      />
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="16dp"
+      android:layout_marginBottom="24dp"
+      android:gravity="center"
+      android:text="@{model.name}"
+      android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+      tools:text="Name"
+      />
+
+  </LinearLayout>
+</layout>
