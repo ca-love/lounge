@@ -36,13 +36,6 @@ abstract class PagedListLoungeController<T>(
     workerDispatcher = workerDispatcher
   )
 
-  var pagedList: PagedList<T>? = null
-    set(value) {
-      if (field == value) return
-      field = value
-      modelCache.submitList(value)
-    }
-
   abstract fun buildItemModel(position: Int, item: T?): LoungeModel
 
   override suspend fun getPagedListModels(): List<LoungeModel> {
@@ -52,6 +45,13 @@ abstract class PagedListLoungeController<T>(
 
   override suspend fun buildModels() {
     +getPagedListModels()
+  }
+
+  fun submitList(pagedList: PagedList<T>?, force: Boolean = false) {
+    if (force) {
+      modelCache.clearModels()
+    }
+    modelCache.submitList(pagedList)
   }
 
   fun requestForceModelBuild() {

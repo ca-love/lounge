@@ -11,7 +11,8 @@ import com.cllive.lounge.GuidedActionClickRegistryOwner
 import com.cllive.lounge.createActions
 import com.cllive.lounge.sample.R
 
-class GuidedStepExampleFragment : GuidedStepSupportFragment(),
+class GuidedStepExampleFragment :
+  GuidedStepSupportFragment(),
   GuidedActionClickRegistryOwner {
 
   override val guidedActionClickRegistry = GuidedActionClickRegistry()

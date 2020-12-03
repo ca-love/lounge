@@ -46,7 +46,6 @@ class VerticalGridExampleFragment : VerticalGridSupportFragment() {
 
     init {
       debugName = "VerticalGridExample"
-      debugLogEnabled = true
     }
 
     var infoList: List<String> by loungeProp(emptyList())

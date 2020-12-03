@@ -9,12 +9,12 @@ plugins {
 dependencies {
   api(project(":lounge"))
   api(AndroidX.leanback)
+  api(AndroidX.paging.runtimeKtx)
 
   implementation(Kotlin.stdlib.jdk8)
   implementation(KotlinX.coroutines.android)
 
   implementation(AndroidX.appCompat)
   implementation(AndroidX.core.ktx)
-  implementation(AndroidX.paging.runtimeKtx)
   implementation(AndroidX.lifecycle.runtimeKtx)
 }

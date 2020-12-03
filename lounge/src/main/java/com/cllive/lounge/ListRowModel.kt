@@ -88,6 +88,38 @@ suspend fun <T : Any> LoungeBuildModelScope.listRowFor(
   )
 }
 
+suspend fun <T : Any> LoungeBuildModelScope.listRowForIndexed(
+  headerData: HeaderData? = null,
+  list: List<T>,
+  key: Any? = null,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
+  buildItemModel: (Int, T) -> LoungeModel,
+) {
+  listRowOf(
+    headerData = headerData,
+    key = key,
+    presenter = presenter
+  ) {
+    +list.mapIndexed(buildItemModel)
+  }
+}
+
+suspend fun <T : Any> LoungeBuildModelScope.listRowForIndexed(
+  name: String? = null,
+  list: List<T>,
+  key: Any? = null,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
+  buildItemModel: (Int, T) -> LoungeModel,
+) {
+  listRowForIndexed(
+    headerData = name?.let { HeaderData(it) },
+    list = list,
+    key = key,
+    presenter = presenter,
+    buildItemModel = buildItemModel,
+  )
+}
+
 open class ListRowModel(
   final override val key: Long = InvalidKey,
   val headerData: HeaderData? = null,
