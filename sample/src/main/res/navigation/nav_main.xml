@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/nav_main"
+  app:startDestination="@id/fragment_home"
+  >
+
+  <fragment
+    android:id="@+id/fragment_home"
+    android:name="com.cllive.lounge.sample.ui.HomeFragment"
+    >
+    <action
+      android:id="@+id/to_rows"
+      app:destination="@+id/fragment_rows_example"
+      />
+    <action
+      android:id="@+id/to_vertical_grid"
+      app:destination="@+id/fragment_vertical_grid_example"
+      />
+    <action
+      android:id="@+id/to_guided_step"
+      app:destination="@id/fragment_guided_step_sample"
+      />
+  </fragment>
+
+  <fragment
+    android:id="@+id/fragment_rows_example"
+    android:name="com.cllive.lounge.sample.ui.RowsExampleFragment"
+    />
+
+  <fragment
+    android:id="@+id/fragment_vertical_grid_example"
+    android:name="com.cllive.lounge.sample.ui.VerticalGridExampleFragment"
+    />
+
+  <guided-step
+    android:id="@+id/fragment_guided_step_sample"
+    android:name="com.cllive.lounge.sample.ui.GuidedStepExampleFragment"
+    >
+    <action
+      android:id="@+id/to_guided_step_self"
+      app:destination="@id/fragment_guided_step_sample"
+      />
+    <action
+      android:id="@+id/to_home"
+      app:destination="@id/fragment_home"
+      app:launchSingleTop="true"
+      app:popUpTo="@id/fragment_home"
+      />
+  </guided-step>
+
+</navigation>

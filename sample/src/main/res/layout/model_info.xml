@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  >
+  <data>
+    <variable
+      name="model"
+      type="com.cllive.lounge.sample.model.InfoModel"
+      />
+  </data>
+  <LinearLayout
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    android:background="?attr/colorSurface"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    >
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="60dp"
+      app:backgroundColorInt="@{model.colorInt}"
+      />
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal|bottom"
+      android:layout_marginTop="16dp"
+      android:layout_marginBottom="16dp"
+      android:gravity="center"
+      android:text="@{model.title}"
+      android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+      tools:text="Title"
+      />
+
+  </LinearLayout>
+</layout>

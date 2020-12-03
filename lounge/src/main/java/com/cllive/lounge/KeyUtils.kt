@@ -3,10 +3,10 @@ package com.cllive.lounge
 internal const val InvalidKey: Long = 0
 
 fun Any?.toLoungeModelKey(): Long {
-  return if (this is Long) {
-    hashLong64Bit()
-  } else {
-    this?.toString().hashString64Bit()
+  return when (this) {
+    is Long -> hashLong64Bit()
+    is Int -> toLong().hashLong64Bit()
+    else -> this?.toString().hashString64Bit()
   }
 }
 

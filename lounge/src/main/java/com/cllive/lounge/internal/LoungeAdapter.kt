@@ -8,7 +8,7 @@ import com.cllive.lounge.LoungeModel
 internal class LoungeAdapter : ArrayObjectAdapter() {
 
   init {
-    presenterSelector = LoungeModelPresenterSelector
+    presenterSelector = LoungeModelPresenterSelector()
     setHasStableIds(true)
   }
 
@@ -28,10 +28,12 @@ internal class LoungeAdapter : ArrayObjectAdapter() {
   }
 }
 
-private object LoungeModelPresenterSelector : PresenterSelector() {
+private class LoungeModelPresenterSelector : PresenterSelector() {
 
   override fun getPresenter(item: Any?): Presenter {
     require(item is LoungeModel) { "Require LoungeModel but get $item." }
     return item.presenter
   }
+
+  override fun getPresenters(): Array<Presenter> = emptyArray()
 }

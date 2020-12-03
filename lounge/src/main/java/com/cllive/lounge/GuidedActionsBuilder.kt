@@ -16,13 +16,14 @@ class GuidedActionClickRegistry {
     clickMap.putAll(map)
   }
 
-  fun onGuidedActionClick(action: GuidedAction) {
+  fun onGuidedActionClick(action: GuidedAction?) {
+    action ?: return
     clickMap[action.validId]?.invoke()
   }
 }
 
 fun GuidedStepSupportFragment.createActions(
-  body: GuidedActionsBuilder.() -> Unit
+  body: GuidedActionsBuilder.() -> Unit,
 ): List<GuidedAction> {
   val builder = GuidedActionsBuilder(requireContext())
   if (this is GuidedActionClickRegistryOwner) {
@@ -46,12 +47,15 @@ class GuidedActionsBuilder internal constructor(
   }
 
   fun guidedAction(
-    body: GuidedActionBuilder.() -> Unit
+    body: GuidedActionBuilder.() -> Unit,
   ) {
     actions += GuidedActionBuilder(context, actionClickMap).apply(body).build()
   }
 
   internal fun build(): List<GuidedAction> {
+    check(actionClickMap.isEmpty() || actionClickRegistry != null) {
+      "GuidedAction has onClick but GuidedActionClickRegistry is not provided."
+    }
     actionClickRegistry?.putAll(actionClickMap)
     return actions.toList()
   }
@@ -80,4 +84,4 @@ class GuidedActionBuilder internal constructor(
 }
 
 private val GuidedAction.validId: Long
-  get() = id.takeIf { it != GuidedAction.NO_ID } ?: error("Require valid id.")
+  get() = id.takeIf { it != GuidedAction.NO_ID && it != 0L } ?: error("Require valid id.")

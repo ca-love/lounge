@@ -23,8 +23,7 @@ suspend fun <T> LoungeBuildModelScope.pagedListRow(
   if (controller.debugLogEnabled && controller.debugName == null) {
     controller.debugName = "ListRow ${key?.toString() ?: headerData?.name}"
   }
-  controller.pagedList = pagedList
-  controller.requestForceModelBuild()
+  controller.submitList(pagedList, true)
   +ListRowModel(keyLong, headerData, controller, presenter)
 }
 
@@ -33,7 +32,7 @@ suspend fun <T> LoungeBuildModelScope.pagedListRowOf(
   pagedList: PagedList<T>?,
   key: Any? = null,
   presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
-  buildItemModel: (T?) -> LoungeModel,
+  buildItemModel: (Int, T?) -> LoungeModel,
   buildModels: suspend PagedListLoungeBuildModelScope.(List<LoungeModel>) -> Unit,
 ) {
   val controllerKey = requireNotNull(key ?: headerData) {
@@ -42,9 +41,7 @@ suspend fun <T> LoungeBuildModelScope.pagedListRowOf(
   val controller = memorizedController(controllerKey) {
     LambdaPagedListLoungeController<T>(lifecycle, modelBuildingDispatcher)
   }
-  controller.buildItemModel = { _, item ->
-    buildItemModel(item)
-  }
+  controller.buildItemModel = buildItemModel
   controller.buildModels = buildModels
   pagedListRow(
     headerData = headerData,
@@ -60,7 +57,7 @@ suspend fun <T> LoungeBuildModelScope.pagedListRowOf(
   pagedList: PagedList<T>?,
   key: Any? = null,
   presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
-  buildItemModel: (T?) -> LoungeModel,
+  buildItemModel: (Int, T?) -> LoungeModel,
   buildModels: suspend PagedListLoungeBuildModelScope.(List<LoungeModel>) -> Unit,
 ) {
   pagedListRowOf(
@@ -85,7 +82,7 @@ suspend fun <T> LoungeBuildModelScope.pagedListRowFor(
     pagedList = pagedList,
     key = key,
     presenter = presenter,
-    buildItemModel = buildItemModel,
+    buildItemModel = { _, item -> buildItemModel(item) },
     buildModels = { +it }
   )
 }
@@ -98,6 +95,39 @@ suspend fun <T> LoungeBuildModelScope.pagedListRowFor(
   buildItemModel: (T?) -> LoungeModel,
 ) {
   pagedListRowFor(
+    headerData = name?.let { HeaderData(it) },
+    pagedList = pagedList,
+    key = key,
+    presenter = presenter,
+    buildItemModel = buildItemModel,
+  )
+}
+
+suspend fun <T> LoungeBuildModelScope.pagedListRowForIndexed(
+  headerData: HeaderData? = null,
+  pagedList: PagedList<T>?,
+  key: Any? = null,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
+  buildItemModel: (Int, T?) -> LoungeModel,
+) {
+  pagedListRowOf(
+    headerData = headerData,
+    pagedList = pagedList,
+    key = key,
+    presenter = presenter,
+    buildItemModel = buildItemModel,
+    buildModels = { +it }
+  )
+}
+
+suspend fun <T> LoungeBuildModelScope.pagedListRowForIndexed(
+  name: String? = null,
+  pagedList: PagedList<T>?,
+  key: Any? = null,
+  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
+  buildItemModel: (Int, T?) -> LoungeModel,
+) {
+  pagedListRowForIndexed(
     headerData = name?.let { HeaderData(it) },
     pagedList = pagedList,
     key = key,

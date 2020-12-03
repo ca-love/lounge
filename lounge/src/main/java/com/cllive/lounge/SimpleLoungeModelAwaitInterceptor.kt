@@ -1,7 +1,7 @@
 package com.cllive.lounge
 
 class SimpleLoungeModelAwaitInterceptor(
-  private val awaitNumOfModels: Int,
+  private val awaitNumOfModels: Int = AWAIT_NUM_UNLIMITED,
 ) : LoungeControllerInterceptor {
 
   init {
