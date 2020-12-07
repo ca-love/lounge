@@ -9,6 +9,7 @@ import androidx.paging.PagedList
 import com.cllive.lounge.HeaderData
 import com.cllive.lounge.LoungeController
 import com.cllive.lounge.SimpleLoungeModelAwaitInterceptor
+import com.cllive.lounge.addHeadersTransitionOnBackPressedCallback
 import com.cllive.lounge.listRowForIndexed
 import com.cllive.lounge.loungeProp
 import com.cllive.lounge.paging.pagedListRowForIndexed
@@ -29,6 +30,7 @@ class RowsExampleFragment : BrowseSupportFragment() {
 
     title = "Rows Example"
     adapter = controller.adapter
+    addHeadersTransitionOnBackPressedCallback(this)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

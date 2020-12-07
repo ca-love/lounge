@@ -28,7 +28,7 @@ suspend fun LoungeBuildModelScope.listRowOf(
   buildModels: suspend LoungeBuildModelScope.() -> Unit,
 ) {
   val controllerKey = requireNotNull(key ?: headerData) {
-    "Require key or headerData to be non-null"
+    "Require key or headerData to be non-null."
   }
   val controller = memorizedController(controllerKey) {
     LambdaLoungeController(lifecycle, modelBuildingDispatcher)
@@ -140,7 +140,7 @@ open class ListRowModel(
     }
   }
 
-  override suspend fun await() = controller.initialBuildJob.join()
+  override suspend fun await() = controller.awaitInitialBuildComplete()
 
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
