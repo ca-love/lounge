@@ -1,5 +1,11 @@
 # Lounge
 
+<p>
+  <a href="https://bintray.com/cats-oss/maven/lounge/_latestVersion">
+    <img src="https://api.bintray.com/packages/cats-oss/maven/lounge/images/download.svg"/>
+  </a>
+</p>
+
 **_This project is currently in development and the API subject to breaking changes without notice._**
 
 Relax.
