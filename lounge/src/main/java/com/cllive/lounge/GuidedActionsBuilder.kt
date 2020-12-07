@@ -69,7 +69,7 @@ class GuidedActionBuilder internal constructor(
   private var onClick: (() -> Unit)? = null
 
   fun id(id: String) = apply {
-    id(id.hashString64Bit())
+    id(hashString64Bit(id))
   }
 
   fun onClick(f: () -> Unit) = apply {

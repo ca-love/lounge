@@ -4,17 +4,17 @@ import androidx.leanback.app.GuidedStepSupportFragment
 import androidx.leanback.widget.GuidedAction
 
 fun GuidedStepSupportFragment.findActionById(id: String): GuidedAction? {
-  return findActionById(id.hashString64Bit())
+  return findActionById(hashString64Bit(id))
 }
 
 fun GuidedStepSupportFragment.findActionPositionById(id: String): Int {
-  return findActionPositionById(id.hashString64Bit())
+  return findActionPositionById(hashString64Bit(id))
 }
 
 fun GuidedStepSupportFragment.findButtonActionById(id: String): GuidedAction? {
-  return findButtonActionById(id.hashString64Bit())
+  return findButtonActionById(hashString64Bit(id))
 }
 
 fun GuidedStepSupportFragment.findButtonActionPositionById(id: String): Int {
-  return findButtonActionPositionById(id.hashString64Bit())
+  return findButtonActionPositionById(hashString64Bit(id))
 }

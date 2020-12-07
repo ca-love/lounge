@@ -4,9 +4,10 @@ internal const val InvalidKey: Long = 0
 
 fun Any?.toLoungeModelKey(): Long {
   return when (this) {
-    is Long -> hashLong64Bit()
-    is Int -> toLong().hashLong64Bit()
-    else -> this?.toString().hashString64Bit()
+    null -> InvalidKey
+    is Long -> hashLong64Bit(this)
+    is Int -> hashLong64Bit(toLong())
+    else -> hashString64Bit(toString())
   }
 }
 
@@ -17,17 +18,14 @@ fun Any?.toLoungeModelKey(): Long {
  * Performance comparisons found at http://stackoverflow.com/a/1660613
  * Hash implementation from http://www.isthe.com/chongo/tech/comp/fnv/index.html#FNV-1a
  *
- * Forked from https://github.com/airbnb/epoxy/blob/3905f50321b98ad296b4d058b765ebf1fb5f4dea/epoxy-adapter/src/main/java/com/airbnb/epoxy/IdUtils.java#L36
+ * Forked from [airbnb/epoxy](https://github.com/airbnb/epoxy/blob/3905f50321b98ad296b4d058b765ebf1fb5f4dea/epoxy-adapter/src/main/java/com/airbnb/epoxy/IdUtils.java#L36).
  */
 @Suppress("MagicNumber")
-internal fun CharSequence?.hashString64Bit(): Long {
-  if (this == null) {
-    return InvalidKey
-  }
+fun hashString64Bit(v: CharSequence): Long {
   var result = -0x340d631b7bdddcdbL
-  val len = length
+  val len = v.length
   for (i in 0 until len) {
-    result = result xor this[i].toLong()
+    result = result xor v[i].toLong()
     result *= 0x100000001b3L
   }
   return result
@@ -39,11 +37,11 @@ internal fun CharSequence?.hashString64Bit(): Long {
  * From http://stackoverflow.com/a/11554034
  * http://www.javamex.com/tutorials/random_numbers/xorshift.shtml
  *
- * Forked from https://github.com/airbnb/epoxy/blob/3905f50321b98ad296b4d058b765ebf1fb5f4dea/epoxy-adapter/src/main/java/com/airbnb/epoxy/IdUtils.java#L20
+ * Forked from [airbnb/epoxy](https://github.com/airbnb/epoxy/blob/3905f50321b98ad296b4d058b765ebf1fb5f4dea/epoxy-adapter/src/main/java/com/airbnb/epoxy/IdUtils.java#L20)
  */
 @Suppress("MagicNumber")
-private fun Long.hashLong64Bit(): Long {
-  var value = this
+fun hashLong64Bit(v: Long): Long {
+  var value = v
   value = value xor (value shl 21)
   value = value xor (value ushr 35)
   value = value xor (value shl 4)
