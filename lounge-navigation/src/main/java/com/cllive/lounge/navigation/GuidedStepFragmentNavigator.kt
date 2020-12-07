@@ -150,6 +150,8 @@ class GuidedStepFragmentNavigator(
       }
     }
 
+    // FIXME: UI_STYLE_ENTRANCE enter transition does not run when setReorderingAllowed(true)
+    fragmentTransaction.setReorderingAllowed(destUiStyle == UI_STYLE_REPLACE)
     fragmentTransaction.replace(containerId, destGuide, GUIDED_STEP_FRAGMENT_TAG)
     fragmentTransaction.setPrimaryNavigationFragment(destGuide)
 
