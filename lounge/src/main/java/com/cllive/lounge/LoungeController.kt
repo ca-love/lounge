@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.job
 import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.reflect.KClass
 import kotlin.reflect.cast
@@ -52,9 +53,7 @@ abstract class LoungeController(
 
   var debugName: String? = null
 
-  private val _initialBuildJob = Job(lifecycle.coroutineScope.coroutineContext[Job])
-  val initialBuildJob: Job
-    get() = _initialBuildJob
+  private val initialBuildJob = Job(lifecycle.coroutineScope.coroutineContext.job)
 
   private val interceptors = CopyOnWriteArrayList<LoungeControllerInterceptor>()
 
@@ -92,6 +91,8 @@ abstract class LoungeController(
   final override suspend operator fun List<LoungeModel>.unaryPlus() {
     forEach { +it }
   }
+
+  suspend fun awaitInitialBuildComplete() = initialBuildJob.join()
 
   /**
    * Implementation should call [LoungeModel.unaryPlus] with the models that should be shown.
@@ -183,7 +184,7 @@ abstract class LoungeController(
         logMeasureTime("compute diff and dispatch changes") {
           loungeAdapter.setItems(it, LoungeModelDiffCallback)
         }
-        _initialBuildJob.complete()
+        initialBuildJob.complete()
       }
   }
 
