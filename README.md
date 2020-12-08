@@ -29,18 +29,17 @@ Add dependencies to module `build.gradle`:
 
 ```gradle
 dependencies {
-  private const val loungeVersion = "$latestVersion"
   // Leanckback helper and wrapper for ObjectAdapter, Presenter, GuidedAction and et al.
-  implementation("com.cllive.lounge:lounge:$loungeVersion")
+  implementation("com.cllive.lounge:lounge:$latestVersion")
 
   // Paging Support:
-  implementation("com.cllive.lounge:lounge-paging:$loungeVersion")
+  implementation("com.cllive.lounge:lounge-paging:$latestVersion")
   // DataBinding Support:
-  implementation("com.cllive.lounge:lounge-databinding:$loungeVersion")
+  implementation("com.cllive.lounge:lounge-databinding:$latestVersion")
   // Navigation Component Support:
-  implementation("com.cllive.lounge:lounge-navigation:$loungeVersion")
+  implementation("com.cllive.lounge:lounge-navigation:$latestVersion")
   // Material Design Support:
-  implementation("com.cllive.lounge:lounge-material:$loungeVersion")
+  implementation("com.cllive.lounge:lounge-material:$latestVersion")
 }
 ```
 
