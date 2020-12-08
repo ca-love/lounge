@@ -2,6 +2,12 @@ package com.cllive.lounge
 
 internal const val InvalidKey: Long = 0
 
+/**
+ * Hash a object into 64 bits lounge model key.
+ *
+ * @see hashLong64Bit
+ * @see hashString64Bit
+ */
 fun Any?.toLoungeModelKey(): Long {
   return when (this) {
     null -> InvalidKey

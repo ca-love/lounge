@@ -3,6 +3,9 @@ package com.cllive.lounge
 import android.view.ViewGroup
 import androidx.leanback.widget.Presenter
 
+/**
+ * A wrapper around [Presenter] which provides generic typed APIs.
+ */
 @Suppress("UNCHECKED_CAST")
 abstract class TypedPresenter<T, VH : Presenter.ViewHolder> : Presenter() {
 
@@ -47,7 +50,7 @@ abstract class TypedPresenter<T, VH : Presenter.ViewHolder> : Presenter() {
   final override fun onBindViewHolder(
     viewHolder: ViewHolder,
     item: Any?,
-    payloads: List<Any>
+    payloads: List<Any>,
   ) {
     onBind(viewHolder as VH, item as T, payloads)
   }
