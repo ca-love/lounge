@@ -5,7 +5,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
 /**
- * A small wrapper around [LoungeController] that lets you override buildModels by a lambda.
+ * A small wrapper around [LoungeController] that lets you implement [buildModels] by a lambda.
  */
 class LambdaLoungeController(
   lifecycle: Lifecycle,

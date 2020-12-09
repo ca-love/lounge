@@ -9,12 +9,12 @@ import kotlinx.coroutines.CoroutineDispatcher
 interface LoungeBuildModelScope {
 
   /**
-   * The lifecycle of this scope.
+   * The lifecycle of this scope's host.
    */
   val lifecycle: Lifecycle
 
   /**
-   * The dispatcher used to build models.
+   * The dispatcher for building models.
    */
   val modelBuildingDispatcher: CoroutineDispatcher
 

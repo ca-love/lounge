@@ -5,6 +5,10 @@ import com.cllive.lounge.LoungeModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
+/**
+ * A small wrapper around [PagedListLoungeController] that lets you implement
+ * [buildItemModel] and [buildModels] by lambdas.
+ */
 class LambdaPagedListLoungeController<T>(
   lifecycle: Lifecycle,
   modelBuildingDispatcher: CoroutineDispatcher = Dispatchers.Main,

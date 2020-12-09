@@ -41,6 +41,9 @@ import kotlin.reflect.cast
  * All data change notifications are applied automatically via [androidx.recyclerview.widget.DiffUtil]'s diffing algorithm.
  * All of your models must have a unique [LoungeModel.key] set on them for diffing to work.
  *
+ * @param lifecycle of [LoungeController]'s host.
+ * @param modelBuildingDispatcher the dispatcher for building models.
+ *
  * @see objectAdapterWithLoungeModels
  * @see LambdaLoungeController
  */
@@ -136,7 +139,11 @@ abstract class LoungeController(
   suspend fun awaitInitialBuildComplete() = initialBuildJob.join()
 
   /**
-   * Implementation should call [LoungeModel.unaryPlus] with the models that should be shown.
+   * Subclasses should implement this to describe what models should be shown for the current state.
+   * Implementations should call [unaryMinus] with the models that should be shown, in the order that is desired.
+   *
+   * You CANNOT call this method directly. Instead, call [requestModelBuild] to have the
+   * controller schedule an update.
    */
   protected abstract suspend fun buildModels()
 
@@ -150,7 +157,9 @@ abstract class LoungeController(
   /**
    * Calls this to request a model update. The controller will schedule a call to [buildModels]
    * so that models can be rebuilt for the current data.
-   * All calls of this methods during model building will be conflated.
+   *
+   * Only the latest call of this method will trigger a build (via [mapLatest]), so you don't
+   * need to worry about calling this method multiple times.
    */
   fun requestModelBuild() {
     modelBuildRequest.tryEmit(Unit)
