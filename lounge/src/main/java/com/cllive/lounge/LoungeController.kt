@@ -21,6 +21,29 @@ import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.reflect.KClass
 import kotlin.reflect.cast
 
+/**
+ * A controller for easily combining [LoungeModel] instances in a [ObjectAdapter].
+ * The implementation is inspired by [epoxy/EpoxyController](https://github.com/airbnb/epoxy/blob/master/epoxy-adapter/src/main/java/com/airbnb/epoxy/EpoxyController.java).
+ *
+ * Simply override [buildModels] to declare which models should be used, and in which order.
+ * Call [requestModelBuild] whenever your data changes, and the controller will call
+ * [buildModels], update the adapter with the new models, and notify any changes between
+ * the new and old models.
+ *
+ * The controller maintains a [ObjectAdapter] with the latest models, which you can
+ * get via [adapter].
+ *
+ * If you only need to build models once, you can use [objectAdapterWithLoungeModels] which will
+ * construct an [ObjectAdapter] directly.
+ * If you prefer composition instead of inheriting [LoungeController], you can use [LambdaLoungeController]
+ * to implement [buildModels] via a lambda function.
+ *
+ * All data change notifications are applied automatically via [androidx.recyclerview.widget.DiffUtil]'s diffing algorithm.
+ * All of your models must have a unique [LoungeModel.key] set on them for diffing to work.
+ *
+ * @see objectAdapterWithLoungeModels
+ * @see LambdaLoungeController
+ */
 @Suppress("TooManyFunctions")
 abstract class LoungeController(
   final override val lifecycle: Lifecycle,
@@ -29,6 +52,10 @@ abstract class LoungeController(
   AutoCloseable {
 
   private val loungeAdapter = LoungeAdapter()
+
+  /**
+   * Get the underlying adapter built by this controller.
+   */
   val adapter: ObjectAdapter
     get() = loungeAdapter
 
@@ -49,8 +76,22 @@ abstract class LoungeController(
     }
   }
 
+  /**
+   * If enabled, DEBUG logcat messages will be printed to show the time
+   * taken to build models, the time taken to diff them.
+   * The tag of the logcat message `LoungeController`.
+   * You can customize logcat message by setting the [debugName].
+   *
+   * @see debugName
+   */
   var debugLogEnabled: Boolean = GlobalDebugLogEnabled
 
+  /**
+   * If set a non-null value, then [debugName] will be the prefix of the logcat message.
+   * If the value is null, this controller's [toString] value will be used.
+   *
+   * @see debugName
+   */
   var debugName: String? = null
 
   private val initialBuildJob = Job(lifecycle.coroutineScope.coroutineContext.job)
@@ -100,14 +141,14 @@ abstract class LoungeController(
   protected abstract suspend fun buildModels()
 
   /**
-   * Calling this method when [ObjectAdapter.get] was called.
+   * The callback when [ObjectAdapter.get] was called.
    */
   protected open fun notifyGetItemAt(position: Int) {
     /* Default no op. */
   }
 
   /**
-   * Call this to request a model update. The controller will schedule a call to [buildModels]
+   * Calls this to request a model update. The controller will schedule a call to [buildModels]
    * so that models can be rebuilt for the current data.
    * All calls of this methods during model building will be conflated.
    */
@@ -115,14 +156,24 @@ abstract class LoungeController(
     modelBuildRequest.tryEmit(Unit)
   }
 
+  /**
+   * Adds a interceptor to this controller.
+   */
   fun addInterceptor(interceptor: LoungeControllerInterceptor) {
     interceptors += interceptor
   }
 
+  /**
+   * Removes an interceptor that added to this controller.
+   */
   fun removeInterceptor(interceptor: LoungeControllerInterceptor) {
     interceptors -= interceptor
   }
 
+  /**
+   * Cancels the building model job completely.
+   * Calling [requestModelBuild] will have no effect after calling this method.
+   */
   override fun close() {
     modelBuildingJob.cancel()
   }
@@ -215,6 +266,10 @@ abstract class LoungeController(
   companion object {
     private const val LogTag = "LoungeController"
 
+    /**
+     * Similar to [LoungeController.debugLogEnabled], but this changes the global default for
+     * all [LoungeController].
+     */
     var GlobalDebugLogEnabled: Boolean = false
   }
 }
