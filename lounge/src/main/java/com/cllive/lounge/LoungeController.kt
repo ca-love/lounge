@@ -30,7 +30,7 @@ import kotlin.reflect.cast
  * [buildModels], update the adapter with the new models, and notify any changes between
  * the new and old models.
  *
- * The controller maintains a [ObjectAdapter] with the latest models, which you can
+ * The controller maintains an [ObjectAdapter] with the latest models, which you can
  * get via [adapter].
  *
  * If you only need to build models once, you can use [objectAdapterWithLoungeModels] which will
@@ -82,8 +82,8 @@ abstract class LoungeController(
   /**
    * If enabled, DEBUG logcat messages will be printed to show the time
    * taken to build models, the time taken to diff them.
-   * The tag of the logcat message `LoungeController`.
-   * You can customize logcat message by setting the [debugName].
+   * The tag of the logcat message is `LoungeController`.
+   * You can change the prefix of the logcat message by setting the [debugName].
    *
    * @see debugName
    */
@@ -140,7 +140,8 @@ abstract class LoungeController(
 
   /**
    * Subclasses should implement this to describe what models should be shown for the current state.
-   * Implementations should call [unaryMinus] with the models that should be shown, in the order that is desired.
+   * Implementations should call [LoungeModel.unaryPlus] with the models that should be shown,
+   * in the order that is desired.
    *
    * You CANNOT call this method directly. Instead, call [requestModelBuild] to have the
    * controller schedule an update.
@@ -166,7 +167,7 @@ abstract class LoungeController(
   }
 
   /**
-   * Adds a interceptor to this controller.
+   * Adds an interceptor to this controller.
    */
   fun addInterceptor(interceptor: LoungeControllerInterceptor) {
     interceptors += interceptor
@@ -277,7 +278,7 @@ abstract class LoungeController(
 
     /**
      * Similar to [LoungeController.debugLogEnabled], but this changes the global default for
-     * all [LoungeController].
+     * all [LoungeController]s.
      */
     var GlobalDebugLogEnabled: Boolean = false
   }

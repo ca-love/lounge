@@ -13,7 +13,7 @@ class LambdaLoungeController(
 ) : LoungeController(lifecycle, modelBuildingDispatcher) {
 
   /**
-   * Override [buildModels] to call this lambda.
+   * Forwards method [buildModels] to call this lambda.
    */
   var buildModels: suspend LoungeBuildModelScope.() -> Unit = {}
 

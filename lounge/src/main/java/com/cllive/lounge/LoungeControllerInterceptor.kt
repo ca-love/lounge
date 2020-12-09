@@ -1,7 +1,7 @@
 package com.cllive.lounge
 
 /**
- * Intercept the lifecycle cycle of the [LoungeController].
+ * Intercept the lifecycle of the [LoungeController].
  * You can add a interceptor via [LoungeController.addInterceptor].
  */
 interface LoungeControllerInterceptor {

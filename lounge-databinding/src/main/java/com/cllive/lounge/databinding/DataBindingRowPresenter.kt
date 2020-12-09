@@ -10,7 +10,11 @@ import com.cllive.lounge.TypedRowPresenter
 
 /**
  * A wrapper around [TypedRowPresenter] which you can directly binding a item to a [ViewDataBinding]
- * instead of communicating with the [RowPresenter.ViewHolder].
+ * instead of [RowPresenter.ViewHolder].
+ *
+ * @param T type of the item to be bind.
+ * @param DB type of the [ViewDataBinding] that the item will bind to.
+ * @param layoutId the layout file id that corresponded to [DB].
  */
 abstract class DataBindingRowPresenter<T, DB : ViewDataBinding>(
   @LayoutRes val layoutId: Int,

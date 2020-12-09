@@ -23,7 +23,9 @@ class GuidedActionClickRegistry {
   }
 
   /**
-   * Calls this method inside [GuidedStepSupportFragment.onGuidedActionClicked].
+   * Invokes the click listener that corresponded to the [action].
+   *
+   * You can call this method inside [GuidedStepSupportFragment.onGuidedActionClicked].
    *
    * Example:
    *
@@ -43,7 +45,7 @@ class GuidedActionClickRegistry {
 
 /**
  * A DSL to create a list of [GuidedAction].
- * If the [GuidedStepSupportFragment] is a [GuidedActionClickRegistryOwner],
+ * If the [GuidedStepSupportFragment] implements the [GuidedActionClickRegistryOwner],
  * [GuidedActionsBuilder.registerClick] will be called implicitly when building actions.
  *
  * Example:
@@ -97,7 +99,9 @@ class GuidedActionsBuilder internal constructor(
   private var actionClickRegistry: GuidedActionClickRegistry? = null
 
   /**
-   * Set the [GuidedActionClickRegistry] which will store all actions' click listener.
+   * Set the [GuidedActionClickRegistry] that will store all actions' click listener.
+   *
+   * @see GuidedActionBuilder.clickAction
    */
   fun registerClick(registry: GuidedActionClickRegistry) {
     actionClickRegistry = registry
@@ -122,7 +126,7 @@ class GuidedActionsBuilder internal constructor(
 }
 
 /**
- * A builder to construct [GuidedAction] with some extra support.
+ * A builder to construct a [GuidedAction].
  */
 class GuidedActionBuilder internal constructor(
   context: Context,
@@ -140,7 +144,7 @@ class GuidedActionBuilder internal constructor(
 
   /**
    * Set a click listener.
-   * Must set a valid [id] to this action.
+   * This requires this action to have a valid [id].
    */
   fun onClick(f: () -> Unit) = apply {
     onClick = f

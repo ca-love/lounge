@@ -23,9 +23,10 @@ import kotlin.math.min
  * A [LoungeController] that can work with a [PagedList].
  * The implementation is inspired by [epoxy/PagedListEpoxyController](https://github.com/airbnb/epoxy/blob/master/epoxy-paging/src/main/java/com/airbnb/epoxy/paging/PagedListEpoxyController.kt).
  *
- * Internally, it caches the model for each item in the [PagedList]. You should override
- * [buildItemModel] method to build the model for the given item. Since [PagedList] might include
- * `null` items if placeholders are enabled, this method needs to handle `null` values in the list.
+ * Internally, this controller caches the model for each item in the [PagedList].
+ * You should override [buildItemModel] method to build the model for the given item.
+ * Since [PagedList] might include `null` items if placeholders are enabled,
+ * this method needs to handle `null` values in the list.
  *
  * @param T The type of the items in the [PagedList].
  * @param lifecycle of [LoungeController]'s host.
@@ -52,8 +53,9 @@ abstract class PagedListLoungeController<T>(
   )
 
   /**
-   * Builds the model for a given item. This must return a single model for each item. If you want
-   * to inject headers etc, you can override [buildModels] function.
+   * Builds the model for a given item. This must return a single model for each item.
+   * If you want to inject headers etc, you can also override [buildModels] function and calls
+   * [getPagedListModels] to get all models built by this method.
    *
    * If the [item] is `null`, you should provide the placeholder. If your [PagedList] is
    * configured without placeholders, you don't need to handle the `null` case.
@@ -74,10 +76,8 @@ abstract class PagedListLoungeController<T>(
   }
 
   /**
-   * Submit a new paged list.
-   *
-   * A diff will be calculated between this list and the previous list so you may still get calls
-   * to [buildItemModel] with items from the previous list.
+   * Submit a new paged list. A diff will be calculated between this list and the previous list
+   * so you may still get cached models from the previous list when calling [getPagedListModels].
    *
    * If [force] is true, cached models will be cleared, model build will run for every item in the new [pagedList].
    */

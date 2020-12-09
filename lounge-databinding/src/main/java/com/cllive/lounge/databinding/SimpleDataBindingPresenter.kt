@@ -8,6 +8,11 @@ import java.util.concurrent.ConcurrentHashMap
 /**
  * A small wrapper around [DataBindingPresenter] which you can simply bind a item
  * to a [ViewDataBinding] via the BR id.
+ *
+ * @param T type of the item to be bind.
+ * @param layoutId the DataBinding layout that the item will bind to.
+ * @param modelVariableId the variable id ([BR](https://developer.android.com/topic/libraries/data-binding/generated-binding#dynamic_variables))
+ *   defined in the DataBinding layout.
  */
 open class SimpleDataBindingPresenter<T : LoungeModel>(
   @LayoutRes layoutId: Int,

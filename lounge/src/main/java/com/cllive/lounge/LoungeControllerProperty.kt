@@ -5,7 +5,8 @@ import kotlin.reflect.KProperty
 
 /**
  * A delegation property that can be used in a [LoungeController].
- * If the delegated value changed then will call [LoungeController.requestModelBuild].
+ * If the delegated value changed (via [equals]) then an update will be requested
+ * by calling [LoungeController.requestModelBuild].
  */
 class LoungeControllerProperty<T>(
   private var value: T,
@@ -28,7 +29,7 @@ class LoungeControllerProperty<T>(
 }
 
 /**
- * A convenient function to create as [LoungeControllerProperty].
+ * A convenient function to create a [LoungeControllerProperty].
  */
 fun <T> LoungeController.loungeProp(
   value: T,
