@@ -4,6 +4,9 @@ import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.leanback.widget.RowPresenter
 
+/**
+ * A wrapper around [RowPresenter] which provides generic typed APIs.
+ */
 @Suppress("UNCHECKED_CAST", "TooManyFunctions")
 abstract class TypedRowPresenter<T, VH : RowPresenter.ViewHolder> : RowPresenter() {
 

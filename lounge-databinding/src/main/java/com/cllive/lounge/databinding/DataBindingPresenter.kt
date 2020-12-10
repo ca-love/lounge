@@ -8,6 +8,14 @@ import androidx.databinding.ViewDataBinding
 import androidx.leanback.widget.Presenter
 import com.cllive.lounge.TypedPresenter
 
+/**
+ * A wrapper around [TypedPresenter] which you can directly binding a item to a [ViewDataBinding]
+ * instead of [Presenter.ViewHolder].
+ *
+ * @param T type of the item to be bind.
+ * @param DB type of the [ViewDataBinding] that the item will bind to.
+ * @param layoutId the layout file id that corresponded to [DB].
+ */
 abstract class DataBindingPresenter<T, DB : ViewDataBinding>(
   @LayoutRes val layoutId: Int,
 ) : TypedPresenter<T, DataBindingPresenter.ViewHolder<DB>>() {
@@ -31,6 +39,9 @@ abstract class DataBindingPresenter<T, DB : ViewDataBinding>(
    */
   open fun onUnbind(binding: DB) = Unit
 
+  /**
+   * A ViewHolder that cache its view's [ViewDataBinding].
+   */
   class ViewHolder<DB : ViewDataBinding>(
     val binding: DB,
   ) : Presenter.ViewHolder(binding.root)

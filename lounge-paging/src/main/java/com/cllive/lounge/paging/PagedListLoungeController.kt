@@ -19,6 +19,22 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlin.math.min
 
+/**
+ * A [LoungeController] that can work with a [PagedList].
+ * The implementation is inspired by [epoxy/PagedListEpoxyController](https://github.com/airbnb/epoxy/blob/master/epoxy-paging/src/main/java/com/airbnb/epoxy/paging/PagedListEpoxyController.kt).
+ *
+ * Internally, this controller caches the model for each item in the [PagedList].
+ * You should override [buildItemModel] method to build the model for the given item.
+ * Since [PagedList] might include `null` items if placeholders are enabled,
+ * this method needs to handle `null` values in the list.
+ *
+ * @param T The type of the items in the [PagedList].
+ * @param lifecycle of [LoungeController]'s host.
+ * @param modelBuildingDispatcher the dispatcher for building models.
+ * @param workerDispatcher the dispatcher for the [AsyncPagedListDiffer].
+ *
+ * @see LambdaPagedListLoungeController
+ */
 abstract class PagedListLoungeController<T>(
   lifecycle: Lifecycle,
   modelBuildingDispatcher: CoroutineDispatcher = Dispatchers.Main,
@@ -36,8 +52,20 @@ abstract class PagedListLoungeController<T>(
     workerDispatcher = workerDispatcher
   )
 
+  /**
+   * Builds the model for a given item. This must return a single model for each item.
+   * If you want to inject headers etc, you can also override [buildModels] function and calls
+   * [getPagedListModels] to get all models built by this method.
+   *
+   * If the [item] is `null`, you should provide the placeholder. If your [PagedList] is
+   * configured without placeholders, you don't need to handle the `null` case.
+   */
   abstract fun buildItemModel(position: Int, item: T?): LoungeModel
 
+  /**
+   * Gets all built models from [buildItemModel]. You can call this method inside [buildModels]
+   * to change the behavior.
+   */
   override suspend fun getPagedListModels(): List<LoungeModel> {
     checkIsBuilding("getPagedListModels")
     return modelCache.getModels()
@@ -47,6 +75,12 @@ abstract class PagedListLoungeController<T>(
     +getPagedListModels()
   }
 
+  /**
+   * Submit a new paged list. A diff will be calculated between this list and the previous list
+   * so you may still get cached models from the previous list when calling [getPagedListModels].
+   *
+   * If [force] is true, cached models will be cleared, model build will run for every item in the new [pagedList].
+   */
   fun submitList(pagedList: PagedList<T>?, force: Boolean = false) {
     if (force) {
       modelCache.clearModels()
@@ -54,6 +88,10 @@ abstract class PagedListLoungeController<T>(
     modelCache.submitList(pagedList)
   }
 
+  /**
+   * Clears the cached models then call [requestModelBuild].
+   * So model build will run for every item in the current [PagedList].
+   */
   fun requestForceModelBuild() {
     modelCache.clearModels()
     requestModelBuild()

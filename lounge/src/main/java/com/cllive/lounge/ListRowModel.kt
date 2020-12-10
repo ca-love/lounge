@@ -4,6 +4,15 @@ import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
 
+/**
+ * Adds a [ListRowModel] to this scope.
+ * Either [headerData] or [key] must be provided to properly set the [ListRowModel.key].
+ *
+ * @param headerData if provided, set a [HeaderItem] with the data to the [ListRow].
+ * @param key if provided, set it as the [ListRowModel.key].
+ * @param controller set the [ListRowModel.controller].
+ * @param presenter the [ListRowPresenter] for the [ListRow].
+ */
 suspend fun LoungeBuildModelScope.listRow(
   headerData: HeaderData? = null,
   key: Any? = null,
@@ -21,6 +30,16 @@ suspend fun LoungeBuildModelScope.listRow(
   +ListRowModel(keyLong, headerData, controller, presenter)
 }
 
+/**
+ * Adds a [ListRowModel] to this scope.
+ * Models added in [buildModels] will be add to the [ListRowModel].
+ * Either [headerData] or [key] must be provided to properly set the [ListRowModel.key].
+ *
+ * @param headerData if provided, set a [HeaderItem] with the data to the [ListRow].
+ * @param key if provided, set it as the [ListRowModel.key].
+ * @param presenter the [ListRowPresenter] for the [ListRow].
+ * @param buildModels models added in this scope will be add to the [ListRowModel].
+ */
 suspend fun LoungeBuildModelScope.listRowOf(
   headerData: HeaderData? = null,
   key: Any? = null,
@@ -42,6 +61,16 @@ suspend fun LoungeBuildModelScope.listRowOf(
   )
 }
 
+/**
+ * Adds a [ListRowModel] to this scope.
+ * Models added in [buildModels] will be add to the [ListRowModel].
+ * Either [name] or [key] must be provided to properly set the [ListRowModel.key].
+ *
+ * @param name if provided, set a [HeaderItem] with the name to the [ListRow].
+ * @param key if provided, set it as the [ListRowModel.key].
+ * @param presenter the [ListRowPresenter] for the [ListRow].
+ * @param buildModels models added in this scope will be add to the [ListRowModel].
+ */
 suspend fun LoungeBuildModelScope.listRowOf(
   name: String? = null,
   key: Any? = null,
@@ -56,6 +85,17 @@ suspend fun LoungeBuildModelScope.listRowOf(
   )
 }
 
+/**
+ * Adds a [ListRowModel] to this scope.
+ * Builds the model on each item of the [list].
+ * Either [headerData] or [key] must be provided to properly set the [ListRowModel.key].
+ *
+ * @param headerData if provided, set a [HeaderItem] with the data to the [ListRow].
+ * @param list items that will be build into [LoungeModel].
+ * @param key if provided, set it as the [ListRowModel.key].
+ * @param presenter the [ListRowPresenter] for the [ListRow].
+ * @param buildItemModel builds item to [LoungeModel].
+ */
 suspend fun <T : Any> LoungeBuildModelScope.listRowFor(
   headerData: HeaderData? = null,
   list: List<T>,
@@ -72,6 +112,17 @@ suspend fun <T : Any> LoungeBuildModelScope.listRowFor(
   }
 }
 
+/**
+ * Adds a [ListRowModel] to this scope.
+ * Builds the model on each item of the [list].
+ * Either [name] or [key] must be provided to properly set the [ListRowModel.key].
+ *
+ * @param name if provided, set a [HeaderItem] with the name to the [ListRow].
+ * @param list items that will be build into [LoungeModel].
+ * @param key if provided, set it as the [ListRowModel.key].
+ * @param presenter the [ListRowPresenter] for the [ListRow].
+ * @param buildItemModel builds item to [LoungeModel].
+ */
 suspend fun <T : Any> LoungeBuildModelScope.listRowFor(
   name: String? = null,
   list: List<T>,
@@ -88,6 +139,17 @@ suspend fun <T : Any> LoungeBuildModelScope.listRowFor(
   )
 }
 
+/**
+ * Adds a [ListRowModel] to this scope.
+ * Builds the model on each item of the [list], providing sequential index with the element.
+ * Either [headerData] or [key] must be provided to properly set the [ListRowModel.key].
+ *
+ * @param headerData if provided, set a [HeaderItem] with the data to the [ListRow].
+ * @param list items that will be build into [LoungeModel].
+ * @param key if provided, set it as the [ListRowModel.key].
+ * @param presenter the [ListRowPresenter] for the [ListRow].
+ * @param buildItemModel builds item to [LoungeModel].
+ */
 suspend fun <T : Any> LoungeBuildModelScope.listRowForIndexed(
   headerData: HeaderData? = null,
   list: List<T>,
@@ -104,6 +166,17 @@ suspend fun <T : Any> LoungeBuildModelScope.listRowForIndexed(
   }
 }
 
+/**
+ * Adds a [ListRowModel] to this scope.
+ * Builds the model on each item of the [list], providing sequential index with the element.
+ * Either [name] or [key] must be provided to properly set the [ListRowModel.key].
+ *
+ * @param name if provided, set a [HeaderItem] with the name to the [ListRow].
+ * @param list items that will be build into [LoungeModel].
+ * @param key if provided, set it as the [ListRowModel.key].
+ * @param presenter the [ListRowPresenter] for the [ListRow].
+ * @param buildItemModel builds item to [LoungeModel].
+ */
 suspend fun <T : Any> LoungeBuildModelScope.listRowForIndexed(
   name: String? = null,
   list: List<T>,
@@ -120,6 +193,9 @@ suspend fun <T : Any> LoungeBuildModelScope.listRowForIndexed(
   )
 }
 
+/**
+ * A wrapper around [ListRow] which implement the [DeferredLoungeModel].
+ */
 open class ListRowModel(
   final override val key: Long = InvalidKey,
   val headerData: HeaderData? = null,
@@ -140,6 +216,9 @@ open class ListRowModel(
     }
   }
 
+  /**
+   * Await the completion of the initial build of the [controller].
+   */
   override suspend fun await() = controller.awaitInitialBuildComplete()
 
   override fun equals(other: Any?): Boolean {
@@ -163,6 +242,11 @@ open class ListRowModel(
   }
 
   companion object {
+
+    /**
+     * The global default [ListRowPresenter] used for all [ListRowModel]s.
+     * You can set a another one to change the default appearance of [ListRowModel].
+     */
     var DefaultListRowPresenter = ListRowPresenter()
   }
 }

@@ -40,6 +40,25 @@ import androidx.navigation.Navigator
 import androidx.navigation.NavigatorProvider
 import androidx.navigation.fragment.FragmentNavigator
 
+/**
+ * A simple function to create a [GuidedStepFragmentNavigator].
+ *
+ * Example:
+ *
+ * ```
+ * // In your activity that holds a NavHostFragment
+ * (supportFragmentManager.findFragmentById(R.id.your_nav_host_id) as? NavHostFragment)
+ *   ?.navController
+ *   ?.apply {
+ *     navigatorProvider.addNavigator(
+ *       createGuidedStepFragmentNavigator(R.id.your_nav_host_id)
+ *     )
+ *     setGraph(R.navigation.your_nav_graph)
+ *   }
+ * ```
+ *
+ * @param navHostId the container id of the [androidx.navigation.fragment.NavHostFragment].
+ */
 fun FragmentActivity.createGuidedStepFragmentNavigator(
   @IdRes navHostId: Int,
 ): GuidedStepFragmentNavigator {
@@ -60,6 +79,13 @@ private const val KEY_BACK_STACK_IDS = "nav-guided-step-fragment:navigator:backS
  * Every destination using this Navigator must set a valid [GuidedStepSupportFragment] class name with
  * `android:name` or [Destination.setClassName].
  *
+ * In your navigation graph xml file, you can use the tag `<guided-step>` to define a GuidedStep
+ * destination, just like using `<fragment>` tag.
+ *
+ * You must add this navigator to the [NavController.getNavigatorProvider] first before set the
+ * navigation graph that contains `<guided-step>` tag.
+ *
+ * @see createGuidedStepFragmentNavigator
  * @see GuidedStepSupportFragment.add
  * @see GuidedStepSupportFragment.finishGuidedStepSupportFragments
  */

@@ -4,10 +4,16 @@ import android.content.Context
 import androidx.leanback.app.GuidedStepSupportFragment
 import androidx.leanback.widget.GuidedAction
 
+/**
+ * A class that has a [GuidedActionClickRegistry].
+ */
 interface GuidedActionClickRegistryOwner {
   val guidedActionClickRegistry: GuidedActionClickRegistry
 }
 
+/**
+ * A class to store click listeners.
+ */
 class GuidedActionClickRegistry {
 
   private val clickMap = mutableMapOf<Long, () -> Unit>()
@@ -16,12 +22,59 @@ class GuidedActionClickRegistry {
     clickMap.putAll(map)
   }
 
+  /**
+   * Invokes the click listener that corresponded to the [action].
+   *
+   * You can call this method inside [GuidedStepSupportFragment.onGuidedActionClicked].
+   *
+   * Example:
+   *
+   * ```
+   * val guidedActionClickRegistry = GuidedActionClickRegistry()
+   *
+   * override fun onGuidedActionClicked(action: GuidedAction) {
+   *   guidedActionClickRegistry.onGuidedActionClick(action)
+   * }
+   * ```
+   */
   fun onGuidedActionClick(action: GuidedAction?) {
     action ?: return
     clickMap[action.validId]?.invoke()
   }
 }
 
+/**
+ * A DSL to create a list of [GuidedAction].
+ * If the [GuidedStepSupportFragment] implements the [GuidedActionClickRegistryOwner],
+ * [GuidedActionsBuilder.registerClick] will be called implicitly when building actions.
+ *
+ * Example:
+ *
+ * ```
+ * class GuidedStepExampleFragment : GuidedStepSupportFragment(),
+ *   GuidedActionClickRegistryOwner {
+ *
+ *   override val guidedActionClickRegistry = GuidedActionClickRegistry()
+ *
+ *   override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
+ *     actions += createActions {
+ *       guidedAction {
+ *         id("id")
+ *         title("title")
+ *         description("description")
+ *         onClick { showToast("Clicked!") }
+ *       }
+ *     }
+ *   }
+ *
+ *   override fun onGuidedActionClicked(action: GuidedAction) {
+ *     guidedActionClickRegistry.onGuidedActionClick(action)
+ *   }
+ * }
+ * ```
+ *
+ * @see GuidedActionBuilder
+ */
 fun GuidedStepSupportFragment.createActions(
   body: GuidedActionsBuilder.() -> Unit,
 ): List<GuidedAction> {
@@ -32,6 +85,9 @@ fun GuidedStepSupportFragment.createActions(
   return builder.apply(body).build()
 }
 
+/**
+ * A builder to create a list of [GuidedAction].
+ */
 class GuidedActionsBuilder internal constructor(
   private val context: Context,
 ) {
@@ -42,10 +98,18 @@ class GuidedActionsBuilder internal constructor(
 
   private var actionClickRegistry: GuidedActionClickRegistry? = null
 
+  /**
+   * Set the [GuidedActionClickRegistry] that will store all actions' click listener.
+   *
+   * @see GuidedActionBuilder.clickAction
+   */
   fun registerClick(registry: GuidedActionClickRegistry) {
     actionClickRegistry = registry
   }
 
+  /**
+   * Builds and add a new [GuidedAction].
+   */
   fun guidedAction(
     body: GuidedActionBuilder.() -> Unit,
   ) {
@@ -61,6 +125,9 @@ class GuidedActionsBuilder internal constructor(
   }
 }
 
+/**
+ * A builder to construct a [GuidedAction].
+ */
 class GuidedActionBuilder internal constructor(
   context: Context,
   private val actionClickMap: MutableMap<Long, () -> Unit>,
@@ -68,10 +135,17 @@ class GuidedActionBuilder internal constructor(
 
   private var onClick: (() -> Unit)? = null
 
+  /**
+   * Set id from a string. The string value will be hash into a long.
+   */
   fun id(id: String) = apply {
     id(hashString64Bit(id))
   }
 
+  /**
+   * Set a click listener.
+   * This requires this action to have a valid [id].
+   */
   fun onClick(f: () -> Unit) = apply {
     onClick = f
   }

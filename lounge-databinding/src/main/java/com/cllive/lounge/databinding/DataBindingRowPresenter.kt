@@ -8,8 +8,16 @@ import androidx.databinding.ViewDataBinding
 import androidx.leanback.widget.RowPresenter
 import com.cllive.lounge.TypedRowPresenter
 
+/**
+ * A wrapper around [TypedRowPresenter] which you can directly binding a item to a [ViewDataBinding]
+ * instead of [RowPresenter.ViewHolder].
+ *
+ * @param T type of the item to be bind.
+ * @param DB type of the [ViewDataBinding] that the item will bind to.
+ * @param layoutId the layout file id that corresponded to [DB].
+ */
 abstract class DataBindingRowPresenter<T, DB : ViewDataBinding>(
-  @LayoutRes val layoutId: Int
+  @LayoutRes val layoutId: Int,
 ) : TypedRowPresenter<T, DataBindingRowPresenter.ViewHolder<DB>>() {
 
   /**
@@ -22,8 +30,11 @@ abstract class DataBindingRowPresenter<T, DB : ViewDataBinding>(
    */
   open fun onUnbindRow(binding: DB) = Unit
 
+  /**
+   * A ViewHolder that cache its view's [ViewDataBinding].
+   */
   class ViewHolder<DB : ViewDataBinding>(
-    val binding: DB
+    val binding: DB,
   ) : RowPresenter.ViewHolder(binding.root)
 
   // region ---- override parent presenter ----
