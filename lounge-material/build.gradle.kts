@@ -8,7 +8,6 @@ plugins {
 
 dependencies {
   implementation(Kotlin.stdlib.jdk8)
-
   implementation(AndroidX.appCompat)
 
   api(Google.android.material)
