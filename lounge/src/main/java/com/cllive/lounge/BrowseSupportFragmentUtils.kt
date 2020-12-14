@@ -19,6 +19,7 @@ fun BrowseSupportFragment.addHeadersTransitionOnBackPressedCallback(
     if (isShowingHeaders) {
       isEnabled = false
       dispatcher.onBackPressed()
+      isEnabled = true
     } else {
       startHeadersTransition(true)
     }
