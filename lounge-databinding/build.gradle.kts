@@ -17,7 +17,6 @@ dependencies {
   api(AndroidX.leanback)
 
   implementation(Kotlin.stdlib.jdk8)
-
   implementation(AndroidX.appCompat)
   implementation(AndroidX.core.ktx)
 }

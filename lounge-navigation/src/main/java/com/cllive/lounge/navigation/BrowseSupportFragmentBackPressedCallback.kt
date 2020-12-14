@@ -1,4 +1,4 @@
-package com.cllive.lounge
+package com.cllive.lounge.navigation
 
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback

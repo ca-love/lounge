@@ -7,13 +7,12 @@ plugins {
 }
 
 dependencies {
-  implementation(Kotlin.stdlib.jdk8)
+  api(AndroidX.leanback)
 
+  implementation(Kotlin.stdlib.jdk8)
   implementation(AndroidX.appCompat)
   implementation(AndroidX.core.ktx)
   implementation(AndroidX.fragmentKtx)
   implementation(AndroidX.activityKtx)
   implementation(AndroidX.navigation.fragmentKtx)
-
-  api(AndroidX.leanback)
 }
