@@ -19,7 +19,12 @@ extra:
 nav:
   - "Overview": index.md
   - "Changelog": changelog.md
-  - "API Docs": api/-modules.html
+  - "API Docs":
+      - "lounge": docs/api/lounge/lounge/index.html
+      - "lounge-databinding": docs/api/lounge-databinding/lounge-databinding/index.html
+      - "lounge-paging": docs/api/lounge-paging/lounge-paging/index.html
+      - "lounge-material": docs/api/lounge-material/lounge-material/index.html
+      - "lounge-navigation": docs/api/lounge-navigation/lounge-navigation/index.html
 
 markdown_extensions:
   - admonition
