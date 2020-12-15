@@ -17,10 +17,7 @@ Add maven repository to top level `build.gradle`:
 ```gradle
 allprojects {
   repositories {
-    maven {
-      name = "lounge"
-      url = uri("https://dl.bintray.com/cats-oss/maven")
-    }
+    maven { url = uri("https://dl.bintray.com/cats-oss/maven") }
   }
 }
 ```
