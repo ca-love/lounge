@@ -12,6 +12,8 @@ theme:
   font:
     text: Open Sans
     code: Roboto Mono
+  features:
+    - navigation.expand
 
 extra:
   manifest: manifest.webmanifest
