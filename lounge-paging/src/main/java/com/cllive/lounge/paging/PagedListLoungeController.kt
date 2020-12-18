@@ -166,13 +166,11 @@ private class PagedListModelCache<T>(
   }
 
   suspend fun getModels(): List<LoungeModel> = modelCacheMutex.withLock {
-    val currentList = differ.currentList.orEmpty()
+    val currentList: List<T?> = differ.currentList.orEmpty()
 
-    if (currentList.size == modelCache.size) {
-      currentList.forEachIndexed { index, item ->
-        if (modelCache[index] == null) {
-          modelCache[index] = modelBuilder(index, item)
-        }
+    modelCache.indices.forEach { index ->
+      if (modelCache[index] == null) {
+        modelCache[index] = modelBuilder(index, currentList[index])
       }
     }
 
