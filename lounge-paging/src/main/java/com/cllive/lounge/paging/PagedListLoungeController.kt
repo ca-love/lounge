@@ -32,6 +32,7 @@ import kotlin.math.min
  * @param lifecycle of [LoungeController]'s host.
  * @param modelBuildingDispatcher the dispatcher for building models.
  * @param workerDispatcher the dispatcher for the [AsyncPagedListDiffer].
+ * @param itemDiffCallback detect changes between [PagedList]s.
  *
  * @see LambdaPagedListLoungeController
  */
@@ -39,16 +40,17 @@ abstract class PagedListLoungeController<T>(
   lifecycle: Lifecycle,
   modelBuildingDispatcher: CoroutineDispatcher = Dispatchers.Main,
   workerDispatcher: CoroutineDispatcher = Dispatchers.IO,
+  @Suppress("UNCHECKED_CAST")
+  itemDiffCallback: DiffUtil.ItemCallback<T> = DefaultPagedListItemDiffCallback as DiffUtil.ItemCallback<T>,
 ) : LoungeController(lifecycle, modelBuildingDispatcher),
   PagedListLoungeBuildModelScope {
 
-  @Suppress("UNCHECKED_CAST")
   private val modelCache = PagedListModelCache(
     modelBuilder = { position, item -> buildItemModel(position, item) },
     rebuildCallback = { requestModelBuild() },
     modelBuildingCoroutineScope = lifecycle.coroutineScope,
     modelBuildingDispatcher = modelBuildingDispatcher,
-    diffCallback = DefaultPagedListItemDiffCallback as DiffUtil.ItemCallback<T>,
+    diffCallback = itemDiffCallback,
     workerDispatcher = workerDispatcher
   )
 
