@@ -26,7 +26,6 @@ suspend fun LoungeBuildModelScope.listRow(
   if (controller.debugLogEnabled && controller.debugName == null) {
     controller.debugName = "ListRow ${key?.toString() ?: headerData?.name}"
   }
-  controller.requestModelBuild()
   +ListRowModel(keyLong, headerData, controller, presenter)
 }
 
@@ -53,6 +52,7 @@ suspend fun LoungeBuildModelScope.listRowOf(
     LambdaLoungeController(lifecycle, modelBuildingDispatcher)
   }
   controller.buildModels = buildModels
+  controller.requestModelBuild()
   listRow(
     headerData = headerData,
     key = key,
