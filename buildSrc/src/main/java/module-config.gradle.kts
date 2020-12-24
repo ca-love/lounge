@@ -63,11 +63,6 @@ fun TestedExtension.androidCommonConfig(startParameter: StartParameter) {
     }
   }
 
-  lintOptions {
-    isWarningsAsErrors = true
-    isAbortOnError = true
-  }
-
   testOptions.animationsDisabled = true
 }
 
@@ -82,6 +77,14 @@ fun BaseAppModuleExtension.androidAppConfig() {
 fun LibraryExtension.androidLibraryConfig() {
   buildFeatures {
     buildConfig = false
+  }
+
+  lintOptions {
+    isWarningsAsErrors = true
+    isAbortOnError = true
+
+    // FIXME: 4.2.0-beta02 incorrect report
+    disable("SyntheticAccessor")
   }
 }
 
