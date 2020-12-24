@@ -1,8 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryExtension
-import com.android.build.gradle.LibraryPlugin
 import com.android.build.gradle.TestedExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.api.tasks.testing.logging.TestLogEvent
@@ -10,18 +8,9 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 project.afterEvaluate {
-  plugins.all {
-    when (this) {
-      is LibraryPlugin -> {
-        extensions.getByType<LibraryExtension>().androidLibraryConfig()
-        extensions.getByType<TestedExtension>().androidCommonConfig(project.gradle.startParameter)
-      }
-      is AppPlugin -> {
-        extensions.getByType<BaseAppModuleExtension>().androidAppConfig()
-        extensions.getByType<TestedExtension>().androidCommonConfig(project.gradle.startParameter)
-      }
-    }
-  }
+  extensions.findByType<TestedExtension>()?.androidCommonConfig(project.gradle.startParameter)
+  extensions.findByType<BaseAppModuleExtension>()?.androidAppConfig()
+  extensions.findByType<LibraryExtension>()?.androidLibraryConfig()
   commonConfig()
 }
 
