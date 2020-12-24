@@ -13,6 +13,11 @@ android {
   buildFeatures {
     dataBinding = true
   }
+
+  lintOptions {
+    isWarningsAsErrors = false
+    isAbortOnError = false
+  }
 }
 
 dependencies {
