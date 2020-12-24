@@ -8,35 +8,8 @@ import com.cllive.lounge.HeaderData
 import com.cllive.lounge.ListRowModel
 import com.cllive.lounge.LoungeBuildModelScope
 import com.cllive.lounge.LoungeModel
+import com.cllive.lounge.listRow
 import com.cllive.lounge.memorizedController
-import com.cllive.lounge.toLoungeModelKey
-
-/**
- * Adds a [ListRowModel] that works with [PagedList] to this scope.
- * Either [headerData] or [key] must be provided to properly set the [ListRowModel.key].
- *
- * @param headerData if provided, set a [HeaderItem] with the data to the [ListRow].
- * @param key if provided, set it as the [ListRowModel.key].
- * @param controller set the [ListRowModel.controller].
- * @param presenter the [ListRowPresenter] for the [ListRow].
- */
-suspend fun <T> LoungeBuildModelScope.pagedListRow(
-  headerData: HeaderData? = null,
-  pagedList: PagedList<T>?,
-  key: Any? = null,
-  controller: PagedListLoungeController<T>,
-  presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
-) {
-  requireNotNull(key ?: headerData) {
-    "Require key or headerData to be non-null."
-  }
-  val keyLong: Long = key?.toLoungeModelKey() ?: headerData.toLoungeModelKey()
-  if (controller.debugLogEnabled && controller.debugName == null) {
-    controller.debugName = "ListRow ${key?.toString() ?: headerData?.name}"
-  }
-  controller.submitList(pagedList, true)
-  +ListRowModel(keyLong, headerData, controller, presenter)
-}
 
 /**
  * Adds a [ListRowModel] that works with [PagedList] to this scope.
@@ -64,9 +37,10 @@ suspend fun <T> LoungeBuildModelScope.pagedListRowOf(
   }
   controller.buildItemModel = buildItemModel
   controller.buildModels = buildModels
-  pagedListRow(
+  controller.submitList(pagedList)
+  controller.requestForceModelBuild()
+  listRow(
     headerData = headerData,
-    pagedList = pagedList,
     key = key,
     controller = controller,
     presenter = presenter
