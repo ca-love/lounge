@@ -80,13 +80,8 @@ abstract class PagedListLoungeController<T>(
   /**
    * Submit a new paged list. A diff will be calculated between this list and the previous list
    * so you may still get cached models from the previous list when calling [getPagedListModels].
-   *
-   * If [force] is true, cached models will be cleared, model build will run for every item in the new [pagedList].
    */
-  fun submitList(pagedList: PagedList<T>?, force: Boolean = false) {
-    if (force) {
-      modelCache.clearModels()
-    }
+  fun submitList(pagedList: PagedList<T>?) {
     modelCache.submitList(pagedList)
   }
 

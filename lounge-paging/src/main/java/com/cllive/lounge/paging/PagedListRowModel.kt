@@ -34,7 +34,8 @@ suspend fun <T> LoungeBuildModelScope.pagedListRow(
   if (controller.debugLogEnabled && controller.debugName == null) {
     controller.debugName = "ListRow ${key?.toString() ?: headerData?.name}"
   }
-  controller.submitList(pagedList, true)
+  controller.submitList(pagedList)
+  controller.requestForceModelBuild()
   +ListRowModel(keyLong, headerData, controller, presenter)
 }
 
