@@ -19,10 +19,9 @@ suspend fun LoungeBuildModelScope.listRow(
   controller: LoungeController,
   presenter: ListRowPresenter = ListRowModel.DefaultListRowPresenter,
 ) {
-  requireNotNull(key ?: headerData) {
-    "Require key or headerData to be non-null."
-  }
-  val keyLong: Long = key?.toLoungeModelKey() ?: headerData.toLoungeModelKey()
+  val keyLong: Long = key?.toLoungeModelKey()
+    ?: headerData?.toLoungeModelKey()
+    ?: error("Require key or headerData to be non-null.")
   if (controller.debugLogEnabled && controller.debugName == null) {
     controller.debugName = "ListRow ${key?.toString() ?: headerData?.name}"
   }
