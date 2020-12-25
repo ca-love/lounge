@@ -10,9 +10,9 @@ import androidx.leanback.widget.GuidedAction
  * For [LoungeGuidedAction] to function properly, you need to use other components together
  * in you [GuidedStepSupportFragment].
  * - Uses with [LoungeGuidedActionsStylist] so you can define custom layout directly
- * via [LoungeGuidedAction.Builder.layoutId]
+ * via [LoungeGuidedActionBuilder.layoutId]
  * - Uses with [GuidedStepSupportFragment.onLoungeGuidedActionClick] so you can define
- * click listener directly via [LoungeGuidedAction.Builder.onClick]
+ * click listener directly via [LoungeGuidedActionBuilder.onClick]
  *
  * Example usage:
  *
@@ -62,9 +62,9 @@ class LoungeGuidedActionsBuilder internal constructor(
    * Builds and add a new [GuidedAction].
    */
   fun guidedAction(
-    body: LoungeGuidedAction.Builder.() -> Unit,
+    body: LoungeGuidedActionBuilder.() -> Unit,
   ) {
-    actions += LoungeGuidedAction.Builder(context).apply(body).build()
+    actions += LoungeGuidedActionBuilder(context).apply(body).build()
   }
 
   internal fun build(): List<GuidedAction> {

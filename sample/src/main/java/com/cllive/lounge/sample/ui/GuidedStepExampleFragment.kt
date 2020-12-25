@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.cllive.lounge.Guidance
 import com.cllive.lounge.LoungeGuidedActionsStylist
 import com.cllive.lounge.createActions
+import com.cllive.lounge.id
 import com.cllive.lounge.onLoungeGuidedActionClick
 import com.cllive.lounge.sample.R
 
