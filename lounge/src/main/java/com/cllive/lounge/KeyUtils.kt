@@ -8,9 +8,8 @@ internal const val InvalidKey: Long = 0
  * @see hashLong64Bit
  * @see hashString64Bit
  */
-fun Any?.toLoungeModelKey(): Long {
+fun Any.toLoungeModelKey(): Long {
   return when (this) {
-    null -> InvalidKey
     is Long -> hashLong64Bit(this)
     is Int -> hashLong64Bit(toLong())
     else -> hashString64Bit(toString())
