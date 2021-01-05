@@ -1,18 +1,15 @@
 package com.cllive.lounge.sample.ui
 
 import android.os.Bundle
-import androidx.leanback.app.GuidedStepSupportFragment
 import androidx.leanback.widget.GuidanceStylist
 import androidx.leanback.widget.GuidedAction
-import androidx.leanback.widget.GuidedActionsStylist
 import androidx.navigation.fragment.findNavController
 import com.cllive.lounge.Guidance
-import com.cllive.lounge.LoungeGuidedActionsStylist
-import com.cllive.lounge.createActions
-import com.cllive.lounge.onLoungeGuidedActionClicked
+import com.cllive.lounge.LoungeGuidedStepSupportFragment
+import com.cllive.lounge.createGuidedActions
 import com.cllive.lounge.sample.R
 
-class GuidedStepExampleFragment : GuidedStepSupportFragment() {
+class GuidedStepExampleFragment : LoungeGuidedStepSupportFragment() {
 
   override fun onCreateGuidance(savedInstanceState: Bundle?): GuidanceStylist.Guidance {
     return Guidance(
@@ -22,10 +19,8 @@ class GuidedStepExampleFragment : GuidedStepSupportFragment() {
     )
   }
 
-  override fun onCreateActionsStylist(): GuidedActionsStylist = LoungeGuidedActionsStylist()
-
   override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
-    actions += createActions {
+    actions += createGuidedActions {
       guidedAction {
         title("Next")
         description("Next Description")
@@ -56,25 +51,5 @@ class GuidedStepExampleFragment : GuidedStepSupportFragment() {
         onClicked { findNavController().navigate(R.id.to_home) }
       }
     }
-  }
-
-  override fun onGuidedActionClicked(action: GuidedAction) {
-    onLoungeGuidedActionClicked(action)
-  }
-
-  override fun onGuidedActionFocused(action: GuidedAction?) {
-    super.onGuidedActionFocused(action)
-  }
-
-  override fun onGuidedActionEditedAndProceed(action: GuidedAction?): Long {
-    return super.onGuidedActionEditedAndProceed(action)
-  }
-
-  override fun onGuidedActionEditCanceled(action: GuidedAction?) {
-    super.onGuidedActionEditCanceled(action)
-  }
-
-  override fun onSubGuidedActionClicked(action: GuidedAction?): Boolean {
-    return super.onSubGuidedActionClicked(action)
   }
 }
