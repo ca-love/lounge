@@ -79,6 +79,15 @@ class LoungeGuidedActionBuilder(context: Context) :
   }
 
   /**
+   * Set sub actions list via [LoungeGuidedActionBuilder].
+   */
+  fun subActions(
+    body: LoungeGuidedActionsBuilder.() -> Unit,
+  ) {
+    subActions(LoungeGuidedActionsBuilder(context).apply(body).build())
+  }
+
+  /**
    * Builds the [LoungeGuidedAction] corresponding to this Builder.
    */
   fun build(): LoungeGuidedAction {
