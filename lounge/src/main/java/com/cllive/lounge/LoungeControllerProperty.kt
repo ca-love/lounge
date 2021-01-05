@@ -1,69 +1,68 @@
 package com.cllive.lounge
 
+import com.cllive.lounge.LoungePropertyPredicate.Companion.structuralPredicate
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 /**
- * A convenient function to create a [LoungeControllerProperty].
+ * A delegation property that can be used in a [LoungeController].
+ * If the delegated value changed then an update will be requested
+ * by calling [LoungeController.requestModelBuild].
  */
-@Suppress("unused")
-fun <T> LoungeController.loungeProp(
+fun <T> loungeProp(
   initialValue: T,
-  predicate: RequestModelBuildPredicate<T> = structuralPredicate(),
+  predicate: LoungePropertyPredicate<T> = structuralPredicate(),
 ): ReadWriteProperty<LoungeController, T> =
   LoungeControllerProperty(initialValue, predicate)
 
-/**
- * A functional interface to control how to request rebuilding when property value changed.
- */
-fun interface RequestModelBuildPredicate<T> {
-
-  /**
-   * Returns true to request model build.
-   */
-  fun test(oldValue: T, newValue: T): Boolean
-}
-
-/**
- * A predicate that requests model build if values of [loungeProp] are structurally (==) unequal.
- */
-@Suppress("UNCHECKED_CAST", "unused")
-fun <T> LoungeController.structuralPredicate(): RequestModelBuildPredicate<T> =
-  StructuralEqualityPredicate as RequestModelBuildPredicate<T>
-
-private object StructuralEqualityPredicate : RequestModelBuildPredicate<Any?> {
-  override fun test(oldValue: Any?, newValue: Any?): Boolean = oldValue != newValue
-}
-
-/**
- * A predictor to request model build if values of [loungeProp] are referentially (===) unequal.
- */
-@Suppress("UNCHECKED_CAST", "unused")
-fun <T> LoungeController.referentialPredicate(): RequestModelBuildPredicate<T> =
-  ReferentialEqualityPredicate as RequestModelBuildPredicate<T>
-
-private object ReferentialEqualityPredicate : RequestModelBuildPredicate<Any?> {
-  override fun test(oldValue: Any?, newValue: Any?): Boolean = oldValue !== newValue
-}
-
-/**
- * A delegation property that can be used in a [LoungeController].
- * If the delegated value changed (via [equals]) then an update will be requested
- * by calling [LoungeController.requestModelBuild].
- */
 private class LoungeControllerProperty<T>(
   private var value: T,
-  private val predicate: RequestModelBuildPredicate<T>,
+  private val predicate: LoungePropertyPredicate<T>,
 ) : ReadWriteProperty<LoungeController, T> {
 
-  override fun getValue(thisRef: LoungeController, property: KProperty<*>): T {
-    return value
-  }
+  override fun getValue(thisRef: LoungeController, property: KProperty<*>): T = value
 
   override fun setValue(thisRef: LoungeController, property: KProperty<*>, value: T) {
-    if (predicate.test(this.value, value)) {
+    if (predicate.isChanged(this.value, value)) {
       thisRef.requestModelBuild()
     }
     this.value = value
   }
+}
+
+/**
+ * A functional interface to determine whether the property value changed.
+ */
+fun interface LoungePropertyPredicate<T> {
+
+  /**
+   * Determine whether the property value changed. Returns true to request model build.
+   */
+  fun isChanged(oldValue: T, newValue: T): Boolean
+
+  companion object {
+    /**
+     * A predicate to treat values of [loungeProp] changed if they are structurally unequal (!=).
+     */
+    @Suppress("UNCHECKED_CAST")
+    fun <T> structuralPredicate(): LoungePropertyPredicate<T> =
+      StructuralEqualityPredicate as LoungePropertyPredicate<T>
+
+    /**
+     * A predictor to treat values of [loungeProp] changed if they are referentially unequal (!==).
+     */
+    @Suppress("UNCHECKED_CAST")
+    fun <T> referentialPredicate(): LoungePropertyPredicate<T> =
+      ReferentialEqualityPredicate as LoungePropertyPredicate<T>
+  }
+}
+
+private object StructuralEqualityPredicate : LoungePropertyPredicate<Any?> {
+  override fun isChanged(oldValue: Any?, newValue: Any?): Boolean =
+    oldValue != newValue
+}
+
+private object ReferentialEqualityPredicate : LoungePropertyPredicate<Any?> {
+  override fun isChanged(oldValue: Any?, newValue: Any?): Boolean =
+    oldValue !== newValue
 }
