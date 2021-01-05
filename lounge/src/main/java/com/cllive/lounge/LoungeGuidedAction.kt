@@ -1,7 +1,10 @@
 package com.cllive.lounge
 
+import android.annotation.SuppressLint
 import androidx.leanback.app.GuidedStepSupportFragment
+import androidx.leanback.widget.DiffCallback
 import androidx.leanback.widget.GuidedAction
+import androidx.leanback.widget.GuidedActionDiffCallback
 
 /**
  * A [GuidedAction] with more convenient options.
@@ -136,4 +139,33 @@ fun onLoungeGuidedActionEditedAndProceed(action: GuidedAction?): Long {
  */
 fun onLoungeGuidedActionEditCanceled(action: GuidedAction?) {
   (action as? LoungeGuidedAction)?.onEditCanceledListener?.onEditCanceled(action)
+}
+
+/**
+ * DiffCallback used for [LoungeGuidedAction].
+ *
+ * @see [GuidedStepSupportFragment.setActionsDiffCallback]
+ */
+object LoungeGuidedActionDiffCallback : DiffCallback<GuidedAction>() {
+
+  private val guidedActionDiffCallback = GuidedActionDiffCallback.getInstance()
+
+  override fun areItemsTheSame(oldItem: GuidedAction, newItem: GuidedAction): Boolean =
+    guidedActionDiffCallback.areItemsTheSame(oldItem, newItem)
+
+  @SuppressLint("DiffUtilEquals")
+  override fun areContentsTheSame(oldItem: GuidedAction, newItem: GuidedAction): Boolean {
+    val rawCompare = guidedActionDiffCallback.areContentsTheSame(oldItem, newItem)
+    return if (oldItem is LoungeGuidedAction && newItem is LoungeGuidedAction) {
+      rawCompare &&
+        oldItem.layoutId == newItem.layoutId &&
+        oldItem.onClickedListener == newItem.onClickedListener &&
+        oldItem.onSubClickedListener == newItem.onSubClickedListener &&
+        oldItem.onFocusedListener == newItem.onFocusedListener &&
+        oldItem.onEditedAndProceedListener == newItem.onEditedAndProceedListener &&
+        oldItem.onEditCanceledListener == newItem.onEditCanceledListener
+    } else {
+      rawCompare
+    }
+  }
 }
