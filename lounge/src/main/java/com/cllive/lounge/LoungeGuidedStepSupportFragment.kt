@@ -1,6 +1,7 @@
 package com.cllive.lounge
 
 import android.os.Bundle
+import android.view.View
 import androidx.leanback.app.GuidedStepSupportFragment
 import androidx.leanback.widget.GuidedAction
 import androidx.leanback.widget.GuidedActionsStylist
@@ -12,8 +13,8 @@ import androidx.leanback.widget.GuidedActionsStylist
  */
 open class LoungeGuidedStepSupportFragment : GuidedStepSupportFragment() {
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
     setActionsDiffCallback(LoungeGuidedActionDiffCallback)
   }
 
