@@ -9,8 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.cllive.lounge.Guidance
 import com.cllive.lounge.LoungeGuidedActionsStylist
 import com.cllive.lounge.createActions
-import com.cllive.lounge.id
-import com.cllive.lounge.onLoungeGuidedActionClick
+import com.cllive.lounge.onLoungeGuidedActionClicked
 import com.cllive.lounge.sample.R
 
 class GuidedStepExampleFragment : GuidedStepSupportFragment() {
@@ -30,19 +29,19 @@ class GuidedStepExampleFragment : GuidedStepSupportFragment() {
       guidedAction {
         title("Next")
         description("Next Description")
-        onClick { findNavController().navigate(R.id.to_guided_step_self) }
+        onClicked { findNavController().navigate(R.id.to_guided_step_self) }
       }
 
       guidedAction {
         title("Pop Back")
         description("Pop Back Description")
-        onClick { findNavController().popBackStack() }
+        onClicked { findNavController().popBackStack() }
       }
 
       guidedAction {
         title("Pop Back All")
         description("Pop Back All Description")
-        onClick { findNavController().popBackStack(R.id.fragment_home, false) }
+        onClicked { findNavController().popBackStack(R.id.fragment_home, false) }
       }
 
       guidedAction {
@@ -54,12 +53,28 @@ class GuidedStepExampleFragment : GuidedStepSupportFragment() {
       guidedAction {
         title("Home")
         description("Home Description")
-        onClick { findNavController().navigate(R.id.to_home) }
+        onClicked { findNavController().navigate(R.id.to_home) }
       }
     }
   }
 
   override fun onGuidedActionClicked(action: GuidedAction) {
-    onLoungeGuidedActionClick(action)
+    onLoungeGuidedActionClicked(action)
+  }
+
+  override fun onGuidedActionFocused(action: GuidedAction?) {
+    super.onGuidedActionFocused(action)
+  }
+
+  override fun onGuidedActionEditedAndProceed(action: GuidedAction?): Long {
+    return super.onGuidedActionEditedAndProceed(action)
+  }
+
+  override fun onGuidedActionEditCanceled(action: GuidedAction?) {
+    super.onGuidedActionEditCanceled(action)
+  }
+
+  override fun onSubGuidedActionClicked(action: GuidedAction?): Boolean {
+    return super.onSubGuidedActionClicked(action)
   }
 }

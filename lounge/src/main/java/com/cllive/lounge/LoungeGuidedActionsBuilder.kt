@@ -11,8 +11,8 @@ import androidx.leanback.widget.GuidedAction
  * in you [GuidedStepSupportFragment].
  * - Uses with [LoungeGuidedActionsStylist] so you can define custom layout directly
  * via [LoungeGuidedActionBuilder.layoutId]
- * - Uses with [GuidedStepSupportFragment.onLoungeGuidedActionClick] so you can define
- * click listener directly via [LoungeGuidedActionBuilder.onClick]
+ * - Uses with [GuidedStepSupportFragment.onGuidedActionClicked] so you can define
+ * click listener directly via [LoungeGuidedActionBuilder.onClicked]
  *
  * Example usage:
  *
