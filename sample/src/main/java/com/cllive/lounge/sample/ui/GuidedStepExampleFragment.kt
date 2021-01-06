@@ -36,7 +36,19 @@ class GuidedStepExampleFragment : LoungeGuidedStepSupportFragment() {
       guidedAction {
         title("Pop Back All")
         description("Pop Back All Description")
-        onClicked { findNavController().popBackStack(R.id.fragment_home, false) }
+        subActions {
+          guidedAction {
+            title("Yes")
+            onSubClicked {
+              findNavController().popBackStack(R.id.fragment_home, false)
+              true
+            }
+          }
+
+          guidedAction {
+            title("No")
+          }
+        }
       }
 
       guidedAction {
