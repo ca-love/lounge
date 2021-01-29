@@ -6,19 +6,22 @@ setProperty() {
 }
 
 next_version=$1
+gradle_props="./gradle.properties"
+current_version=$(grep VERSION_NAME $gradle_props | cut -d'=' -f2)
+
 if [[ -z $next_version ]]; then
     echo Next version is empty.
+    echo Current version is "$current_version".
     exit 1
 fi
 
-gradle_props="./gradle.properties"
-current_version=$(grep VERSION_NAME $gradle_props | cut -d'=' -f2)
 release_version=${current_version%-SNAPSHOT}
-
 echo "#Prepare releasing version $release_version."
 echo "#Next version will be $next_version-SNAPSHOT."
 
 echo setProperty VERSION_NAME "$release_version" $gradle_props
+echo \"\$\{EDITOR:-vi\}\" README.md
+echo \"\$\{EDITOR:-vi\}\" CHANGELOG.md
 echo git commit -am \"Prepare for release "$release_version".\"
 echo ./release/bintray_upload.sh
 echo git tag -a "$release_version" -m \""$release_version"\"
