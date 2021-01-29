@@ -24,5 +24,5 @@ class LambdaPagedListLoungeController<T>(
   override fun buildItemModel(position: Int, item: T?): LoungeModel =
     buildItemModel.invoke(position, item)
 
-  override suspend fun buildModels() = buildModels(getPagedListModels())
+  override suspend fun buildModels() = buildModels(getItemModels())
 }

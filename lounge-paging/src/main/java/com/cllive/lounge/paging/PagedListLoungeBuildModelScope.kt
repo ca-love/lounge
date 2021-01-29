@@ -12,5 +12,5 @@ interface PagedListLoungeBuildModelScope : LoungeBuildModelScope {
   /**
    * Gets built models from the [PagedList].
    */
-  suspend fun getPagedListModels(): List<LoungeModel>
+  suspend fun getItemModels(): List<LoungeModel>
 }

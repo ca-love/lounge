@@ -55,9 +55,17 @@ abstract class PagedListLoungeController<T>(
   )
 
   /**
+   * Returns the PagedList currently being displayed.
+   *
+   * This is not necessarily the most recent list passed to [submitList].
+   */
+  val currentList: PagedList<T>?
+    get() = modelCache.currentList
+
+  /**
    * Builds the model for a given item. This must return a single model for each item.
    * If you want to inject headers etc, you can also override [buildModels] function and calls
-   * [getPagedListModels] to get all models built by this method.
+   * [getItemModels] to get all models built by this method.
    *
    * If the [item] is `null`, you should provide the placeholder. If your [PagedList] is
    * configured without placeholders, you don't need to handle the `null` case.
@@ -68,18 +76,18 @@ abstract class PagedListLoungeController<T>(
    * Gets all built models from [buildItemModel]. You can call this method inside [buildModels]
    * to change the behavior.
    */
-  override suspend fun getPagedListModels(): List<LoungeModel> {
+  override suspend fun getItemModels(): List<LoungeModel> {
     checkIsBuilding("getPagedListModels")
     return modelCache.getModels()
   }
 
   override suspend fun buildModels() {
-    +getPagedListModels()
+    +getItemModels()
   }
 
   /**
    * Submit a new paged list. A diff will be calculated between this list and the previous list
-   * so you may still get cached models from the previous list when calling [getPagedListModels].
+   * so you may still get cached models from the previous list when calling [getItemModels].
    */
   fun submitList(pagedList: PagedList<T>?) {
     modelCache.submitList(pagedList)
@@ -152,6 +160,9 @@ private class PagedListModelCache<T>(
     listUpdateCallback,
     diffConfig
   )
+
+  val currentList: PagedList<T>?
+    get() = differ.currentList
 
   fun notifyGetItemAt(position: Int) {
     // TODO the position may not be a good value if there are too many injected items.
