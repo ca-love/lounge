@@ -57,7 +57,7 @@ abstract class LoungeController(
   private val loungeAdapter = LoungeAdapter()
 
   /**
-   * Get the underlying adapter built by this controller.
+   * Returns the underlying adapter built by this controller.
    */
   val adapter: ObjectAdapter
     get() = loungeAdapter
@@ -104,7 +104,7 @@ abstract class LoungeController(
   private val models = mutableListOf<LoungeModel>()
 
   /**
-   * Conflate model build requests.
+   * Conflates model build requests.
    */
   private val modelBuildRequest = MutableSharedFlow<Unit>(
     replay = 1,
@@ -116,7 +116,7 @@ abstract class LoungeController(
   private val possessedTagKeys = hashSetOf<Any>()
 
   /**
-   * Only build models when lifecycle state is at least STARTED
+   * Only builds models when lifecycle state is at least STARTED
    */
   private val modelBuildingJob = lifecycle.coroutineScope.launchWhenStarted {
     collectModelBuildRequest()
@@ -136,6 +136,9 @@ abstract class LoungeController(
     forEach { +it }
   }
 
+  /**
+   * Suspends until first model build succeeds.
+   */
   suspend fun awaitInitialBuildComplete() = initialBuildJob.join()
 
   /**
@@ -145,6 +148,13 @@ abstract class LoungeController(
    *
    * You CANNOT call this method directly. Instead, call [requestModelBuild] to have the
    * controller schedule an update.
+   *
+   * If your data is not prepared yet and want to suspend the current model building you can do like:
+   * ```
+   * if (isNotReady) awaitCancellation()
+   * ```
+   * Comparing simply doing an early return, using [awaitInitialBuildComplete] can avoid unintentionally
+   * submitting an empty list of models.
    */
   protected abstract suspend fun buildModels()
 
