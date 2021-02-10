@@ -196,6 +196,7 @@ abstract class LoungeController(
    */
   override fun close() {
     modelBuildingJob.cancel()
+    initialBuildJob.cancel()
   }
 
   /**
