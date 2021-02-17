@@ -24,9 +24,9 @@ private class LoungeControllerProperty<T>(
 
   override fun setValue(thisRef: LoungeController, property: KProperty<*>, value: T) {
     if (predicate.isChanged(this.value, value)) {
+      this.value = value
       thisRef.requestModelBuild()
     }
-    this.value = value
   }
 }
 
