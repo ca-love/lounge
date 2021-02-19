@@ -4,11 +4,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.setPadding
 import androidx.leanback.widget.Presenter
+import com.google.android.material.textview.MaterialTextView
 import jp.co.cyberagent.lounge.LoungeModel
 import jp.co.cyberagent.lounge.TypedPresenter
 import jp.co.cyberagent.lounge.sample.utils.randomColor
 import jp.co.cyberagent.lounge.toLoungeModelKey
-import com.google.android.material.textview.MaterialTextView
 
 data class TextModel(
   val title: String,
