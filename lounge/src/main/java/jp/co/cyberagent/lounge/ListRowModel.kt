@@ -7,6 +7,8 @@ import androidx.leanback.widget.ListRowPresenter
 /**
  * Adds a [ListRowModel] to this scope.
  * Either [headerData] or [key] must be provided to properly set the [ListRowModel.key].
+ * You need to manually invoke the [LoungeController.requestModelBuild] of the [controller]
+ * for displaying row items.
  *
  * @param headerData if provided, set a [HeaderItem] with the data to the [ListRow].
  * @param key if provided, set it as the [ListRowModel.key].
