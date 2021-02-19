@@ -197,6 +197,7 @@ abstract class LoungeController(
   override fun close() {
     modelBuildingJob.cancel()
     initialBuildJob.cancel()
+    tags.forEach { (_, v) -> (v as? AutoCloseable)?.close() }
   }
 
   /**
