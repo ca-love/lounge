@@ -6,7 +6,7 @@
   <data>
     <variable
       name="model"
-      type="com.cllive.lounge.sample.model.EntryModel"
+      type="jp.co.cyberagent.lounge.sample.model.EntryModel"
       />
   </data>
   <LinearLayout

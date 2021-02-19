@@ -7,7 +7,7 @@
 
   <fragment
     android:id="@+id/fragment_home"
-    android:name="com.cllive.lounge.sample.ui.HomeFragment"
+    android:name="jp.co.cyberagent.lounge.sample.ui.HomeFragment"
     >
     <action
       android:id="@+id/to_rows"
@@ -25,17 +25,17 @@
 
   <fragment
     android:id="@+id/fragment_rows_example"
-    android:name="com.cllive.lounge.sample.ui.RowsExampleFragment"
+    android:name="jp.co.cyberagent.lounge.sample.ui.RowsExampleFragment"
     />
 
   <fragment
     android:id="@+id/fragment_vertical_grid_example"
-    android:name="com.cllive.lounge.sample.ui.VerticalGridExampleFragment"
+    android:name="jp.co.cyberagent.lounge.sample.ui.VerticalGridExampleFragment"
     />
 
   <guided-step
     android:id="@+id/fragment_guided_step_sample"
-    android:name="com.cllive.lounge.sample.ui.GuidedStepExampleFragment"
+    android:name="jp.co.cyberagent.lounge.sample.ui.GuidedStepExampleFragment"
     >
     <action
       android:id="@+id/to_guided_step_self"

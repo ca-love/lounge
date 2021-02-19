@@ -27,16 +27,16 @@ Add dependencies to module `build.gradle`:
 ```gradle
 dependencies {
   // Leanckback helper and wrapper for ObjectAdapter, Presenter, GuidedAction and et al.
-  implementation("com.cllive.lounge:lounge:$latestVersion")
+  implementation("jp.co.cyberagent.lounge:lounge:$latestVersion")
 
   // Paging Support:
-  implementation("com.cllive.lounge:lounge-paging:$latestVersion")
+  implementation("jp.co.cyberagent.lounge:lounge-paging:$latestVersion")
   // DataBinding Support:
-  implementation("com.cllive.lounge:lounge-databinding:$latestVersion")
+  implementation("jp.co.cyberagent.lounge:lounge-databinding:$latestVersion")
   // Navigation Component Support:
-  implementation("com.cllive.lounge:lounge-navigation:$latestVersion")
+  implementation("jp.co.cyberagent.lounge:lounge-navigation:$latestVersion")
   // Material Design Support:
-  implementation("com.cllive.lounge:lounge-material:$latestVersion")
+  implementation("jp.co.cyberagent.lounge:lounge-material:$latestVersion")
 }
 ```
 
