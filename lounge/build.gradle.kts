@@ -16,4 +16,7 @@ dependencies {
   implementation(AndroidX.fragmentKtx)
   implementation(AndroidX.activityKtx)
   implementation(AndroidX.lifecycle.runtimeKtx)
+
+  testImplementation(Testing.kotest.runner.junit5)
+  testImplementation(Testing.kotest.assertions.core)
 }
