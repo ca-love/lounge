@@ -39,7 +39,7 @@ class LoungeControllerTest : FunSpec({
     controller.adapter.size() shouldBe 1
   }
 
-  test("Build multi models") {
+  test("Build models") {
     val models1 = List(10) { TestModel(it + 1L) }
     val models2 = List(10) { TestModel(it + 100L) }
     val controller = object : LoungeController(owner.lifecycle, dispatcher) {
