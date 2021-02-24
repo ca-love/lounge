@@ -18,7 +18,4 @@ dependencies {
   implementation(AndroidX.lifecycle.runtimeKtx)
 
   testImplementation(project(":fixture"))
-  testImplementation(KotlinX.coroutines.test)
-  testImplementation(Testing.kotest.runner.junit5)
-  testImplementation(Testing.kotest.assertions.core)
 }
