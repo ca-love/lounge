@@ -73,10 +73,11 @@ import androidx.leanback.widget.GuidedAction
  * }
  * ```
  */
-fun GuidedStepSupportFragment.createGuidedActions(
+fun createGuidedActions(
+  context: Context,
   body: LoungeGuidedActionsBuilder.() -> Unit,
 ): List<GuidedAction> {
-  val builder = LoungeGuidedActionsBuilder(requireContext())
+  val builder = LoungeGuidedActionsBuilder(context)
   return builder.apply(body).build()
 }
 
