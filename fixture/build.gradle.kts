@@ -17,6 +17,7 @@ dependencies {
   api(Testing.kotest.runner.junit5)
   api(Testing.kotest.assertions.core)
   api(Libs.Kotest.robolectric)
+  api(Testing.roboElectric)
   api(AndroidX.test.coreKtx)
   api(AndroidX.test.espresso.core)
   api(AndroidX.test.espresso.contrib)

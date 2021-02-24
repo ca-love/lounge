@@ -2,6 +2,7 @@ package jp.co.cyberagent.lounge
 
 import androidx.lifecycle.Lifecycle
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.extensions.robolectric.RobolectricTest
 import io.kotest.matchers.shouldBe
 import jp.co.cyberagent.fixture.TestLifecycleOwner
 import jp.co.cyberagent.fixture.memoized
@@ -12,6 +13,7 @@ import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.setMain
 
 @ExperimentalCoroutinesApi
+@RobolectricTest
 class LambdaLoungeControllerTest : FunSpec({
 
   val owner by memoized { TestLifecycleOwner() }
