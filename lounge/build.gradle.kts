@@ -18,4 +18,5 @@ dependencies {
   implementation(AndroidX.lifecycle.runtimeKtx)
 
   testImplementation(project(":fixture"))
+  debugImplementation(AndroidX.fragmentTesting)
 }
