@@ -182,6 +182,21 @@ class LoungeControllerTest : FunSpec({
     closedKey shouldBe listOf("key1", "key2")
   }
 
+  test("Possess tag during build can only be invoked once for the same key") {
+    var testComplete = false
+    val controller = object : LoungeController(owner.lifecycle, dispatcher) {
+      override suspend fun buildModels() {
+        possessTagDuringBuilding("key", Any::class) { Any() }
+        shouldThrowAny { possessTagDuringBuilding("key", Any::class) { Any() } }
+        testComplete = true
+      }
+    }
+
+    owner.lifecycle.currentState = Lifecycle.State.STARTED
+    controller.requestModelBuild()
+    testComplete shouldBe true
+  }
+
   test("AwaitInitialBuildComplete") {
     val controller = object : LoungeController(owner.lifecycle, dispatcher) {
       override suspend fun buildModels() = Unit
