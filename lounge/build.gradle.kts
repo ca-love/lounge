@@ -19,4 +19,5 @@ dependencies {
 
   testImplementation(project(":fixture"))
   debugImplementation(AndroidX.fragmentTesting)
+  testImplementation(AndroidX.fragmentTesting)
 }

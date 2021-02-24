@@ -2,7 +2,6 @@ package jp.co.cyberagent.lounge
 
 import android.content.Context
 import android.os.Bundle
-import androidx.core.view.get
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.leanback.app.GuidedStepSupportFragment
 import androidx.leanback.widget.GuidedAction
@@ -21,7 +20,7 @@ class LoungeGuidedActionsStylistTest : FunSpec({
 
   test("LoungeGuidedActionStylist") {
     val testFragment = TestFragment()
-    launchFragmentInContainer { testFragment }
+    launchFragmentInContainer(themeResId = androidx.leanback.R.style.Theme_Leanback) { testFragment }
 
     val context = ApplicationProvider.getApplicationContext<Context>()
     onView(withText("Normal")).check(matches(isDisplayed()))
@@ -29,7 +28,7 @@ class LoungeGuidedActionsStylistTest : FunSpec({
   }
 })
 
-private class TestFragment : GuidedStepSupportFragment() {
+class TestFragment : GuidedStepSupportFragment() {
   override fun onCreateActionsStylist(): GuidedActionsStylist {
     return LoungeGuidedActionsStylist()
   }
