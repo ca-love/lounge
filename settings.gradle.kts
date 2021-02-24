@@ -20,6 +20,7 @@ rootProject.name = "lounge"
 
 include(
   "sample",
+  "fixture",
   "lounge",
   "lounge-databinding",
   "lounge-material",
