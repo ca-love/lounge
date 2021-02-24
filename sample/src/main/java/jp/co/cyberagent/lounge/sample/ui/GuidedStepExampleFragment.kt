@@ -20,7 +20,7 @@ class GuidedStepExampleFragment : LoungeGuidedStepSupportFragment() {
   }
 
   override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
-    actions += createGuidedActions {
+    actions += createGuidedActions(requireContext()) {
       guidedAction {
         title("Next")
         description("Next Description")
