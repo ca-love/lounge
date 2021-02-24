@@ -13,6 +13,13 @@ dependencies {
   implementation(AndroidX.activityKtx)
   implementation(AndroidX.lifecycle.runtimeKtx)
 
-  implementation(Testing.kotest.runner.junit5)
-  implementation(Testing.kotest.assertions.core)
+  api(KotlinX.coroutines.test)
+  api(Testing.kotest.runner.junit5)
+  api(Testing.kotest.assertions.core)
+  api(Libs.Kotest.robolectric)
+  api(AndroidX.test.coreKtx)
+  api(AndroidX.test.espresso.core)
+  api(AndroidX.test.espresso.contrib)
+  api(AndroidX.test.rules)
+  api(AndroidX.test.runner)
 }

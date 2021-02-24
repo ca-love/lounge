@@ -75,6 +75,12 @@ fun LibraryExtension.androidLibraryConfig() {
     // FIXME: 4.2.0-beta02 incorrect report
     disable("SyntheticAccessor")
   }
+
+  testOptions {
+    unitTests {
+      isIncludeAndroidResources = true
+    }
+  }
 }
 
 fun Project.commonConfig() {
