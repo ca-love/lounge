@@ -3,6 +3,7 @@ package jp.co.cyberagent.lounge
 import androidx.lifecycle.Lifecycle
 import io.kotest.assertions.throwables.shouldThrowAny
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.extensions.robolectric.RobolectricTest
 import io.kotest.matchers.shouldBe
 import jp.co.cyberagent.fixture.TestLifecycleOwner
 import jp.co.cyberagent.fixture.memoized
@@ -10,6 +11,7 @@ import jp.co.cyberagent.lounge.util.TestModel
 import jp.co.cyberagent.lounge.util.testModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -17,6 +19,7 @@ import kotlinx.coroutines.test.setMain
 import kotlinx.coroutines.withTimeout
 
 @ExperimentalCoroutinesApi
+@RobolectricTest
 class LoungeControllerTest : FunSpec({
 
   val owner by memoized { TestLifecycleOwner() }
@@ -203,7 +206,7 @@ class LoungeControllerTest : FunSpec({
     }
 
     owner.lifecycle.currentState = Lifecycle.State.STARTED
-    val initialBuildJob = launch { controller.awaitInitialBuildComplete() }
+    val initialBuildJob = GlobalScope.launch { controller.awaitInitialBuildComplete() }
     shouldThrowAny {
       withTimeout(100) { initialBuildJob.join() }
     }

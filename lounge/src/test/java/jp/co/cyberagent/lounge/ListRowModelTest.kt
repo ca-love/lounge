@@ -3,6 +3,7 @@ package jp.co.cyberagent.lounge
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleRegistry
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.extensions.robolectric.RobolectricTest
 import io.kotest.matchers.shouldBe
 import jp.co.cyberagent.fixture.TestLifecycleOwner
 import jp.co.cyberagent.fixture.memoized
@@ -14,6 +15,7 @@ import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.setMain
 
 @ExperimentalCoroutinesApi
+@RobolectricTest
 class ListRowModelTest : FunSpec({
   val owner by memoized { TestLifecycleOwner() }
   val dispatcher by memoized { TestCoroutineDispatcher() }
