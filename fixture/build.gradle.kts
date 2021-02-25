@@ -12,6 +12,7 @@ dependencies {
   implementation(AndroidX.fragmentKtx)
   implementation(AndroidX.activityKtx)
   implementation(AndroidX.lifecycle.runtimeKtx)
+  implementation(AndroidX.leanback)
 
   api(KotlinX.coroutines.test)
   api(Testing.kotest.runner.junit5)
