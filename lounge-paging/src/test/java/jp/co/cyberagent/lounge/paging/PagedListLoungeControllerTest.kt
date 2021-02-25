@@ -37,23 +37,13 @@ class PagedListLoungeControllerTest : FunSpec({
     val list = List(10) { it }
     val pagedList = list.asPagedList(
       pageSize = 2,
-      initialPosition = 5,
+      initialPosition = 3,
       enablePlaceholders = false,
     )
 
     owner.withStartedThenCreated {
       controller.adapter.size() shouldBe 0
       controller.submitList(pagedList)
-    }
-    controller.adapter.size() shouldBe 2
-    controller.adapter.items.shouldContainExactly(
-      TestModel(5),
-      TestModel(6),
-    )
-
-    owner.withStartedThenCreated {
-      controller.adapter.size() shouldBe 2
-      controller.adapter.get(0)
     }
     controller.adapter.size() shouldBe 4
     controller.adapter.items.shouldContainExactly(
@@ -65,10 +55,26 @@ class PagedListLoungeControllerTest : FunSpec({
 
     owner.withStartedThenCreated {
       controller.adapter.size() shouldBe 4
-      controller.adapter.get(3)
+      controller.adapter.get(0)
     }
-    controller.adapter.size() shouldBe 4
+    controller.adapter.size() shouldBe 6
     controller.adapter.items.shouldContainExactly(
+      TestModel(1),
+      TestModel(2),
+      TestModel(3),
+      TestModel(4),
+      TestModel(5),
+      TestModel(6),
+    )
+
+    owner.withStartedThenCreated {
+      controller.adapter.size() shouldBe 6
+      controller.adapter.get(5)
+    }
+    controller.adapter.size() shouldBe 8
+    controller.adapter.items.shouldContainExactly(
+      TestModel(1),
+      TestModel(2),
       TestModel(3),
       TestModel(4),
       TestModel(5),
@@ -78,7 +84,7 @@ class PagedListLoungeControllerTest : FunSpec({
     )
 
     buildOrder.shouldContainExactly(
-      5, 6, 3, 4, 6, 7,
+      3, 4, 5, 6, 1, 2, 7, 8,
     )
   }
 

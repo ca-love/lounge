@@ -6,6 +6,8 @@ import androidx.paging.PagedList
 import kotlin.math.max
 import kotlin.math.min
 
+const val DefaultInitialPageMultiplier = 2
+
 fun <T> List<T>.asPagedList(
   pageSize: Int,
   initialPosition: Int,
@@ -13,7 +15,7 @@ fun <T> List<T>.asPagedList(
 ): PagedList<T> {
   val config = Config(
     pageSize = pageSize,
-    initialLoadSizeHint = pageSize,
+    initialLoadSizeHint = pageSize * DefaultInitialPageMultiplier,
     enablePlaceholders = enablePlaceholders,
   )
   return PagedList(
