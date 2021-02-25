@@ -9,9 +9,9 @@ import kotlin.math.min
 const val DefaultInitialPageMultiplier = 2
 
 fun <T> List<T>.asPagedList(
-  pageSize: Int,
-  initialPosition: Int,
-  enablePlaceholders: Boolean,
+  pageSize: Int = size,
+  initialPosition: Int = 0,
+  enablePlaceholders: Boolean = false,
 ): PagedList<T> {
   val config = Config(
     pageSize = pageSize,

@@ -6,12 +6,12 @@ import io.kotest.extensions.robolectric.RobolectricTest
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe
 import jp.co.cyberagent.fixture.TestLifecycleOwner
+import jp.co.cyberagent.fixture.items
 import jp.co.cyberagent.fixture.memoized
 import jp.co.cyberagent.fixture.withStartedThenCreated
 import jp.co.cyberagent.lounge.LoungeModel
 import jp.co.cyberagent.lounge.paging.util.TestModel
 import jp.co.cyberagent.lounge.paging.util.asPagedList
-import jp.co.cyberagent.lounge.paging.util.items
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 

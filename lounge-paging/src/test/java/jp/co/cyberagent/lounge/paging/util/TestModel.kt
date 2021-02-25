@@ -3,6 +3,7 @@ package jp.co.cyberagent.lounge.paging.util
 import android.view.View
 import android.view.ViewGroup
 import androidx.leanback.widget.Presenter
+import jp.co.cyberagent.lounge.LoungeBuildModelScope
 import jp.co.cyberagent.lounge.LoungeModel
 
 data class TestModel(
@@ -20,4 +21,8 @@ data class TestModel(
 
     override fun onUnbindViewHolder(viewHolder: ViewHolder?) = Unit
   }
+}
+
+suspend fun LoungeBuildModelScope.testModel(key: Long) {
+  +TestModel(key)
 }

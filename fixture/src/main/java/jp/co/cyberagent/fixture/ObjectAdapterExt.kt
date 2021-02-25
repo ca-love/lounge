@@ -1,4 +1,4 @@
-package jp.co.cyberagent.lounge.paging.util
+package jp.co.cyberagent.fixture
 
 import androidx.leanback.widget.ObjectAdapter
 
