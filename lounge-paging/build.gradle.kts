@@ -17,4 +17,6 @@ dependencies {
   implementation(AndroidX.appCompat)
   implementation(AndroidX.core.ktx)
   implementation(AndroidX.lifecycle.runtimeKtx)
+
+  testImplementation(project(":fixture"))
 }
