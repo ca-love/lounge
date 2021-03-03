@@ -1,26 +1,14 @@
 # Lounge
 
 <p>
-  <a href="https://bintray.com/cats-oss/maven/lounge/_latestVersion">
-    <img src="https://api.bintray.com/packages/cats-oss/maven/lounge/images/download.svg"/>
+  <a href="https://search.maven.org/artifact/jp.co.cyberagent.lounge/lounge/">
+    <img src="https://search.maven.org/search?q=g:jp.co.cyberagent.lounge"/>
   </a>
 </p>
-
-**_This project is currently in development and the API subject to breaking changes without notice._**
 
 Relax.
 
 ## Installation
-
-Add maven repository to top level `build.gradle`:
-
-```gradle
-allprojects {
-  repositories {
-    maven { url = uri("https://dl.bintray.com/cats-oss/maven") }
-  }
-}
-```
 
 Add dependencies to module `build.gradle`:
 
