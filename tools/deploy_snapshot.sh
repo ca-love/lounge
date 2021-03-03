@@ -17,6 +17,6 @@ elif [[ "$GITHUB_REF" != "$REF" ]]; then
   echo "Skipping snapshot deployment: wrong ref. Expected '$REF' but was '$GITHUB_REF'."
 else
   echo "Deploying..."
-  ./gradlew clean artifactoryPublish -DartifactoryUser="$ARTIFACTORY_USER" -DartifactoryPassword="$ARTIFACTORY_PASSWORD"
+  ./gradlew publish --no-daemon --no-parallel -PmavenCentralRepositoryUsername="$NEXUS_USERNAME" -PmavenCentralRepositoryPassword="$NEXUS_PASSWORD"
   echo "Deployed!"
 fi
