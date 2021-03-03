@@ -19,7 +19,6 @@ bin/
 gen/
 out/
 release/*
-!release/release.sh
 
 # Gradle files
 .gradle/
