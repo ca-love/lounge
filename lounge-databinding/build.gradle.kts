@@ -3,7 +3,6 @@ plugins {
   com.android.library
   `kotlin-android`
   id("com.vanniktech.maven.publish")
-  `bintray-publish-config`
 }
 
 android {
