@@ -1,8 +1,8 @@
 # Lounge
 
 <p>
-  <a href="https://search.maven.org/artifact/jp.co.cyberagent.lounge/lounge/">
-    <img src="https://search.maven.org/search?q=g:jp.co.cyberagent.lounge"/>
+  <a href="https://search.maven.org/search?q=g:jp.co.cyberagent.lounge">
+    <img src="https://img.shields.io/maven-central/v/jp.co.cyberagent.lounge/lounge"/>
   </a>
 </p>
 
