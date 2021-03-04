@@ -28,6 +28,10 @@ dependencies {
 }
 ```
 
+## Documentation
+
+Check out Lounge's [full documentation here](https://ca-love.github.io/lounge/).
+
 ## Contributing
 
 Feel free to open a issue or submit a pull request for any bugs/improvements.
