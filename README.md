@@ -14,7 +14,7 @@ Add dependencies to module `build.gradle`:
 
 ```gradle
 dependencies {
-  // Leanckback helper and wrapper for ObjectAdapter, Presenter, GuidedAction and et al.
+  // Leanckback helper for ObjectAdapter, Presenter, GuidedAction and et al.
   implementation("jp.co.cyberagent.lounge:lounge:$latestVersion")
 
   // Paging Support:
