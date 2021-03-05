@@ -22,7 +22,7 @@ nav:
   - "Overview": index.md
   - "Usage":
       - "ObjectAdapter Support": object-adapter.md
-      - "GuidedStep Support": wip.md
+      - "GuidedStep Support": guided-step.md
       - "Paging Support": wip.md
       - "MaterialDesign Support": wip.md
       - "Navigation Support": wip.md
