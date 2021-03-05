@@ -6,7 +6,7 @@
   </a>
 </p>
 
-Relax.
+Lounge is an Android library for building Leanback user interface required by Android TV.
 
 ## Installation
 
