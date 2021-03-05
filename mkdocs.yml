@@ -23,7 +23,7 @@ nav:
   - "ObjectAdapter Support": object-adapter.md
   - "GuidedStep Support": guided-step.md
   - "Paging Support": wip.md
-  - "MaterialDesign Support": wip.md
+  - "MaterialDesign Support": material.md
   - "Navigation Support": wip.md
   - "Changelog": changelog.md
   - "API Docs":
