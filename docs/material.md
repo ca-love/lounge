@@ -40,7 +40,8 @@ In your `AndroidManifest.xml`:
   >
   <activity
     android:name=".TvActivity"
-    >
+    />
+</Applications>
 ```
 
 Now your can use MaterialComponents in your application.
