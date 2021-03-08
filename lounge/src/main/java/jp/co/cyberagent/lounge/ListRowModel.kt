@@ -198,7 +198,7 @@ suspend fun <T : Any> LoungeBuildModelScope.listRowForIndexed(
  * A wrapper around [ListRow] which implement the [DeferredLoungeModel].
  */
 open class ListRowModel(
-  final override val key: Long = InvalidKey,
+  final override val key: Long,
   val headerData: HeaderData? = null,
   val controller: LoungeController,
   override val presenter: ListRowPresenter = DefaultListRowPresenter,
@@ -206,9 +206,7 @@ open class ListRowModel(
   DeferredLoungeModel {
 
   init {
-    if (key != InvalidKey) {
-      id = key
-    }
+    id = key
     if (headerData != null) {
       headerItem = HeaderItem(headerData.name).apply {
         description = headerData.description

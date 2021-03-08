@@ -1,7 +1,5 @@
 package jp.co.cyberagent.lounge
 
-internal const val InvalidKey: Long = 0
-
 /**
  * Hash a object into 64 bits lounge model key.
  *
