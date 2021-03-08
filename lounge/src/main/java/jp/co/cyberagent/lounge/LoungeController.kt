@@ -124,7 +124,6 @@ abstract class LoungeController(
 
   final override suspend operator fun LoungeModel.unaryPlus() {
     checkIsBuilding("unaryPlus")
-    verifyModel(this)
     val addPosition = models.size
     interceptors.forEach {
       it.beforeAddModel(this@LoungeController, addPosition, this)
@@ -264,12 +263,6 @@ abstract class LoungeController(
   protected fun checkIsBuilding(name: String) {
     check(isBuildingModels) {
       "Can only invoke $name when building models."
-    }
-  }
-
-  private fun verifyModel(model: LoungeModel) {
-    check(model.key != InvalidKey) {
-      "LoungeModel must has a valid key."
     }
   }
 
