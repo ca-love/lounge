@@ -41,7 +41,7 @@ abstract class PagedListLoungeController<T>(
   PagedListLoungeBuildModelScope {
 
   private val modelCacheScope =
-    CoroutineScope(SupervisorJob(lifecycle.coroutineScope.coroutineContext.job) + Dispatchers.Main)
+    CoroutineScope(SupervisorJob(lifecycle.coroutineScope.coroutineContext.job) + modelBuildingDispatcher)
 
   private val modelCache = PagedListModelCache(
     modelBuilder = { position, item -> buildItemModel(position, item) },
