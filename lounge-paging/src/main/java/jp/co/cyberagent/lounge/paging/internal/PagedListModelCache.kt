@@ -13,7 +13,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 import java.util.concurrent.Executor
 import kotlin.math.min
@@ -83,7 +82,7 @@ internal class PagedListModelCache<T>(
   }
 
   suspend fun getModels(): List<LoungeModel> {
-    val models = CompletableDeferred<List<LoungeModel>>(coroutineScope.coroutineContext.job)
+    val models = CompletableDeferred<List<LoungeModel>>()
     opChannel.send(CacheOp.Get(models))
     return models.await()
   }
@@ -120,6 +119,7 @@ internal class PagedListModelCache<T>(
       is CacheOp.Get -> {
         val models = buildCacheModels()
         if (models == null) {
+          // Cache and pagedList are not sync, schedule to build again
           opChannel.offerSafe(op)
         } else {
           op.result.complete(models)
