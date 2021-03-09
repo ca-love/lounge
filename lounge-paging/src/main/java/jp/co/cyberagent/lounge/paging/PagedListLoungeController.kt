@@ -3,11 +3,11 @@ package jp.co.cyberagent.lounge.paging
 import android.annotation.SuppressLint
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
-import androidx.paging.AsyncPagedListDiffer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DiffUtil
 import jp.co.cyberagent.lounge.LoungeController
 import jp.co.cyberagent.lounge.LoungeModel
+import jp.co.cyberagent.lounge.paging.internal.PagedListModelCache
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -23,7 +23,6 @@ import kotlinx.coroutines.Dispatchers
  * @param T The type of the items in the [PagedList].
  * @param lifecycle of [LoungeController]'s host.
  * @param modelBuildingDispatcher the dispatcher for building models.
- * @param workerDispatcher the dispatcher for the [AsyncPagedListDiffer].
  * @param itemDiffCallback detect changes between [PagedList]s.
  *
  * @see LambdaPagedListLoungeController
@@ -31,7 +30,6 @@ import kotlinx.coroutines.Dispatchers
 abstract class PagedListLoungeController<T>(
   lifecycle: Lifecycle,
   modelBuildingDispatcher: CoroutineDispatcher = Dispatchers.Main,
-  workerDispatcher: CoroutineDispatcher = Dispatchers.IO,
   @Suppress("UNCHECKED_CAST")
   itemDiffCallback: DiffUtil.ItemCallback<T> = DefaultPagedListItemDiffCallback as DiffUtil.ItemCallback<T>,
 ) : LoungeController(lifecycle, modelBuildingDispatcher),
@@ -40,10 +38,8 @@ abstract class PagedListLoungeController<T>(
   private val modelCache = PagedListModelCache(
     modelBuilder = { position, item -> buildItemModel(position, item) },
     rebuildCallback = { requestModelBuild() },
-    modelBuildingCoroutineScope = lifecycle.coroutineScope,
-    modelBuildingDispatcher = modelBuildingDispatcher,
+    coroutineScope = lifecycle.coroutineScope,
     diffCallback = itemDiffCallback,
-    workerDispatcher = workerDispatcher
   )
 
   /**

@@ -17,7 +17,9 @@
  */
 package jp.co.cyberagent.lounge.paging.util
 
+import androidx.leanback.widget.Presenter
 import androidx.recyclerview.widget.DiffUtil
+import jp.co.cyberagent.lounge.LoungeModel
 
 /**
  * Dummy item for testing.
@@ -30,4 +32,14 @@ data class Item(val id: Int, val value: String) {
       override fun areContentsTheSame(oldItem: Item, newItem: Item) = oldItem == newItem
     }
   }
+}
+
+class FakePlaceholderModel(val pos: Int) : LoungeModel {
+  override val key = -pos.toLong()
+  override val presenter: Presenter = EmptyPresenter
+}
+
+class FakeModel(val item: Item) : LoungeModel {
+  override val key = item.id.toLong()
+  override val presenter: Presenter = EmptyPresenter
 }
