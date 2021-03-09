@@ -7,6 +7,7 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.DiffUtil
 import jp.co.cyberagent.lounge.LoungeController
 import jp.co.cyberagent.lounge.LoungeModel
+import jp.co.cyberagent.lounge.paging.internal.PagedListModelCache
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 

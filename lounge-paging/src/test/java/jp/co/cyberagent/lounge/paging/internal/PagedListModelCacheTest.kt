@@ -15,7 +15,7 @@
  *
  * Fork from airbnb/epoxy
  */
-package jp.co.cyberagent.lounge.paging
+package jp.co.cyberagent.lounge.paging.internal
 
 import androidx.paging.PagedList
 import io.kotest.core.spec.style.AnnotationSpec

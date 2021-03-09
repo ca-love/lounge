@@ -1,4 +1,4 @@
-package jp.co.cyberagent.lounge.paging
+package jp.co.cyberagent.lounge.paging.internal
 
 import androidx.paging.AsyncPagedListDiffer
 import androidx.paging.PagedList
@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListUpdateCallback
 import jp.co.cyberagent.lounge.LoungeModel
-import jp.co.cyberagent.lounge.paging.internal.CacheOp
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.CoroutineScope
