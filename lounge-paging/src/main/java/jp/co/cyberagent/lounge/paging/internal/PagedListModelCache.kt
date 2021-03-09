@@ -93,7 +93,7 @@ internal class PagedListModelCache<T>(
       opChannel.send(CacheOp.Acquire(ackDeferred))
       ackDeferred.await()
 
-      // Simple check whether modelCache and currentList is sync or not
+      // Simple check whether modelCache and currentList are sync or not
       if (modelCache.size == currentList.size) break
       ackDeferred.await().complete()
       yield()
