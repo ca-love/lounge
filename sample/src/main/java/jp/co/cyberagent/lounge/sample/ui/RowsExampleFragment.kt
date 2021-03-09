@@ -9,9 +9,10 @@ import androidx.paging.PagedList
 import jp.co.cyberagent.lounge.HeaderData
 import jp.co.cyberagent.lounge.LoungeController
 import jp.co.cyberagent.lounge.SimpleLoungeModelAwaitInterceptor
-import jp.co.cyberagent.lounge.listRowForIndexed
+import jp.co.cyberagent.lounge.listRowFor
 import jp.co.cyberagent.lounge.loungeProp
 import jp.co.cyberagent.lounge.navigation.addHeadersTransitionOnBackPressedCallback
+import jp.co.cyberagent.lounge.paging.pagedListRowFor
 import jp.co.cyberagent.lounge.paging.pagedListRowForIndexed
 import jp.co.cyberagent.lounge.sample.model.InfoModel
 import jp.co.cyberagent.lounge.sample.model.TextModel
@@ -71,27 +72,26 @@ private class RowsController(lifecycle: Lifecycle) : LoungeController(lifecycle)
   var pagedRow2: PagedList<String>? by loungeProp(null)
 
   override suspend fun buildModels() {
-
-    listRowForIndexed("ListRow 1", row1.orEmpty()) { index, item ->
-      InfoModel(item, index)
+    listRowFor("ListRow 1", row1.orEmpty()) { item ->
+      InfoModel(item)
     }
 
-    listRowForIndexed("ListRow 2", row2.orEmpty()) { index, item ->
-      TextModel(item, index)
+    listRowFor("ListRow 2", row2.orEmpty()) { item ->
+      TextModel(item)
     }
 
     pagedListRowForIndexed(
       headerData = HeaderData("PagedListRow 1", "Placeholder Enabled"),
       pagedList = pagedRow1
     ) { index, item ->
-      InfoModel(item ?: "Placeholder", index)
+      InfoModel(item ?: "Placeholder $index")
     }
 
-    pagedListRowForIndexed(
+    pagedListRowFor(
       headerData = HeaderData("PagedListRow 2", "Placeholder Disabled"),
       pagedList = pagedRow2
-    ) { index, item ->
-      TextModel(item!!, index)
+    ) { item ->
+      TextModel(item!!)
     }
   }
 }

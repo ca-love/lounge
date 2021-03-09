@@ -51,8 +51,8 @@ class VerticalGridExampleFragment : VerticalGridSupportFragment() {
     var infoList: List<String> by loungeProp(emptyList())
 
     override suspend fun buildModels() {
-      infoList.forEachIndexed { index, title ->
-        +InfoModel(title, index)
+      infoList.forEach { title ->
+        +InfoModel(title)
       }
     }
   }
