@@ -10,11 +10,10 @@ import jp.co.cyberagent.lounge.toLoungeModelKey
 
 data class InfoModel(
   val title: String,
-  val position: Int,
   val colorInt: Int = randomColor,
 ) : LoungeModel {
 
-  override val key: Long = (position + 1).toLoungeModelKey()
+  override val key: Long = title.toLoungeModelKey()
 
   override val presenter: Presenter
     get() = SimpleDataBindingPresenter.get(R.layout.model_info, BR.model)
