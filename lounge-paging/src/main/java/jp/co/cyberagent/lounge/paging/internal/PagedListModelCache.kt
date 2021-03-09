@@ -41,19 +41,19 @@ internal class PagedListModelCache<T>(
 
   private val listUpdateCallback: ListUpdateCallback = object : ListUpdateCallback {
     override fun onInserted(position: Int, count: Int) {
-      opChannel.offer(CacheOp.Insert(position, count))
+      opChannel.offerSafe(CacheOp.Insert(position, count))
     }
 
     override fun onRemoved(position: Int, count: Int) {
-      opChannel.offer(CacheOp.Remove(position, count))
+      opChannel.offerSafe(CacheOp.Remove(position, count))
     }
 
     override fun onMoved(fromPosition: Int, toPosition: Int) {
-      opChannel.offer(CacheOp.Move(fromPosition, toPosition))
+      opChannel.offerSafe(CacheOp.Move(fromPosition, toPosition))
     }
 
     override fun onChanged(position: Int, count: Int, payload: Any?) {
-      opChannel.offer(CacheOp.Change(position, count))
+      opChannel.offerSafe(CacheOp.Change(position, count))
     }
   }
 
@@ -112,7 +112,7 @@ internal class PagedListModelCache<T>(
   }
 
   fun clearModels() {
-    opChannel.offer(CacheOp.Clear)
+    opChannel.offerSafe(CacheOp.Clear)
   }
 
   private suspend fun handleOp(op: CacheOp) {
