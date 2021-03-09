@@ -26,7 +26,6 @@ class PagedListLoungeControllerTest : FunSpec({
     val controller = object : PagedListLoungeController<Int>(
       owner.lifecycle,
       dispatcher,
-      dispatcher,
     ) {
       override fun buildItemModel(position: Int, item: Int?): LoungeModel {
         buildOrder += item!!
@@ -92,7 +91,6 @@ class PagedListLoungeControllerTest : FunSpec({
     val controller = object : PagedListLoungeController<Int>(
       owner.lifecycle,
       dispatcher,
-      dispatcher,
     ) {
       override fun buildItemModel(position: Int, item: Int?): LoungeModel {
         return TestModel(item!!.toLong())
@@ -119,7 +117,6 @@ class PagedListLoungeControllerTest : FunSpec({
     val buildOrder = mutableListOf<Int>()
     val controller = object : PagedListLoungeController<Int>(
       owner.lifecycle,
-      dispatcher,
       dispatcher,
     ) {
       override fun buildItemModel(position: Int, item: Int?): LoungeModel {

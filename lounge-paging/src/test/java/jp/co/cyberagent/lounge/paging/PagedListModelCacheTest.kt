@@ -24,12 +24,11 @@ import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
 import jp.co.cyberagent.lounge.LoungeModel
-import jp.co.cyberagent.lounge.paging.util.EmptyPresenter
+import jp.co.cyberagent.lounge.paging.util.FakeModel
+import jp.co.cyberagent.lounge.paging.util.FakePlaceholderModel
 import jp.co.cyberagent.lounge.paging.util.Item
 import jp.co.cyberagent.lounge.paging.util.ListDataSource
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
 import org.robolectric.shadows.ShadowLooper
@@ -63,9 +62,8 @@ class PagedListModelCacheTest : AnnotationSpec() {
     modelBuilder = modelBuilder,
     rebuildCallback = rebuildCallback,
     diffCallback = Item.DIFF_CALLBACK,
-    modelBuildingCoroutineScope = TestCoroutineScope(),
-    modelBuildingDispatcher = Dispatchers.Main,
-    workerDispatcher = TestCoroutineDispatcher(),
+    coroutineScope = TestCoroutineScope(),
+    diffExecutor = { it.run() }
   )
 
   @Test
@@ -326,16 +324,6 @@ class PagedListModelCacheTest : AnnotationSpec() {
       .setNotifyExecutor { it.run() }
       .build()
     return pagedList to dataSource
-  }
-
-  class FakePlaceholderModel(val pos: Int) : LoungeModel {
-    override val key = -pos.toLong()
-    override val presenter = EmptyPresenter
-  }
-
-  class FakeModel(val item: Item) : LoungeModel {
-    override val key = item.id.toLong()
-    override val presenter = EmptyPresenter
   }
 
   data class Modification(

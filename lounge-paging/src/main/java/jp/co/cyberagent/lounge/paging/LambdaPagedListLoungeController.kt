@@ -12,9 +12,8 @@ import kotlinx.coroutines.Dispatchers
 class LambdaPagedListLoungeController<T>(
   lifecycle: Lifecycle,
   modelBuildingDispatcher: CoroutineDispatcher = Dispatchers.Main,
-  workerDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : PagedListLoungeController<T>(
-  lifecycle, modelBuildingDispatcher, workerDispatcher
+  lifecycle, modelBuildingDispatcher
 ) {
 
   lateinit var buildItemModel: (Int, T?) -> LoungeModel
