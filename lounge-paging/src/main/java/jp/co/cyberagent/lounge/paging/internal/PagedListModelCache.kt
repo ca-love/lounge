@@ -7,16 +7,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListUpdateCallback
 import jp.co.cyberagent.lounge.LoungeModel
 import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.yield
 import java.util.concurrent.Executor
 import kotlin.math.min
 
@@ -85,37 +83,16 @@ internal class PagedListModelCache<T>(
   }
 
   suspend fun getModels(): List<LoungeModel> {
-    var currentList: List<T?>
-    var ackDeferred: CompletableDeferred<CompletableJob>
-    while (true) {
-      currentList = differ.currentList?.toList().orEmpty()
-      ackDeferred = CompletableDeferred()
-      opChannel.send(CacheOp.Acquire(ackDeferred))
-      ackDeferred.await()
-
-      // Simple check whether modelCache and currentList are sync or not
-      if (modelCache.size == currentList.size) break
-      ackDeferred.await().complete()
-      yield()
-    }
-
-    modelCache.indices.forEach { index ->
-      if (modelCache[index] == null) {
-        modelCache[index] = modelBuilder(index, currentList[index])
-      }
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    val models = modelCache.toList() as List<LoungeModel>
-    ackDeferred.await().complete()
-    return models
+    val models = CompletableDeferred<List<LoungeModel>>(coroutineScope.coroutineContext.job)
+    opChannel.send(CacheOp.Get(models))
+    return models.await()
   }
 
   fun clearModels() {
     opChannel.offerSafe(CacheOp.Clear)
   }
 
-  private suspend fun handleOp(op: CacheOp) {
+  private fun handleOp(op: CacheOp) {
     when (op) {
       is CacheOp.Insert -> {
         (0 until op.count).forEach { _ ->
@@ -140,14 +117,34 @@ internal class PagedListModelCache<T>(
         }
         rebuildCallback()
       }
-      is CacheOp.Acquire -> {
-        val ackJob = Job()
-        op.ack.complete(ackJob)
-        ackJob.join()
+      is CacheOp.Get -> {
+        val models = buildCacheModels()
+        if (models == null) {
+          opChannel.offerSafe(op)
+        } else {
+          op.result.complete(models)
+        }
       }
       CacheOp.Clear -> {
         modelCache.fill(null)
       }
     }
+  }
+
+  private fun buildCacheModels(): List<LoungeModel>? {
+    val currentList: List<T?> = differ.currentList?.toList().orEmpty()
+    // Simple check whether modelCache and currentList are sync or not
+    if (modelCache.size != currentList.size) {
+      return null
+    }
+
+    modelCache.indices.forEach { index ->
+      if (modelCache[index] == null) {
+        modelCache[index] = modelBuilder(index, currentList[index])
+      }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    return modelCache.toList() as List<LoungeModel>
   }
 }
