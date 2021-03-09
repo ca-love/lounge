@@ -1,6 +1,7 @@
 package jp.co.cyberagent.lounge
 
 import android.annotation.SuppressLint
+import androidx.annotation.CallSuper
 import androidx.leanback.widget.DiffCallback
 import androidx.leanback.widget.ObjectAdapter
 import androidx.lifecycle.Lifecycle
@@ -193,6 +194,7 @@ abstract class LoungeController(
    * Cancels the building model job completely.
    * Calling [requestModelBuild] will have no effect after calling this method.
    */
+  @CallSuper
   override fun close() {
     modelBuildingJob.cancel()
     initialBuildJob.cancel()

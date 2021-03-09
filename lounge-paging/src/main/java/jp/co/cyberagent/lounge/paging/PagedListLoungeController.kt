@@ -1,6 +1,7 @@
 package jp.co.cyberagent.lounge.paging
 
 import android.annotation.SuppressLint
+import androidx.annotation.CallSuper
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.paging.PagedList
@@ -9,7 +10,11 @@ import jp.co.cyberagent.lounge.LoungeController
 import jp.co.cyberagent.lounge.LoungeModel
 import jp.co.cyberagent.lounge.paging.internal.PagedListModelCache
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.job
 
 /**
  * A [LoungeController] that can work with a [PagedList].
@@ -35,10 +40,13 @@ abstract class PagedListLoungeController<T>(
 ) : LoungeController(lifecycle, modelBuildingDispatcher),
   PagedListLoungeBuildModelScope {
 
+  private val modelCacheScope =
+    CoroutineScope(SupervisorJob(lifecycle.coroutineScope.coroutineContext.job) + Dispatchers.Main)
+
   private val modelCache = PagedListModelCache(
     modelBuilder = { position, item -> buildItemModel(position, item) },
     rebuildCallback = { requestModelBuild() },
-    coroutineScope = lifecycle.coroutineScope,
+    coroutineScope = modelCacheScope,
     diffCallback = itemDiffCallback,
   )
 
@@ -88,6 +96,12 @@ abstract class PagedListLoungeController<T>(
   fun requestForceModelBuild() {
     modelCache.clearModels()
     requestModelBuild()
+  }
+
+  @CallSuper
+  override fun close() {
+    modelCacheScope.cancel()
+    super.close()
   }
 
   override fun notifyGetItemAt(position: Int) {
