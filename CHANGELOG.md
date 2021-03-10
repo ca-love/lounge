@@ -1,6 +1,11 @@
 Changelog
 =========
 
+#### 1.1.2
+
+* Fix: Deadlock in `PagedListModelCache`
+* Change: Provide correct coroutine scope for `PagedListModelCache`
+
 #### 1.1.1
 
 * Fix: Fix `JobCancellationException` cased by sending element to closed channel
