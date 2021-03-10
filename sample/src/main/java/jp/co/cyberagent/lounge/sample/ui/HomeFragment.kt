@@ -33,6 +33,10 @@ class HomeFragment : BrowseSupportFragment() {
         +EntryModel("Guided Step Example") {
           findNavController().navigate(R.id.to_guided_step)
         }
+
+        +EntryModel("PagedList Stress Test") {
+          findNavController().navigate(R.id.fragment_paged_list_stress_test)
+        }
       }
     }
   }
