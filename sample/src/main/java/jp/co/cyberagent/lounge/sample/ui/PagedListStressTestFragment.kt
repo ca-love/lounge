@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package jp.co.cyberagent.lounge.sample.ui
 
 import android.os.Bundle
