@@ -10,9 +10,10 @@ import jp.co.cyberagent.lounge.TypedPresenter
 import jp.co.cyberagent.lounge.sample.utils.randomColor
 import jp.co.cyberagent.lounge.toLoungeModelKey
 
-data class TextModel(val title: String) : LoungeModel {
-
-  override val key: Long = title.toLoungeModelKey()
+data class TextModel(
+  val title: String,
+  override val key: Long = title.toLoungeModelKey(),
+) : LoungeModel {
 
   override val presenter: Presenter = TextModelPresenter
 }

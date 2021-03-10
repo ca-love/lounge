@@ -49,4 +49,9 @@
       />
   </guided-step>
 
+  <fragment
+    android:id="@+id/fragment_paged_list_stress_test"
+    android:name="jp.co.cyberagent.lounge.sample.ui.PagedListStressTestFragment"
+    />
+
 </navigation>
