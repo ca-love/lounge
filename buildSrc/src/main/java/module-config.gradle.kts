@@ -1,6 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
-import com.android.build.api.extension.AndroidComponentsExtension
+import com.android.build.api.dsl.CommonExtension
+import com.android.build.api.variant.AndroidComponentsExtension
 import com.android.build.api.variant.Variant
 import com.android.build.api.variant.VariantBuilder
 import com.android.build.gradle.LibraryExtension
@@ -88,12 +89,16 @@ fun LibraryExtension.androidLibraryConfig() {
   }
 }
 
-fun AndroidComponentsExtension<out VariantBuilder, out Variant>.androidComponentsConfig() {
+fun AndroidComponentsExtension<out CommonExtension<*, *, *, *>, out VariantBuilder, out Variant>.androidComponentsConfig() {
   if (isKotlinSourceSetsEmpty("test")) {
-    beforeUnitTests { it.enabled = false }
+    beforeVariants(selector().withName("test")) {
+      it.enabled = false
+    }
   }
   if (isKotlinSourceSetsEmpty("androidTest")) {
-    beforeAndroidTests { it.enabled = false }
+    beforeVariants(selector().withName("androidTest")) {
+      it.enabled = false
+    }
   }
 }
 
