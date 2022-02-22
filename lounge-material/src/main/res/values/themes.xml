@@ -18,7 +18,7 @@
     <item name="colorOnSurface">@color/design_dark_default_color_on_surface</item>
     <item name="colorOnPrimarySurface">?attr/colorOnSurface</item>
     <item name="scrimBackground">@color/mtrl_scrim_color</item>
-    <item name="popupMenuBackground">@drawable/mtrl_popupmenu_background_dark</item>
+    <item name="popupMenuBackground">@drawable/mtrl_popupmenu_background_overlay</item>
 
     <!-- MaterialComponents Widget styles -->
     <item name="badgeStyle">@style/Widget.MaterialComponents.Badge</item>
