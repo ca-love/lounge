@@ -74,12 +74,16 @@ fun LibraryExtension.androidLibraryConfig() {
     buildConfig = false
   }
 
-  lintOptions {
-    isWarningsAsErrors = true
-    isAbortOnError = true
+  lint {
+    warningsAsErrors = true
+    abortOnError = true
 
-    // FIXME: 4.2.0-beta02 incorrect report
-    disable("SyntheticAccessor")
+    disable += setOf(
+      "ImpliedTouchscreenHardware",
+      "MissingLeanbackLauncher",
+      "MissingLeanbackSupport",
+      "UnusedResources"
+    )
   }
 
   testOptions {
