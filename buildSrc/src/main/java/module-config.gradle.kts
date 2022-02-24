@@ -2,6 +2,7 @@
 
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.variant.AndroidComponentsExtension
+import com.android.build.api.variant.HasAndroidTestBuilder
 import com.android.build.api.variant.Variant
 import com.android.build.api.variant.VariantBuilder
 import com.android.build.gradle.LibraryExtension
@@ -95,13 +96,13 @@ fun LibraryExtension.androidLibraryConfig() {
 
 fun AndroidComponentsExtension<out CommonExtension<*, *, *, *>, out VariantBuilder, out Variant>.androidComponentsConfig() {
   if (isKotlinSourceSetsEmpty("test")) {
-    beforeVariants(selector().withName("test")) {
-      it.enabled = false
+    beforeVariants {
+      (it as? VariantBuilder)?.enableUnitTest = false
     }
   }
   if (isKotlinSourceSetsEmpty("androidTest")) {
-    beforeVariants(selector().withName("androidTest")) {
-      it.enabled = false
+    beforeVariants {
+      (it as? HasAndroidTestBuilder)?.enableAndroidTest = false
     }
   }
 }
