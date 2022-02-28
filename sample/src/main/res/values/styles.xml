@@ -5,6 +5,7 @@
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
     <item name="colorSurface">#272525</item>
+    <item name="colorOnSurface">@color/design_dark_default_color_on_surface</item>
   </style>
 
   <style name="AppTheme.Home">

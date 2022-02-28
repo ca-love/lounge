@@ -8,6 +8,7 @@ plugins {
 android {
   defaultConfig {
     vectorDrawables.useSupportLibrary = true
+    multiDexEnabled = true
   }
 
   buildFeatures {
@@ -29,7 +30,9 @@ dependencies {
   implementation(AndroidX.fragmentKtx)
   implementation(AndroidX.activityKtx)
   implementation(AndroidX.navigation.fragmentKtx)
+  implementation(AndroidX.multidex)
   implementation(Google.android.material)
+
 
   implementation(project(":lounge"))
   implementation(project(":lounge-databinding"))

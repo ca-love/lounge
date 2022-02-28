@@ -1,6 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
-import com.android.build.api.extension.AndroidComponentsExtension
+import com.android.build.api.dsl.CommonExtension
+import com.android.build.api.variant.AndroidComponentsExtension
+import com.android.build.api.variant.HasAndroidTestBuilder
 import com.android.build.api.variant.Variant
 import com.android.build.api.variant.VariantBuilder
 import com.android.build.gradle.LibraryExtension
@@ -73,12 +75,16 @@ fun LibraryExtension.androidLibraryConfig() {
     buildConfig = false
   }
 
-  lintOptions {
-    isWarningsAsErrors = true
-    isAbortOnError = true
+  lint {
+    warningsAsErrors = true
+    abortOnError = true
 
-    // FIXME: 4.2.0-beta02 incorrect report
-    disable("SyntheticAccessor")
+    disable += setOf(
+      "ImpliedTouchscreenHardware",
+      "MissingLeanbackLauncher",
+      "MissingLeanbackSupport",
+      "UnusedResources"
+    )
   }
 
   testOptions {
@@ -88,12 +94,16 @@ fun LibraryExtension.androidLibraryConfig() {
   }
 }
 
-fun AndroidComponentsExtension<out VariantBuilder, out Variant>.androidComponentsConfig() {
+fun AndroidComponentsExtension<out CommonExtension<*, *, *, *>, out VariantBuilder, out Variant>.androidComponentsConfig() {
   if (isKotlinSourceSetsEmpty("test")) {
-    beforeUnitTests { it.enabled = false }
+    beforeVariants {
+      (it as? VariantBuilder)?.enableUnitTest = false
+    }
   }
   if (isKotlinSourceSetsEmpty("androidTest")) {
-    beforeAndroidTests { it.enabled = false }
+    beforeVariants {
+      (it as? HasAndroidTestBuilder)?.enableAndroidTest = false
+    }
   }
 }
 
