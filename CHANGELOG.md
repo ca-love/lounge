@@ -1,5 +1,10 @@
 Changelog
 =========
+#### 1.2.0
+
+* Change: targetVersion/compileVersion update to 31
+* Change: AGP is updated to 7.1.1
+* Change: MDC is update to 1.5.0
 
 #### 1.1.2
 
