@@ -29,6 +29,8 @@ subprojects {
       }
     }
   }
+
+  plugins.apply("org.jetbrains.dokka")
 }
 
 tasks.dokkaHtmlMultiModule.configure {
