@@ -4,7 +4,7 @@
 2. Update the `CHANGELOG.md` for the impending release.
 3. Update the `README.md` with the new version.
 4. `git commit -am "Prepare for release X.Y.Z."` (where X.Y.Z is the new version).
-5. `./gradlew publish --no-daemon --no-parallel -PmavenCentralRepositoryUsername="$NEXUS_USERNAME" -PmavenCentralRepositoryPassword="$NEXUS_PASSWORD"`
+5. `./gradlew publish --no-daemon --no-parallel -PmavenCentralUsername="$NEXUS_USERNAME" -PmavenCentralPassword="$NEXUS_PASSWORD"`
 6. Visit [SONATYPE](https://oss.sonatype.org/#stagingRepositories) and promote the artifact.
 7. `git tag -a X.Y.X -m "X.Y.Z"` (where X.Y.Z is the new version)
 8. Update the top-level `gradle.properties` to the next SNAPSHOT version.
