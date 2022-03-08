@@ -1,0 +1,326 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>PagedListLoungeController</title>
+</head><body><link href="../../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script><script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script><link href="../../../../styles/style.css" rel="Stylesheet"><link href="../../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../../scripts/main.js" async></script>
+  
+    <div id="container">
+      <div id="leftColumn"><a href="../../../../index.html">
+            <div id="logo"></div>
+          </a>
+        <div id="paneSearch"></div>
+        <div id="sideMenu"></div>
+      </div>
+      <div id="main">
+        <script type="text/javascript" src="../../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
+
+        <div class="main-content" id="content" pageids="lounge-paging::jp.co.cyberagent.lounge.paging/PagedListLoungeController///PointingToDeclaration//1436650182">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../../index.html">lounge-paging</a>/<a href="../index.html">jp.co.cyberagent.lounge.paging</a>/<a href="index.html">PagedListLoungeController</a></div>
+            <div class="pull-right d-flex">
+              <div id="searchBar"></div>
+            </div>
+          </div>
+          <div class="cover ">
+            <h1 class="cover"><span>Paged</span><wbr><span>List</span><wbr><span>Lounge</span><wbr><span>Controller</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><div class="symbol monospace">abstract class <a href="index.html">PagedListLoungeController</a>&lt;<a href="index.html">T</a>&gt;(lifecycle: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle.html">Lifecycle</a>, modelBuildingDispatcher: <span data-unresolved-link="kotlinx.coroutines/CoroutineDispatcher///PointingToDeclaration/">CoroutineDispatcher</span>, itemDiffCallback: <a href="https://developer.android.com/reference/kotlin/androidx/recyclerview/widget/DiffUtil.ItemCallback.html">DiffUtil.ItemCallback</a>&lt;<a href="index.html">T</a>&gt;) : <a href="../../../../lounge/lounge/jp.co.cyberagent.lounge/-lounge-controller/index.html">LoungeController</a>, <a href="../-paged-list-lounge-build-model-scope/index.html">PagedListLoungeBuildModelScope</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">A <a href="../../../../lounge/lounge/jp.co.cyberagent.lounge/-lounge-controller/index.html">LoungeController</a> that can work with a <a href="https://developer.android.com/reference/kotlin/androidx/paging/PagedList.html">PagedList</a>. The implementation is inspired by <a href="https://github.com/airbnb/epoxy/blob/master/epoxy-paging/src/main/java/com/airbnb/epoxy/paging/PagedListEpoxyController.kt">epoxy/PagedListEpoxyController</a>.</p><p class="paragraph">Internally, this controller caches the model for each item in the <a href="https://developer.android.com/reference/kotlin/androidx/paging/PagedList.html">PagedList</a>. You should override <a href="build-item-model.html">buildItemModel</a> method to build the model for the given item. Since <a href="https://developer.android.com/reference/kotlin/androidx/paging/PagedList.html">PagedList</a> might include <code>null</code> items if placeholders are enabled, this method needs to handle <code>null</code> values in the list.</p></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Parameters">Parameters</button><button class="section-tab" data-togglable="See also">See also</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
+            <div class="tabs-section-body">
+              <h2 class="">See also</h2>
+              <div data-togglable="See also">
+                <div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="See also"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><div data-togglable="See also"><div class="table" data-togglable="See also"><div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"><div class="main-subrow keyValue WithExtraAttributes RowTitle"><div class=""><span class="inline-flex"><a href="../-lambda-paged-list-lounge-controller/index.html">jp.co.cyberagent.lounge.paging.LambdaPagedListLoungeController</a></span><span class="inline-flex"><div data-togglable="See also"></div></span></div><div></div></div></div></div></div></div></div>
+              </div>
+              <h2 class="">Parameters</h2>
+              <div data-togglable="Parameters">
+                <div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="Parameters"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">T</span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">The type of the items in the <a href="https://developer.android.com/reference/kotlin/androidx/paging/PagedList.html">PagedList</a>.</p></div></div></div></div></div><div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">lifecycle</span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">of <a href="../../../../lounge/lounge/jp.co.cyberagent.lounge/-lounge-controller/index.html">LoungeController</a>'s host.</p></div></div></div></div></div><div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">modelBuildingDispatcher</span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">the dispatcher for building models.</p></div></div></div></div></div><div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">itemDiffCallback</span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">detect changes between <a href="https://developer.android.com/reference/kotlin/androidx/paging/PagedList.html">PagedList</a>s.</p></div></div></div></div></div></div></div></div></div>
+              </div>
+              <h2 class="tabbedcontent">Constructors</h2>
+              <div class="table" data-togglable="Constructors"><a data-name="-685110923%2FConstructors%2F1436650182" anchor-label="PagedListLoungeController" id="-685110923%2FConstructors%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue TabbedContent">
+                    <div class=""><span class="inline-flex"><a href="-paged-list-lounge-controller.html">PagedListLoungeController</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-685110923%2FConstructors%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><div class="symbol monospace">fun &lt;<a href="index.html">T</a>&gt; <a href="-paged-list-lounge-controller.html">PagedListLoungeController</a>(lifecycle: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle.html">Lifecycle</a>, modelBuildingDispatcher: <span data-unresolved-link="kotlinx.coroutines/CoroutineDispatcher///PointingToDeclaration/">CoroutineDispatcher</span> = Dispatchers.Main, itemDiffCallback: <a href="https://developer.android.com/reference/kotlin/androidx/recyclerview/widget/DiffUtil.ItemCallback.html">DiffUtil.ItemCallback</a>&lt;<a href="index.html">T</a>&gt; = DefaultPagedListItemDiffCallback as DiffUtil.ItemCallback&lt;T&gt;)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief ">The type of the items in the <a href="https://developer.android.com/reference/kotlin/androidx/paging/PagedList.html">PagedList</a>.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="1562502418%2FFunctions%2F1436650182" anchor-label="addInterceptor" id="1562502418%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="index.html#1562502418%2FFunctions%2F1436650182">addInterceptor</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1562502418%2FFunctions%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="index.html#1562502418%2FFunctions%2F1436650182">addInterceptor</a>(interceptor: <a href="../../../../lounge/lounge/jp.co.cyberagent.lounge/-lounge-controller-interceptor/index.html">LoungeControllerInterceptor</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1771501872%2FFunctions%2F1436650182" anchor-label="awaitInitialBuildComplete" id="-1771501872%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="index.html#-1771501872%2FFunctions%2F1436650182">awaitInitialBuildComplete</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1771501872%2FFunctions%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><div class="symbol monospace">suspend fun <a href="index.html#-1771501872%2FFunctions%2F1436650182">awaitInitialBuildComplete</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-531031730%2FFunctions%2F1436650182" anchor-label="buildItemModel" id="-531031730%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="build-item-model.html">buildItemModel</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-531031730%2FFunctions%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><div class="symbol monospace">abstract fun <a href="build-item-model.html">buildItemModel</a>(position: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, item: <a href="index.html">T</a>?): <a href="../../../../lounge/lounge/jp.co.cyberagent.lounge/-lounge-model/index.html">LoungeModel</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-531031730%2FFunctions%2F1436650182" anchor-label="buildItemModel" id="-531031730%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-531031730%2FFunctions%2F1436650182" anchor-label="buildItemModel" id="-531031730%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>Builds the model for a given item.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-905123806%2FFunctions%2F1436650182" anchor-label="close" id="-905123806%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="close.html">close</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-905123806%2FFunctions%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/CallSuper.html">CallSuper</a>()</div></div>open override fun <a href="close.html">close</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-942598617%2FFunctions%2F1436650182" anchor-label="getItemModels" id="-942598617%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="get-item-models.html">getItemModels</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-942598617%2FFunctions%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><div class="symbol monospace">open suspend override fun <a href="get-item-models.html">getItemModels</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../../../../lounge/lounge/jp.co.cyberagent.lounge/-lounge-model/index.html">LoungeModel</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-942598617%2FFunctions%2F1436650182" anchor-label="getItemModels" id="-942598617%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-942598617%2FFunctions%2F1436650182" anchor-label="getItemModels" id="-942598617%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>Gets all built models from <a href="build-item-model.html">buildItemModel</a>.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1417076297%2FFunctions%2F1436650182" anchor-label="removeInterceptor" id="-1417076297%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="index.html#-1417076297%2FFunctions%2F1436650182">removeInterceptor</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1417076297%2FFunctions%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="index.html#-1417076297%2FFunctions%2F1436650182">removeInterceptor</a>(interceptor: <a href="../../../../lounge/lounge/jp.co.cyberagent.lounge/-lounge-controller-interceptor/index.html">LoungeControllerInterceptor</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1434194335%2FFunctions%2F1436650182" anchor-label="requestForceModelBuild" id="1434194335%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="request-force-model-build.html">requestForceModelBuild</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1434194335%2FFunctions%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="request-force-model-build.html">requestForceModelBuild</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="1434194335%2FFunctions%2F1436650182" anchor-label="requestForceModelBuild" id="1434194335%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="1434194335%2FFunctions%2F1436650182" anchor-label="requestForceModelBuild" id="1434194335%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>Clears the cached models then call <a href="../../../../lounge-paging/jp.co.cyberagent.lounge.paging/-paged-list-lounge-controller/request-model-build.html">requestModelBuild</a>.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1351198165%2FFunctions%2F1436650182" anchor-label="requestModelBuild" id="1351198165%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="index.html#1351198165%2FFunctions%2F1436650182">requestModelBuild</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1351198165%2FFunctions%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="index.html#1351198165%2FFunctions%2F1436650182">requestModelBuild</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1313557545%2FFunctions%2F1436650182" anchor-label="submitList" id="-1313557545%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="submit-list.html">submitList</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1313557545%2FFunctions%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="submit-list.html">submitList</a>(pagedList: <a href="https://developer.android.com/reference/kotlin/androidx/paging/PagedList.html">PagedList</a>&lt;<a href="index.html">T</a>&gt;?)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-1313557545%2FFunctions%2F1436650182" anchor-label="submitList" id="-1313557545%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1313557545%2FFunctions%2F1436650182" anchor-label="submitList" id="-1313557545%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>Submit a new paged list.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-671768738%2FFunctions%2F1436650182" anchor-label="unaryPlus" id="-671768738%2FFunctions%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="index.html#1064686047%2FFunctions%2F1436650182">unaryPlus</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-671768738%2FFunctions%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><div class="symbol monospace">suspend operator override fun <a href="../../../../lounge/lounge/jp.co.cyberagent.lounge/-lounge-model/index.html">LoungeModel</a>.<a href="index.html#1064686047%2FFunctions%2F1436650182">unaryPlus</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">suspend operator override fun <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../../../../lounge/lounge/jp.co.cyberagent.lounge/-lounge-model/index.html">LoungeModel</a>&gt;.<a href="index.html#-76814767%2FFunctions%2F1436650182">unaryPlus</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Properties</h2>
+              <div class="table" data-togglable="Properties"><a data-name="-523788437%2FProperties%2F1436650182" anchor-label="adapter" id="-523788437%2FProperties%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="index.html#-523788437%2FProperties%2F1436650182">adapter</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-523788437%2FProperties%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><a data-name="-523788437%2FProperties%2F1436650182" anchor-label="adapter" id="-523788437%2FProperties%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="index.html#-523788437%2FProperties%2F1436650182">adapter</a>: <a href="https://developer.android.com/reference/kotlin/androidx/leanback/widget/ObjectAdapter.html">ObjectAdapter</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-710839421%2FProperties%2F1436650182" anchor-label="currentList" id="-710839421%2FProperties%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="current-list.html">currentList</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-710839421%2FProperties%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><a data-name="-710839421%2FProperties%2F1436650182" anchor-label="currentList" id="-710839421%2FProperties%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="current-list.html">currentList</a>: <a href="https://developer.android.com/reference/kotlin/androidx/paging/PagedList.html">PagedList</a>&lt;<a href="index.html">T</a>&gt;?<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-710839421%2FProperties%2F1436650182" anchor-label="currentList" id="-710839421%2FProperties%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>Returns the PagedList currently being displayed.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1673900342%2FProperties%2F1436650182" anchor-label="debugLogEnabled" id="-1673900342%2FProperties%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="index.html#-1673900342%2FProperties%2F1436650182">debugLogEnabled</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1673900342%2FProperties%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><a data-name="-1673900342%2FProperties%2F1436650182" anchor-label="debugLogEnabled" id="-1673900342%2FProperties%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a><div class="symbol monospace">var <a href="index.html#-1673900342%2FProperties%2F1436650182">debugLogEnabled</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1880674012%2FProperties%2F1436650182" anchor-label="debugName" id="1880674012%2FProperties%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="index.html#1880674012%2FProperties%2F1436650182">debugName</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1880674012%2FProperties%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><a data-name="1880674012%2FProperties%2F1436650182" anchor-label="debugName" id="1880674012%2FProperties%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a><div class="symbol monospace">var <a href="index.html#1880674012%2FProperties%2F1436650182">debugName</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1196159888%2FProperties%2F1436650182" anchor-label="lifecycle" id="-1196159888%2FProperties%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="index.html#-1196159888%2FProperties%2F1436650182">lifecycle</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1196159888%2FProperties%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><a data-name="-1196159888%2FProperties%2F1436650182" anchor-label="lifecycle" id="-1196159888%2FProperties%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a><div class="symbol monospace">override val <a href="index.html#-1196159888%2FProperties%2F1436650182">lifecycle</a>: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle.html">Lifecycle</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-2117777706%2FProperties%2F1436650182" anchor-label="modelBuildingDispatcher" id="-2117777706%2FProperties%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="index.html#-2117777706%2FProperties%2F1436650182">modelBuildingDispatcher</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2117777706%2FProperties%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge-paging:dokkaHtmlPartial/release"><a data-name="-2117777706%2FProperties%2F1436650182" anchor-label="modelBuildingDispatcher" id="-2117777706%2FProperties%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a><div class="symbol monospace">override val <a href="index.html#-2117777706%2FProperties%2F1436650182">modelBuildingDispatcher</a>: <span data-unresolved-link="kotlinx.coroutines/CoroutineDispatcher///PointingToDeclaration/">CoroutineDispatcher</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Inheritors</h2>
+              <div class="table" data-togglable="Inheritors"><a data-name="-698496250%2FInheritors%2F1436650182" anchor-label="LambdaPagedListLoungeController" id="-698496250%2FInheritors%2F1436650182" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":lounge-paging:dokkaHtmlPartial/release" data-filterable-set=":lounge-paging:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../-lambda-paged-list-lounge-controller/index.html">LambdaPagedListLoungeController</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-698496250%2FInheritors%2F1436650182"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+    </div>
+  
+</body></html>
+
+

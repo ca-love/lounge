@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>createGuidedActions</title>
+</head><body><link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../scripts/main.js" async></script>
+  
+    <div id="container">
+      <div id="leftColumn"><a href="../../../index.html">
+            <div id="logo"></div>
+          </a>
+        <div id="paneSearch"></div>
+        <div id="sideMenu"></div>
+      </div>
+      <div id="main">
+        <script type="text/javascript" src="../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
+
+        <div class="main-content" id="content" pageids="lounge::jp.co.cyberagent.lounge//createGuidedActions/#android.content.Context#kotlin.Function1[jp.co.cyberagent.lounge.LoungeGuidedActionsBuilder,kotlin.Unit]/PointingToDeclaration//-1211432935">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../index.html">lounge</a>/<a href="index.html">jp.co.cyberagent.lounge</a>/<a href="create-guided-actions.html">createGuidedActions</a></div>
+            <div class="pull-right d-flex">
+              <div id="searchBar"></div>
+            </div>
+          </div>
+          <div class="cover ">
+            <h1 class="cover"><span>create</span><wbr><span>Guided</span><wbr><span>Actions</span></h1>
+          </div>
+<div class="divergent-group" data-filterable-current=":lounge:dokkaHtmlPartial/release" data-filterable-set=":lounge:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":lounge:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="create-guided-actions.html">createGuidedActions</a>(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>, body: <a href="-lounge-guided-actions-builder/index.html">LoungeGuidedActionsBuilder</a>.() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://developer.android.com/reference/kotlin/androidx/leanback/widget/GuidedAction.html">GuidedAction</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<p class="paragraph">A DSL to create a list of <a href="-lounge-guided-action/index.html">LoungeGuidedAction</a>.</p><p class="paragraph">For <a href="-lounge-guided-action/index.html">LoungeGuidedAction</a> to function properly, you need to use other components together in you <a href="https://developer.android.com/reference/kotlin/androidx/leanback/app/GuidedStepSupportFragment.html">GuidedStepSupportFragment</a>.</p><ul><li><p class="paragraph">Uses <a href="-lounge-guided-actions-stylist/index.html">LoungeGuidedActionsStylist</a> if you set <a href="-lounge-guided-action-builder/layout-id.html">LoungeGuidedActionBuilder.layoutId</a></p></li><li><p class="paragraph">Uses <a href="on-lounge-guided-action-clicked.html">onLoungeGuidedActionClicked</a> if you set <a href="-lounge-guided-action-builder/on-clicked.html">LoungeGuidedActionBuilder.onClicked</a></p></li><li><p class="paragraph">Uses <a href="on-sub-lounge-guided-action-clicked.html">onSubLoungeGuidedActionClicked</a> if you set <a href="-lounge-guided-action-builder/on-sub-clicked.html">LoungeGuidedActionBuilder.onSubClicked</a></p></li><li><p class="paragraph">Uses <a href="on-lounge-guided-action-focused.html">onLoungeGuidedActionFocused</a> if you set <a href="-lounge-guided-action-builder/on-focused.html">LoungeGuidedActionBuilder.onFocused</a></p></li><li><p class="paragraph">Uses <a href="on-lounge-guided-action-edited-and-proceed.html">onLoungeGuidedActionEditedAndProceed</a> if you set <a href="-lounge-guided-action-builder/on-edited-and-proceed.html">LoungeGuidedActionBuilder.onEditedAndProceed</a></p></li><li><p class="paragraph">Uses <a href="on-lounge-guided-action-edit-canceled.html">onLoungeGuidedActionEditCanceled</a> if you set <a href="-lounge-guided-action-builder/on-edit-canceled.html">LoungeGuidedActionBuilder.onEditCanceled</a></p></li></ul><p class="paragraph">Example usage:</p><div class="sample-container"><code class="" theme="idea"><pre>class GuidedStepExampleFragment : GuidedStepSupportFragment() {<br><br>  override fun onCreateActionsStylist(): GuidedActionsStylist = LoungeGuidedActionsStylist()<br><br>  override fun onCreateActions(actions: MutableList&lt;GuidedAction&gt;, savedInstanceState: Bundle?) {<br>    actions += createActions {<br>      guidedAction {<br>        id("id")<br>        title("title")<br>        description("description")<br>        onClick { showToast("Clicked!") }<br>      }<br><br>      guidedAction {<br>        infoOnly(true)<br>        focusable(false)<br>        layoutId(R.layout.layout_divider)<br>      }<br>    }<br>  }<br><br>  override fun onGuidedActionClicked(action: GuidedAction) = onLoungeGuidedActionClick(action)<br>}</pre></code></div><p class="paragraph">Instead of inheriting <a href="https://developer.android.com/reference/kotlin/androidx/leanback/app/GuidedStepSupportFragment.html">GuidedStepSupportFragment</a> and override with a bunch of boilerplate code, you can choose to inherit <a href="-lounge-guided-step-support-fragment/index.html">LoungeGuidedStepSupportFragment</a>. The <a href="-lounge-guided-step-support-fragment/index.html">LoungeGuidedStepSupportFragment</a> has already override those methods that let <a href="-lounge-guided-action/index.html">LoungeGuidedAction</a> to function properly.</p><p class="paragraph">Example usage:</p><div class="sample-container"><code class="" theme="idea"><pre>class GuidedStepExampleFragment : LoungeGuidedStepSupportFragment() {<br><br>  override fun onCreateActions(actions: MutableList&lt;GuidedAction&gt;, savedInstanceState: Bundle?) {<br>    actions += createActions {<br>      guidedAction {<br>        id("id")<br>        title("title")<br>        description("description")<br>        onClick { showToast("Clicked!") }<br>      }<br><br>      guidedAction {<br>        infoOnly(true)<br>        focusable(false)<br>        layoutId(R.layout.layout_divider)<br>      }<br>    }<br>  }<br>}</pre></code></div></div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+    </div>
+  
+</body></html>
+
+

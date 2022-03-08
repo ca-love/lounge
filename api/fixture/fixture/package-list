@@ -1,0 +1,15 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:jp.co.cyberagent.fixture////PointingToDeclaration/fixture/jp.co.cyberagent.fixture/index.html
+$dokka.location:jp.co.cyberagent.fixture//items/androidx.leanback.widget.ObjectAdapter#/PointingToDeclaration/fixture/jp.co.cyberagent.fixture/items.html
+$dokka.location:jp.co.cyberagent.fixture//memoized/io.kotest.core.TestConfiguration#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]#kotlin.Function0[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/fixture/jp.co.cyberagent.fixture/memoized.html
+$dokka.location:jp.co.cyberagent.fixture//withStartedThenCreated/jp.co.cyberagent.fixture.TestLifecycleOwner#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/fixture/jp.co.cyberagent.fixture/with-started-then-created.html
+$dokka.location:jp.co.cyberagent.fixture/KotestProjectConfig///PointingToDeclaration/fixture/jp.co.cyberagent.fixture/-kotest-project-config/index.html
+$dokka.location:jp.co.cyberagent.fixture/KotestProjectConfig/KotestProjectConfig/#/PointingToDeclaration/fixture/jp.co.cyberagent.fixture/-kotest-project-config/-kotest-project-config.html
+$dokka.location:jp.co.cyberagent.fixture/KotestProjectConfig/extensions/#/PointingToDeclaration/fixture/jp.co.cyberagent.fixture/-kotest-project-config/extensions.html
+$dokka.location:jp.co.cyberagent.fixture/KotestProjectConfig/isolationMode/#/PointingToDeclaration/fixture/jp.co.cyberagent.fixture/-kotest-project-config/isolation-mode.html
+$dokka.location:jp.co.cyberagent.fixture/TestLifecycleOwner///PointingToDeclaration/fixture/jp.co.cyberagent.fixture/-test-lifecycle-owner/index.html
+$dokka.location:jp.co.cyberagent.fixture/TestLifecycleOwner/TestLifecycleOwner/#/PointingToDeclaration/fixture/jp.co.cyberagent.fixture/-test-lifecycle-owner/-test-lifecycle-owner.html
+$dokka.location:jp.co.cyberagent.fixture/TestLifecycleOwner/getLifecycle/#/PointingToDeclaration/fixture/jp.co.cyberagent.fixture/-test-lifecycle-owner/get-lifecycle.html
+jp.co.cyberagent.fixture
+

@@ -1,0 +1,56 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:jp.co.cyberagent.lounge.sample.binding////PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.binding/index.html
+$dokka.location:jp.co.cyberagent.lounge.sample.binding//bindColorBackground/android.view.View#kotlin.Int/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.binding/bind-color-background.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model////PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/index.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model/EntryModel///PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/-entry-model/index.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model/EntryModel/EntryModel/#kotlin.String#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/-entry-model/-entry-model.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model/EntryModel/key/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/-entry-model/key.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model/EntryModel/name/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/-entry-model/name.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model/EntryModel/onClick/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/-entry-model/on-click.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model/EntryModel/presenter/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/-entry-model/presenter.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model/InfoModel///PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/-info-model/index.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model/InfoModel/InfoModel/#kotlin.String#kotlin.Int/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/-info-model/-info-model.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model/InfoModel/colorInt/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/-info-model/color-int.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model/InfoModel/key/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/-info-model/key.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model/InfoModel/presenter/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/-info-model/presenter.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model/InfoModel/title/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/-info-model/title.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model/TextModel///PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/-text-model/index.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model/TextModel/TextModel/#kotlin.String#kotlin.Long/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/-text-model/-text-model.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model/TextModel/key/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/-text-model/key.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model/TextModel/presenter/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/-text-model/presenter.html
+$dokka.location:jp.co.cyberagent.lounge.sample.model/TextModel/title/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.model/-text-model/title.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui////PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/index.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/GuidedStepExampleFragment///PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-guided-step-example-fragment/index.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/GuidedStepExampleFragment/GuidedStepExampleFragment/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-guided-step-example-fragment/-guided-step-example-fragment.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/GuidedStepExampleFragment/onCreateActions/#kotlin.collections.MutableList[androidx.leanback.widget.GuidedAction]#android.os.Bundle?/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-guided-step-example-fragment/on-create-actions.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/GuidedStepExampleFragment/onCreateGuidance/#android.os.Bundle?/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-guided-step-example-fragment/on-create-guidance.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/HomeFragment///PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-home-fragment/index.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/HomeFragment/HomeFragment/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-home-fragment/-home-fragment.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/HomeFragment/getContext/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-home-fragment/get-context.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/HomeFragment/onCreate/#android.os.Bundle?/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-home-fragment/on-create.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/MainActivity.Companion///PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-main-activity/-companion/index.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/MainActivity///PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-main-activity/index.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/MainActivity/MainActivity/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-main-activity/-main-activity.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/PagedListStressTestFragment///PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-paged-list-stress-test-fragment/index.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/PagedListStressTestFragment/PagedListStressTestFragment/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-paged-list-stress-test-fragment/-paged-list-stress-test-fragment.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/PagedListStressTestFragment/onCreate/#android.os.Bundle?/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-paged-list-stress-test-fragment/on-create.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/PagedListStressTestFragment/onViewCreated/#android.view.View#android.os.Bundle?/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-paged-list-stress-test-fragment/on-view-created.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/RowsExampleFragment///PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-rows-example-fragment/index.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/RowsExampleFragment/RowsExampleFragment/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-rows-example-fragment/-rows-example-fragment.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/RowsExampleFragment/onCreate/#android.os.Bundle?/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-rows-example-fragment/on-create.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/RowsExampleFragment/onViewCreated/#android.view.View#android.os.Bundle?/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-rows-example-fragment/on-view-created.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/VerticalGridExampleFragment.Controller///PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-vertical-grid-example-fragment/-controller/index.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/VerticalGridExampleFragment.Controller/Controller/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-vertical-grid-example-fragment/-controller/-controller.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/VerticalGridExampleFragment.Controller/infoList/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-vertical-grid-example-fragment/-controller/info-list.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/VerticalGridExampleFragment///PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-vertical-grid-example-fragment/index.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/VerticalGridExampleFragment/VerticalGridExampleFragment/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-vertical-grid-example-fragment/-vertical-grid-example-fragment.html
+$dokka.location:jp.co.cyberagent.lounge.sample.ui/VerticalGridExampleFragment/onCreate/#android.os.Bundle?/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.ui/-vertical-grid-example-fragment/on-create.html
+$dokka.location:jp.co.cyberagent.lounge.sample.utils////PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.utils/index.html
+$dokka.location:jp.co.cyberagent.lounge.sample.utils//asPagedList/kotlin.collections.List[TypeParam(bounds=[kotlin.Any?])]#kotlin.Int#kotlin.Boolean/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.utils/as-paged-list.html
+$dokka.location:jp.co.cyberagent.lounge.sample.utils//randomColor/#/PointingToDeclaration/sample/jp.co.cyberagent.lounge.sample.utils/random-color.html
+jp.co.cyberagent.lounge.sample.binding
+jp.co.cyberagent.lounge.sample.model
+jp.co.cyberagent.lounge.sample.ui
+jp.co.cyberagent.lounge.sample.utils
+
